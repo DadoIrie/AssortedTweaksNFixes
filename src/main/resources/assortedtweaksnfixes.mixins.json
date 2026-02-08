@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.dadoirie.assortedtweaksnfixes.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "plugin": "com.dadoirie.assortedtweaksnfixes.mixin.ConditionalMixinPlugin",
+  "client": [
+    "accessories.InventoryKeyMixin",
+    "accessories.RemoveCraftingGridButtonMixin",
+    "accessories.RemoveCosmeticButtonMixin",
+    "accessories.RemoveCosmeticArmorSlotsMixin",
+    "accessories.RemoveBackButtonMixin",
+    "accessories.MovePlayerModelRightMixin"
+  ],
+  "server": [
+
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
