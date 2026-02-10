@@ -305,13 +305,12 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
             if (parentEnabled == null || !parentEnabled) {
                 return false;
             }
-            // Check mod-level override for parent's mod
-            int dotIdx = parentMixin.indexOf('.');
-            if (dotIdx > 0) {
-                String parentModId = parentMixin.substring(0, dotIdx);
-                Boolean modEnabled = MOD_CONFIG.get(parentModId);
-                if (modEnabled != null && !modEnabled) {
-                    return false;
+            Map<String, VersionConstraint> parentRequirements = REQUIRED_MODS.get(parentMixin);
+            if (parentRequirements != null) {
+                for (String modId : parentRequirements.keySet()) {
+                    if (!isModLoaded(modId)) {
+                        return false;
+                    }
                 }
             }
             String childClassName = mixinPath.substring(mixinPath.lastIndexOf('.') + 1);

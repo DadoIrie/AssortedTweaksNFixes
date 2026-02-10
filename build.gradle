@@ -135,6 +135,7 @@ dependencies {
     
     // Traveler's Backpack - optional dependency from Modrinth maven
     compileOnlyApi("maven.modrinth:travelersbackpack:${project.travelersbackpack_version}")
+    compileOnlyApi("maven.modrinth:pops:${project.pop_version}")
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
     // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"

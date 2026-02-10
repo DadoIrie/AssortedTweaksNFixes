@@ -8,12 +8,14 @@
     "accessories.InventoryKeyMixin",
     "accessories.RemoveCraftingGridButtonMixin",
     "accessories.RemoveCosmeticButtonMixin",
+    "accessories.removecosmeticbutton.ShiftRightClickToggleMixin",
     "accessories.RemoveCosmeticArmorSlotsMixin",
     "accessories.removecosmeticarmorslots.RemoveCosmeticArmorSlotsTextureMixin",
     "accessories.removecosmeticarmorslots.MovePlayerModelRightMixin",
     "accessories.RemoveBackButtonMixin",
     "etched.EtchingScreenMixin",
-    "travelersbackpack.JukeboxWidgetMixin"
+    "travelersbackpack.JukeboxWidgetMixin",
+    "pop.FadeInFadeOutRenderMixin"
   ],
   "server": [
 
