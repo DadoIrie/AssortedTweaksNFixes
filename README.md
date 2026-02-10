@@ -11,7 +11,7 @@ Tweaks for the Accessories mod's Experimental menu.
 | - | - |
 | `accessories.InventoryKeyMixin` | Pressing the Accessories key while another screen like crafting table is open closes it to behave like vanilla inventory |
 | `accessories.RemoveCraftingGridButtonMixin` | Removes the crafting grid toggle button and always shows the crafting grid |
-| `accessories.RemoveCosmeticButtonMixin` | Removes the cosmetic toggle button from the sidebar. \n Adds shift-click mechanics: `Shift`+`Right-click` toggles visibility, `Shift`+`Left-click` toggles cosmetic/regular slot view |
+| `accessories.RemoveCosmeticButtonMixin` | Removes the cosmetic toggle button from the sidebar.<br>Adds shift-click mechanics: `Shift`+`Right-click` toggles visibility, `Shift`+`Left-click` toggles cosmetic/regular slot view |
 | `accessories.RemoveCosmeticArmorSlotsMixin` | Removes cosmetic armor slots from the UI entirely *same here* |
 | `accessories.RemoveBackButtonMixin` | Removes the back button that switches to base inventory |
 | `accessories.MovePlayerModelRightMixin` | Shifts the player model in the entity view slightly to the right |
