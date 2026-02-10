@@ -4,7 +4,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.common.NeoForge;
-import com.dadoirie.assortedtweaksnfixes.etched.EtchedTweaks;
+//import com.dadoirie.assortedtweaksnfixes.etched.EtchedTweaks;
 
 // TODO: Fix scroll working in the experimental menu due to mousetweaks
 // TODO: Move apothic attibutes button from vanilla menu to experiemental (Neo only)
