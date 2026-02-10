@@ -1,4 +1,4 @@
-package com.dadoirie.assortedtweaksnfixes.mixin.accessories;
+package com.dadoirie.assortedtweaksnfixes.mixin.accessories.removecosmeticarmorslots;
 
 import io.wispforest.accessories.client.gui.AccessoriesExperimentalScreen;
 import io.wispforest.accessories.client.gui.components.InventoryEntityComponent;

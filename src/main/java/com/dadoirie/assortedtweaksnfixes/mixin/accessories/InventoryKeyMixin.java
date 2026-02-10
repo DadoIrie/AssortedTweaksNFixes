@@ -24,12 +24,8 @@ public abstract class InventoryKeyMixin {
         InputConstants.Key key = InputConstants.getKey(keyCode, scanCode);
         if (AccessoriesClient.OPEN_SCREEN.isActiveAndMatches(key)) {
             Screen screen = mc.screen;
-            LOGGER.info("{}", screen);
-            LOGGER.info("{}", mc.player);
-            LOGGER.info("{}", mc.player.isPassenger());
             if (screen instanceof AbstractContainerScreen && !(screen instanceof AccessoriesExperimentalScreen)) {
                 screen.onClose();
-                mc.setScreen(new net.minecraft.client.gui.screens.inventory.InventoryScreen(mc.player));
                 cir.setReturnValue(true);
             }
         }

@@ -1,0 +1,71 @@
+{
+  "accessories.InventoryKeyMixin": {
+    "enabled": true,
+    "accessories": {
+      "version": {
+        "min": "1.1.0",
+        "max": ""
+      }
+    }
+  },
+  "accessories.RemoveBackButtonMixin": {
+    "enabled": true,
+    "accessories": {
+      "version": {
+        "min": "1.1.0",
+        "max": ""
+      }
+    }
+  },
+  "accessories.RemoveCosmeticArmorSlotsMixin": {
+    "enabled": true,
+    "accessories": {
+      "version": {
+        "min": "1.1.0",
+        "max": ""
+      }
+    }
+  },
+  "accessories.RemoveCosmeticButtonMixin": {
+    "enabled": true,
+    "accessories": {
+      "version": {
+        "min": "1.1.0",
+        "max": ""
+      }
+    }
+  },
+  "accessories.RemoveCraftingGridButtonMixin": {
+    "enabled": true,
+    "accessories": {
+      "version": {
+        "min": "1.1.0",
+        "max": ""
+      }
+    }
+  },
+  "etched.EtchingScreenMixin": {
+    "enabled": true,
+    "etched": {
+      "version": {
+        "min": "5.0.0",
+        "max": ""
+      }
+    }
+  },
+  "travelersbackpack.JukeboxWidgetMixin": {
+    "enabled": true,
+    "travelersbackpack": {
+      "version": {
+        "min": "10.1.33",
+        "max": ""
+      }
+    },
+    "etched": {
+      "version": {
+        "min": "5.0.0",
+        "max": ""
+      }
+    }
+  }
+}

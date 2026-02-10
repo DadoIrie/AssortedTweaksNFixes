@@ -11,6 +11,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import java.util.List;
+import java.util.Iterator;
 
 @Mixin(AccessoriesExperimentalScreen.class)
 public abstract class RemoveCraftingGridButtonMixin {
@@ -25,9 +27,9 @@ public abstract class RemoveCraftingGridButtonMixin {
                 java.lang.reflect.Field childrenField = FlowLayout.class.getDeclaredField("children");
                 childrenField.setAccessible(true);
                 @SuppressWarnings("unchecked")
-                java.util.List<Component> mutableChildren = (java.util.List<Component>) childrenField.get(flow);
+                List<Component> mutableChildren = (List<Component>) childrenField.get(flow);
                 int i = 0;
-                java.util.Iterator<Component> iterator = mutableChildren.iterator();
+                Iterator<Component> iterator = mutableChildren.iterator();
                 while (iterator.hasNext()) {
                     Component child = iterator.next();
                     String childId = child.id() != null ? child.id() : "null";

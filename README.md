@@ -16,6 +16,20 @@ Tweaks for the Accessories mod's Experimental menu.
 | `accessories.RemoveBackButtonMixin` | Removes the back button that switches to base inventory |
 | `accessories.MovePlayerModelRightMixin` | Shifts the player model in the entity view slightly to the right |
 
+### Etched
+Tweaks for the Etched mod.
+
+| Toggle | Description |
+|--------|-------------|
+| `etched.EtchingScreenMixin` | Prevents empty discs from invalid local sound IDs in the etching table |
+
+### Traveler's Backpack
+Tweaks for Traveler's Backpack mod (requires Etched).
+
+| Toggle | Description |
+|--------|-------------|
+| `travelersbackpack.JukeboxWidgetMixin` | Enables playing etched discs in the backpack jukebox upgrade |
+
 ## Notes
 
 - Tweaks won't apply/load if the target mod isn't present

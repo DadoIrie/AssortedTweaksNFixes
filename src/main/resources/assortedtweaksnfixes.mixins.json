@@ -9,8 +9,11 @@
     "accessories.RemoveCraftingGridButtonMixin",
     "accessories.RemoveCosmeticButtonMixin",
     "accessories.RemoveCosmeticArmorSlotsMixin",
+    "accessories.removecosmeticarmorslots.RemoveCosmeticArmorSlotsTextureMixin",
+    "accessories.removecosmeticarmorslots.MovePlayerModelRightMixin",
     "accessories.RemoveBackButtonMixin",
-    "accessories.MovePlayerModelRightMixin"
+    "etched.EtchingScreenMixin",
+    "travelersbackpack.JukeboxWidgetMixin"
   ],
   "server": [
 

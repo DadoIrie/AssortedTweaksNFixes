@@ -8,9 +8,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.List;
+import java.util.Iterator;
+
 @Mixin(AccessoriesExperimentalScreen.class)
 public abstract class RemoveCosmeticButtonMixin {
-    
     @Inject(method = "createSideBarOptions", at = @At("RETURN"))
     private void removeCosmeticButton(CallbackInfoReturnable<FlowLayout> cir) {
         FlowLayout sideBar = cir.getReturnValue();
@@ -26,8 +28,8 @@ public abstract class RemoveCosmeticButtonMixin {
                 java.lang.reflect.Field childrenField = FlowLayout.class.getDeclaredField("children");
                 childrenField.setAccessible(true);
                 @SuppressWarnings("unchecked")
-                java.util.List<Component> mutableChildren = (java.util.List<Component>) childrenField.get(flow);
-                java.util.Iterator<Component> iterator = mutableChildren.iterator();
+                List<Component> mutableChildren = (List<Component>) childrenField.get(flow);
+                Iterator<Component> iterator = mutableChildren.iterator();
                 while (iterator.hasNext()) {
                     Component child = iterator.next();
                     String childId = child.id() != null ? child.id() : "null";

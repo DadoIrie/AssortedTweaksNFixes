@@ -24,6 +24,14 @@ repositories {
     maven { url = "https://maven.su5ed.dev/releases" }
     maven { url 'https://maven.fabricmc.net' }
     maven { url 'https://maven.shedaniel.me/' }
+    maven { url 'https://www.jitpack.io' }
+    maven { url 'https://api.modrinth.com/maven' }
+    maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
     mavenCentral()
 }
 
@@ -118,9 +126,15 @@ configurations {
 }
 
 dependencies {
+    // Etched - get from jitpack
+    compileOnlyApi("com.github.jacksonhardaway:etched:${project.etched_version}")
+
     // Accessories is an optional dependency
     // compileOnlyApi is used for compile-time access to Accessories classes
     compileOnlyApi("io.wispforest:accessories-neoforge:${project.accessories_version}")
+    
+    // Traveler's Backpack - optional dependency from Modrinth maven
+    compileOnlyApi("maven.modrinth:travelersbackpack:${project.travelersbackpack_version}")
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
     // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"
