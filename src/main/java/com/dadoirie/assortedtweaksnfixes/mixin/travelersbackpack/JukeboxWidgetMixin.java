@@ -1,6 +1,7 @@
 package com.dadoirie.assortedtweaksnfixes.mixin.travelersbackpack;
 
 import com.tiviacz.travelersbackpack.inventory.upgrades.jukebox.JukeboxWidget;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.JukeboxSong;
@@ -16,9 +17,6 @@ import gg.moonflower.etched.api.record.PlayableRecord;
 
 @Mixin(JukeboxWidget.class)
 public abstract class JukeboxWidgetMixin {
-    @Unique
-    private int assortedTweaks$lastEntityId = -1;
-    
     @Unique
     private ItemStack assortedTweaks$lastPlayedStack = null;
 
@@ -48,8 +46,6 @@ public abstract class JukeboxWidgetMixin {
         if (!assortedTweaks$lastPlayedStack.has(DataComponents.JUKEBOX_PLAYABLE) &&
             PlayableRecord.isPlayableRecord(assortedTweaks$lastPlayedStack)) {
             
-            assortedTweaks$lastEntityId = entityId;
-            
             SoundTracker.playEntityRecord(
                 assortedTweaks$lastPlayedStack,
                 entityId,
@@ -70,9 +66,11 @@ public abstract class JukeboxWidgetMixin {
         cancellable = true
     )
     private void assortedTweaks$stopEtchedDisc(@Nullable JukeboxSong jukeboxSong, CallbackInfo ci) {
-        if (jukeboxSong == null && assortedTweaks$lastEntityId != -1) {
-            SoundTracker.setEntitySound(assortedTweaks$lastEntityId, null);
-            assortedTweaks$lastEntityId = -1;
+        if (jukeboxSong == null) {
+            var player = Minecraft.getInstance().player;
+            if (player != null) {
+                SoundTracker.setEntitySound(player.getId(), null);
+            }
             ci.cancel();
         }
     }
