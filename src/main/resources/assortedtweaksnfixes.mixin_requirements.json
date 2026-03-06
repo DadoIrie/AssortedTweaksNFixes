@@ -79,7 +79,7 @@
   },
   "diagonalblocks.DiagonalBlockHandlerMixin": {
     "enabled": true,
-    "diagonalblocks": {
+    "diagonalwalls": {
       "version": {
         "min": "21.1.2",
         "max": ""

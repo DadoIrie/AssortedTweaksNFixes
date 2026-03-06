@@ -24,9 +24,9 @@ Shifts the player model in the entity view slightly to the right
 
 ## Diagonal Blocks
 
-`diagonalblocks.DiagonalBlockHandlerMixin` (0.4.3-beta)<br>
+`diagonalblocks.DiagonalBlockHandlerMixin` (0.5.3-beta)<br>
 Ensures diagonal walls keep their block tags correctly and prevents crashes.  
-**Special Note:** This mixin only applies if **Additional Placements**, **Condiments**, **Quark**, and **Diagonal Blocks** are all loaded. Running all three mods together without it crashes the game.
+**Special Note:** This mixin only applies if **Additional Placements**, **Condiments**, **Quark**, and **Diagonal Walls** (changes then are applied to Diagonal Walls, Diagonal Fences and Diagonal Windows) are all loaded. Running all three mods together without it crashes the game.
 
 
 ## Etched
@@ -49,8 +49,8 @@ Adds multiline text support
 
 ## Notes
 
-- Tweaks won't apply/load if the target mod isn't present  
-- Mainly meant for my modpack but can be used standalone  
-- All tweaks are toggleable via the generated config file  
-- Tweaks vary from small adjustments to substantial additions/removals  
+- Tweaks won't apply/load if the target mod isn't present
+- Mainly meant for my modpack but can be used standalone
+- All tweaks are toggleable via the generated config file
+- Tweaks vary from small adjustments to substantial additions/removals
 - Using any tweak is at your own risk since it relies on mixins
