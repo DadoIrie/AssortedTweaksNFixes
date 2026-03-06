@@ -126,13 +126,15 @@ configurations {
 }
 
 dependencies {
+    compileOnlyApi("maven.modrinth:puzzles-lib:EgWWSAhJ")
+    compileOnlyApi(files("libs/DiagonalBlocks-v21.1.2-1.21.1-NeoForge.jar"))
     // Etched - get from jitpack
     compileOnlyApi("com.github.jacksonhardaway:etched:${project.etched_version}")
 
     // Accessories is an optional dependency
     // compileOnlyApi is used for compile-time access to Accessories classes
     compileOnlyApi("io.wispforest:accessories-neoforge:${project.accessories_version}")
-    
+
     // Traveler's Backpack - optional dependency from Modrinth maven
     compileOnlyApi("maven.modrinth:travelersbackpack:${project.travelersbackpack_version}")
     compileOnlyApi("maven.modrinth:pops:${project.pop_version}")

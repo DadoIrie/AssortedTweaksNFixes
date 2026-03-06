@@ -22,6 +22,12 @@ Removes the back button that switches to base inventory
 `accessories.MovePlayerModelRightMixin` (0.4.3-beta)<br>
 Shifts the player model in the entity view slightly to the right
 
+## Diagonal Blocks
+
+`diagonalblocks.DiagonalBlockHandlerMixin` (0.4.3-beta)<br>
+Ensures diagonal walls keep their block tags correctly and prevents crashes.  
+**Special Note:** This mixin only applies if **Additional Placements**, **Condiments**, **Quark**, and **Diagonal Blocks** are all loaded. Running all three mods together without it crashes the game.
+
 
 ## Etched
 

@@ -76,5 +76,32 @@
         "max": ""
       }
     }
+  },
+  "diagonalblocks.DiagonalBlockHandlerMixin": {
+    "enabled": true,
+    "diagonalblocks": {
+      "version": {
+        "min": "21.1.2",
+        "max": ""
+      }
+    },
+    "additionalplacements": {
+      "version": {
+        "min": "2.3.1",
+        "max": ""
+      }
+    },
+    "quark": {
+      "version": {
+        "min": "4.1",
+        "max": ""
+      }
+    },
+    "condiments": {
+      "version": {
+        "min": "1.4.8",
+        "max": ""
+      }
+    }
   }
 }

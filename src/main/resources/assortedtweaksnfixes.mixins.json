@@ -15,10 +15,11 @@
     "accessories.RemoveBackButtonMixin",
     "etched.EtchingScreenMixin",
     "travelersbackpack.JukeboxWidgetMixin",
-    "pop.FadeInFadeOutRenderMixin"
+    "pop.FadeInFadeOutRenderMixin",
+    "diagonalblocks.DiagonalBlockHandlerMixin"
   ],
   "server": [
-
+    "diagonalblocks.DiagonalBlockHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
