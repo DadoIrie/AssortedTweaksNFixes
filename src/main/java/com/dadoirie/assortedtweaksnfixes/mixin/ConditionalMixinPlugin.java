@@ -7,7 +7,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.neoforged.fml.loading.LoadingModList;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
@@ -69,7 +68,7 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
                         break;
                     }
                 }
-                return result.length() > 0 ? result.toString() : version;
+                return !result.isEmpty() ? result.toString() : version;
             })
             .orElse(null);
     }
@@ -101,26 +100,6 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
         }
     }
     
-    /**
-     * Checks if a mod's version satisfies the given constraint.
-     */
-    private static boolean checkVersionConstraint(String modId, VersionConstraint constraint) {
-        String currentVersion = getModVersion(modId);
-        if (currentVersion == null) return false;
-        
-        // Check min version (current must be >= min)
-        if (constraint.min != null && compareVersions(currentVersion, constraint.min) < 0) {
-            return false;
-        }
-        
-        // Check max version (current must be <= max)
-        if (constraint.max != null && compareVersions(currentVersion, constraint.max) > 0) {
-            return false;
-        }
-        
-        return true;
-    }
-    
     private void loadRequiredMods() {
         InputStream stream = getClass().getClassLoader().getResourceAsStream(AssortedTweaksNFixesConstants.MOD_ID + ".mixin_requirements.json");
         if (stream == null) return;
@@ -140,12 +119,11 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
             for (Map.Entry<String, JsonElement> modEntry : mixinObj.entrySet()) {
                 String key = modEntry.getKey();
                 if (key.equals("enabled")) continue; // Skip the enabled flag
-                
-                String modId = key;
+
                 JsonObject versionObj = modEntry.getValue().getAsJsonObject().getAsJsonObject("version");
                 String min = versionObj.has("min") ? versionObj.get("min").getAsString() : "";
                 String max = versionObj.has("max") ? versionObj.get("max").getAsString() : "";
-                modConstraints.put(modId, new VersionConstraint(min, max));
+                modConstraints.put(key, new VersionConstraint(min, max));
             }
             REQUIRED_MODS.put(mixinPath, modConstraints);
         }
@@ -401,5 +379,10 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public void postApply(String targetClassName, org.objectweb.asm.tree.ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
+    }
+
+    public static boolean isMixinEnabled(String mixinPath) {
+        Boolean enabled = MIXIN_ENABLED.get(mixinPath);
+        return enabled != null && enabled;
     }
 }

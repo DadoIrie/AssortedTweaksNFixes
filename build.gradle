@@ -126,6 +126,9 @@ configurations {
 }
 
 dependencies {
+    compileOnlyApi("maven.modrinth:yigd:Axk4bfXT")
+    compileOnlyApi("maven.modrinth:death-charm:WBKuST3u")
+
     compileOnlyApi("maven.modrinth:puzzles-lib:EgWWSAhJ")
     compileOnlyApi(files("libs/DiagonalBlocks-v21.1.2-1.21.1-NeoForge.jar"))
     // Etched - get from jitpack

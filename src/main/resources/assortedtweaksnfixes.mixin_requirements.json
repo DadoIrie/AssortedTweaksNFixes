@@ -103,5 +103,20 @@
         "max": ""
       }
     }
+  },
+  "deathcharm.RestoreInventoryEventsMixin": {
+    "enabled": true,
+    "yigd": {
+      "version": {
+        "min": "2.0.13",
+        "max": ""
+      }
+    },
+    "deathcharm": {
+      "version": {
+        "min": "1.0.1",
+        "max": ""
+      }
+    }
   }
 }

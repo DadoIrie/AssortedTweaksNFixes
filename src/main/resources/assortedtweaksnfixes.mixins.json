@@ -6,19 +6,19 @@
   "plugin": "com.dadoirie.assortedtweaksnfixes.mixin.ConditionalMixinPlugin",
   "client": [
     "accessories.InventoryKeyMixin",
-    "accessories.RemoveCraftingGridButtonMixin",
-    "accessories.RemoveCosmeticButtonMixin",
-    "accessories.removecosmeticbutton.ShiftRightClickToggleMixin",
-    "accessories.RemoveCosmeticArmorSlotsMixin",
-    "accessories.removecosmeticarmorslots.RemoveCosmeticArmorSlotsTextureMixin",
-    "accessories.removecosmeticarmorslots.MovePlayerModelRightMixin",
     "accessories.RemoveBackButtonMixin",
+    "accessories.RemoveCosmeticArmorSlotsMixin",
+    "accessories.RemoveCosmeticButtonMixin",
+    "accessories.RemoveCraftingGridButtonMixin",
+    "accessories.removecosmeticarmorslots.MovePlayerModelRightMixin",
+    "accessories.removecosmeticarmorslots.RemoveCosmeticArmorSlotsTextureMixin",
+    "accessories.removecosmeticbutton.ShiftRightClickToggleMixin",
     "etched.EtchingScreenMixin",
-    "travelersbackpack.JukeboxWidgetMixin",
     "pop.FadeInFadeOutRenderMixin",
-    "diagonalblocks.DiagonalBlockHandlerMixin"
+    "travelersbackpack.JukeboxWidgetMixin"
   ],
-  "server": [
+  "mixins": [
+    "deathcharm.RestoreInventoryEventsMixin",
     "diagonalblocks.DiagonalBlockHandlerMixin"
   ],
   "injectors": {

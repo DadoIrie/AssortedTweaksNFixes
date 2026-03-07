@@ -2,6 +2,18 @@
 
 A mod that applies various tweaks and fixes to supported mods. Each tweak is toggleable via config file.
 
+## Death Charm & You're in Grave Danger Compat
+
+`deathcharm.RestoreInventoryEventsMixin` (0.6.1-beta)
+- Death Charm’s keep inventory feature works correctly when **You're in Grave Danger** is installed.
+- Only activates if the mixin is enabled in the config.
+
+## Diagonal Blocks
+
+`diagonalblocks.DiagonalBlockHandlerMixin` (0.5.0-beta)<br>
+Ensures diagonal walls keep their block tags correctly and prevents crashes.  
+**Special Note:** This mixin only applies if **Additional Placements**, **Condiments**, **Quark**, and **Diagonal Walls** (changes then are applied to Diagonal Walls, Diagonal Fences and Diagonal Windows) are all loaded. Running all three mods together without it crashes the game.
+
 ## Accessories
 
 `accessories.InventoryKeyMixin`  (0.4.3-beta)<br>
@@ -22,24 +34,15 @@ Removes the back button that switches to base inventory
 `accessories.MovePlayerModelRightMixin` (0.4.3-beta)<br>
 Shifts the player model in the entity view slightly to the right
 
-## Diagonal Blocks
-
-`diagonalblocks.DiagonalBlockHandlerMixin` (0.5.3-beta)<br>
-Ensures diagonal walls keep their block tags correctly and prevents crashes.  
-**Special Note:** This mixin only applies if **Additional Placements**, **Condiments**, **Quark**, and **Diagonal Walls** (changes then are applied to Diagonal Walls, Diagonal Fences and Diagonal Windows) are all loaded. Running all three mods together without it crashes the game.
-
-
 ## Etched
 
 `etched.EtchingScreenMixin` (0.4.3-beta)<br>
 Prevents empty discs from invalid local sound IDs in the etching table
 
-
 ## Traveler's Backpack
 
 `travelersbackpack.JukeboxWidgetMixin` (0.4.3-beta)<br>
 Enables playing etched discs in the backpack jukebox upgrade (requires Etched)
-
 
 ## Pop
 
