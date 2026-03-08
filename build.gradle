@@ -27,6 +27,10 @@ repositories {
     maven { url 'https://www.jitpack.io' }
     maven { url 'https://api.modrinth.com/maven' }
     maven {
+        name = "Fuzss ModResources"
+        url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
+    }
+    maven {
         url "https://cursemaven.com"
         content {
             includeGroup "curse.maven"
@@ -128,9 +132,7 @@ configurations {
 dependencies {
     compileOnlyApi("maven.modrinth:yigd:Axk4bfXT")
     compileOnlyApi("maven.modrinth:death-charm:WBKuST3u")
-
-    compileOnlyApi("maven.modrinth:puzzles-lib:EgWWSAhJ")
-    compileOnlyApi(files("libs/DiagonalBlocks-v21.1.2-1.21.1-NeoForge.jar"))
+    compileOnlyApi("fuzs.diagonalblocks:diagonalblocks-neoforge:21.1.2")
     // Etched - get from jitpack
     compileOnlyApi("com.github.jacksonhardaway:etched:${project.etched_version}")
 
