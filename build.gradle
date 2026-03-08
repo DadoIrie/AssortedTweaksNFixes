@@ -126,21 +126,17 @@ configurations {
 }
 
 dependencies {
-    compileOnlyApi("maven.modrinth:yigd:Axk4bfXT")
-    compileOnlyApi("maven.modrinth:death-charm:WBKuST3u")
-
-    compileOnlyApi("maven.modrinth:puzzles-lib:EgWWSAhJ")
-    compileOnlyApi(files("libs/DiagonalBlocks-v21.1.2-1.21.1-NeoForge.jar"))
-    // Etched - get from jitpack
-    compileOnlyApi("com.github.jacksonhardaway:etched:${project.etched_version}")
-
-    // Accessories is an optional dependency
-    // compileOnlyApi is used for compile-time access to Accessories classes
-    compileOnlyApi("io.wispforest:accessories-neoforge:${project.accessories_version}")
-
-    // Traveler's Backpack - optional dependency from Modrinth maven
-    compileOnlyApi("maven.modrinth:travelersbackpack:${project.travelersbackpack_version}")
     compileOnlyApi("maven.modrinth:pops:${project.pop_version}")
+    compileOnlyApi("maven.modrinth:puzzles-lib:${project.puzzlesLib_version}")
+    compileOnlyApi("maven.modrinth:etched:${project.etched_version}")
+    compileOnlyApi("maven.modrinth:travelersbackpack:${project.travelersbackpack_version}")
+    compileOnlyApi("maven.modrinth:accessories:${project.accessories_version}")
+    compileOnlyApi("maven.modrinth:owo-lib:${project.owo_version}")
+    compileOnlyApi("maven.modrinth:curios:${project.curios_version}")
+    compileOnlyApi("maven.modrinth:yigd:${project.yigd_version}")
+    compileOnlyApi("maven.modrinth:death-charm:${project.deathcharm_version}")
+    compileOnlyApi(files("libs/DiagonalBlocks-v21.1.2-1.21.1-NeoForge.jar"))
+
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
     // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"

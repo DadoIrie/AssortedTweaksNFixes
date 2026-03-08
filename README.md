@@ -4,9 +4,8 @@ A mod that applies various tweaks and fixes to supported mods. Each tweak is tog
 
 ## Death Charm & You're in Grave Danger Compat
 
-`deathcharm.RestoreInventoryEventsMixin` (0.6.1-beta)
-- Death Charm’s keep inventory feature works correctly when **You're in Grave Danger** is installed.
-- Only activates if the mixin is enabled in the config.
+`deathcharm.RestoreInventoryEventsMixin` (0.6.2-beta)<br>
+Death Charm works correctly when **You're in Grave Danger** is installed and doesn't duplicate the inventory.
 
 ## Diagonal Blocks
 
