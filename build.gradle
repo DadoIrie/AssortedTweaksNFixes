@@ -123,6 +123,10 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 // "optional", meaning it will not be pulled by dependents of this mod.
 configurations {
     runtimeClasspath.extendsFrom localRuntime
+
+    localRuntime {
+        extendsFrom compileOnlyApi
+    }
 }
 
 dependencies {
@@ -135,6 +139,8 @@ dependencies {
     compileOnlyApi("maven.modrinth:curios:${project.curios_version}")
     compileOnlyApi("maven.modrinth:yigd:${project.yigd_version}")
     compileOnlyApi("maven.modrinth:death-charm:${project.deathcharm_version}")
+    compileOnlyApi("maven.modrinth:mekanism:${project.mekanism_version}")
+    compileOnlyApi("maven.modrinth:dye-depot:${project.dyedepot_version}")
     compileOnlyApi(files("libs/DiagonalBlocks-v21.1.2-1.21.1-NeoForge.jar"))
 
     // Example optional mod dependency with JEI
@@ -210,4 +216,19 @@ idea {
         downloadSources = true
         downloadJavadoc = true
     }
+}
+
+tasks.register('runDataGen', JavaExec) {
+    group = "datagen"
+    mainClass.set("com.dadoirie.assortedtweaksnfixes.data.ModDataGenerators")
+    classpath = sourceSets.main.runtimeClasspath + configurations.compileClasspath
+    workingDir = project.projectDir
+}
+
+tasks.named("jar") {
+    dependsOn "runDataGen"
+}
+
+tasks.named("clean") {
+    delete "src/generated/resources"
 }

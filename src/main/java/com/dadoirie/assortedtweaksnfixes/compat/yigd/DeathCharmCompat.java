@@ -3,6 +3,7 @@ package com.dadoirie.assortedtweaksnfixes.compat.yigd;
 import com.b1n_ry.yigd.components.GraveComponent;
 import com.b1n_ry.yigd.data.DeathInfoManager;
 import com.b1n_ry.yigd.data.GraveStatus;
+import com.dadoirie.assortedtweaksnfixes.mixin.ConditionalMixinPlugin;
 import dev.livaco.deathcharm.Config;
 import dev.livaco.deathcharm.DeathCharm;
 import dev.livaco.deathcharm.datacomponents.RemainingUsesComponent;
@@ -14,6 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ResolvableProfile;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
@@ -27,8 +29,10 @@ public class DeathCharmCompat {
     private static final HashSet<UUID> playersWithCharm = new HashSet<>();
 
     public static void init() {
-        NeoForge.EVENT_BUS.addListener(DeathCharmCompat::onLivingDeath);
-        NeoForge.EVENT_BUS.addListener(DeathCharmCompat::onPlayerRespawn);
+        if (ModList.get().isLoaded("iygd") && ModList.get().isLoaded("deathcharm") && ConditionalMixinPlugin.isMixinEnabled("deathcharm.RestoreInventoryEventsMixin")) {
+            NeoForge.EVENT_BUS.addListener(DeathCharmCompat::onLivingDeath);
+            NeoForge.EVENT_BUS.addListener(DeathCharmCompat::onPlayerRespawn);
+        }
     }
 
     @SubscribeEvent
