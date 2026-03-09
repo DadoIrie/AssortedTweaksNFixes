@@ -2,6 +2,15 @@
 
 A mod that applies various tweaks and fixes to supported mods. Each tweak is toggleable via config file.
 
+## Mekanism & Dye Depot Pigmentation Compat (0.7.0-beta)<br>
+
+Adds proper compatibility between **Mekanism** and **Dye Depot** colors. The **Pigment Extractor** and **Painter** now work not only with vanilla blocks like Mekanism does, but also with blocks colored using Dye Depot’s palette.
+
+- This isn’t a mixin, so it doesn’t require a toggle—it’s a full compat feature.
+- Recipes and interactions are fully conditional; nothing breaks or produces invalid recipes.
+- The **Pigment Mixer** includes almost 300 combinations already.
+- Future updates will expand compat to more vanilla and non-vanilla blocks for the Painter and Pigment Extractor.
+
 ## Death Charm & You're in Grave Danger Compat
 
 `deathcharm.RestoreInventoryEventsMixin` (0.6.2-beta)<br>
