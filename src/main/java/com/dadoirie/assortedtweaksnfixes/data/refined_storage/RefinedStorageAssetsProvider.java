@@ -56,7 +56,7 @@ public class RefinedStorageAssetsProvider {
         TAG_BASE_NAMES.put("wireless_transmitters.json", "wireless_transmitter");
     }
 
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    private static final Gson GSON = new GsonBuilder().disableHtmlEscaping().create();
 
     private static List<Path> getRedAssets() throws IOException {
         try (Stream<Path> files = Files.walk(Paths.get(BASESOURCE_PATH))) {

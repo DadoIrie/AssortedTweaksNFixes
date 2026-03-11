@@ -28,16 +28,13 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
     
     // mixinPath -> enabled (from JSON)
     private static final Map<String, Boolean> MIXIN_ENABLED = new HashMap<>();
-    
-    private static class VersionConstraint {
-        final String min;
-        final String max;
-        
-        VersionConstraint(String min, String max) {
-            this.min = min.isEmpty() ? null : min;
-            this.max = max.isEmpty() ? null : max;
+
+    private record VersionConstraint(String min, String max) {
+            private VersionConstraint(String min, String max) {
+                this.min = min.isEmpty() ? null : min;
+                this.max = max.isEmpty() ? null : max;
+            }
         }
-    }
 
     private static boolean isModLoaded(String modId) {
         if (LoadingModList.get() != null) {
@@ -182,21 +179,44 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
         List<String> lines = new ArrayList<>();
         lines.add("# Disabling a mod overrides all its mixin settings (mixins are skipped regardless of their individual values)");
         lines.add("");
-        
-        for (String modId : modIds) {
+
+        Set<String> modsWithMixins = new LinkedHashSet<>();
+        Set<String> modsOnlyDeps = new LinkedHashSet<>(modIds);
+
+        for (String mixinPath : mixinEntries.keySet()) {
+            int dotIdx = mixinPath.indexOf('.');
+            if (dotIdx > 0) {
+                String modId = mixinPath.substring(0, dotIdx);
+                modsWithMixins.add(modId);
+                modsOnlyDeps.remove(modId);
+            }
+        }
+
+        for (String modId : modsWithMixins) {
             Boolean modValue = existingConfig.get(modId);
             if (modValue != null) {
                 MOD_CONFIG.put(modId, modValue);
                 lines.add(modId + " = " + modValue);
             }
-            
-            // Write mixins for this mod
+
             for (String mixinPath : mixinEntries.keySet()) {
                 if (mixinPath.startsWith(modId + ".")) {
                     Boolean value = existingConfig.get(mixinPath);
                     if (value != null) {
                         lines.add(mixinPath + " = " + value);
                     }
+                }
+            }
+            lines.add("");
+        }
+
+        if (!modsOnlyDeps.isEmpty()) {
+            lines.add("# These mods have no mixins but are dependencies of one or more mixins and if disabling here any mod all the mixins which depend on that mod are disabled as well");
+            for (String modId : modsOnlyDeps) {
+                Boolean modValue = existingConfig.get(modId);
+                if (modValue != null) {
+                    MOD_CONFIG.put(modId, modValue);
+                    lines.add(modId + " = " + modValue);
                 }
             }
             lines.add("");
@@ -211,7 +231,7 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
         assert mixinEntries != null;
         JsonObject json = JsonParser.parseReader(new InputStreamReader(mixinEntries)).getAsJsonObject();
         
-        for (String key : List.of("client", "server")) {
+        for (String key : List.of("client", "server", "mixins")) {
             JsonArray mixins = json.getAsJsonArray(key);
             if (mixins != null) {
                 for (JsonElement element : mixins) {

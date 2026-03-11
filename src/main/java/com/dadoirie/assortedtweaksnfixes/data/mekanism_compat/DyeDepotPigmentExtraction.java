@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class DyeDepotPigmentExtraction {
 
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    private static final Gson GSON = new GsonBuilder().disableHtmlEscaping().create();
 
     private static final Path RECIPE_OUTPUT = Path.of(
             "src/generated/resources/data/assortedtweaksnfixes/recipe/mekanism_compat/dye_depot_compat/pigment_extracting"

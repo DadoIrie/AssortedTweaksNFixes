@@ -18,6 +18,8 @@
     "travelersbackpack.JukeboxWidgetMixin"
   ],
   "mixins": [
+    "condiments.ModBlocksAddBlockMixin",
+    "condiments.modblocksaddblock.DyeDepotCrateMixin",
     "deathcharm.RestoreInventoryEventsMixin",
     "diagonalblocks.DiagonalBlockHandlerMixin"
   ],

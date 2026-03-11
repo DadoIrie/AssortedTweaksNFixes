@@ -122,11 +122,18 @@ public class RefinedStorageTextureProvider {
                 }
 
                 float lum = whiteMask ? (rMask / 255f) : (1f - (rMask / 255f));
-                lum = (float) Math.pow(lum, 2.0);
+                lum = (float) Math.pow(lum, 4.0);
 
-                int nr = Math.min(255, Math.round(dr * lum));
-                int ng = Math.min(255, Math.round(dg * lum));
-                int nb = Math.min(255, Math.round(db * lum));
+                float glow = whiteMask ? 0.25f : 0.85f;
+
+                int nr = Math.min(255, Math.round((dr * (lum + glow * 0.6f)) + (255 * glow * lum * 0.15f)));
+                int ng = Math.min(255, Math.round((dg * (lum + glow * 0.6f)) + (255 * glow * lum * 0.15f)));
+                int nb = Math.min(255, Math.round((db * (lum + glow * 0.6f)) + (255 * glow * lum * 0.15f)));
+
+                float shift = lum * 0.15f;
+
+                nr = Math.min(255, (int)(nr + shift * 255));
+                ng = Math.min(255, (int)(ng + shift * 120));
 
                 result.setRGB(x, y, (a << 24) | (nr << 16) | (ng << 8) | nb);
             }

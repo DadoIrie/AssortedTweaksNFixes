@@ -13,7 +13,7 @@ import java.nio.file.Path;
 
 public class PigmentMixerRemoval {
 
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    private static final Gson GSON = new GsonBuilder().disableHtmlEscaping().create();
 
     public static void removeMekanismNamespacePigmentMixing() throws IOException {
         Path outDir = Path.of("src/generated/resources/data/assortedtweaksnfixes/recipe_modifier");

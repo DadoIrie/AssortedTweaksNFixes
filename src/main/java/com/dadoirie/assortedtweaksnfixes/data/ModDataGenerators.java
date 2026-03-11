@@ -1,5 +1,7 @@
 package com.dadoirie.assortedtweaksnfixes.data;
 
+import com.dadoirie.assortedtweaksnfixes.data.condiments.CrateAssetsProvider;
+import com.dadoirie.assortedtweaksnfixes.data.condiments.CrateTextureProvider;
 import com.dadoirie.assortedtweaksnfixes.data.mekanism_compat.DyeDepotPigmentPainting;
 import com.dadoirie.assortedtweaksnfixes.data.mekanism_compat.DyeDepotPigmentExtraction;
 import com.dadoirie.assortedtweaksnfixes.data.mekanism_compat.PigmentMixer;
@@ -12,8 +14,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ModDataGenerators {
-
-    // MEKANISM
     public record RecipeData(int extract, int paint, String file) {}
 
     public static final Map<String, RecipeData> TYPES = new LinkedHashMap<>();
@@ -41,6 +41,9 @@ public class ModDataGenerators {
 
         RefinedStorageTextureProvider.run();
         RefinedStorageAssetsProvider.generateColoredAssets();
+
+        CrateTextureProvider.run();
+        CrateAssetsProvider.run();
 
         System.out.println("Data generation complete!");
     }

@@ -79,7 +79,7 @@
   },
   "diagonalblocks.DiagonalBlockHandlerMixin": {
     "enabled": true,
-    "diagonalwalls": {
+    "diagonalblocks": {
       "version": {
         "min": "21.1.2",
         "max": ""
@@ -115,6 +115,21 @@
     "deathcharm": {
       "version": {
         "min": "1.0.1",
+        "max": ""
+      }
+    }
+  },
+  "condiments.ModBlocksAddBlockMixin": {
+    "enabled": true,
+    "condiments": {
+      "version": {
+        "min": "1.4.8",
+        "max": ""
+      }
+    },
+    "dye_depot": {
+      "version": {
+        "min": "2.0.2",
         "max": ""
       }
     }

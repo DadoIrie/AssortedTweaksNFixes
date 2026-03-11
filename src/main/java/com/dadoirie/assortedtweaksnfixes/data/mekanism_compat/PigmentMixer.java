@@ -62,7 +62,7 @@ public class PigmentMixer {
     );
 
     public static void generateRecipes() throws IOException {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
         if (!Files.exists(RECIPE_OUTPUT)) Files.createDirectories(RECIPE_OUTPUT);
 
