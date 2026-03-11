@@ -2,10 +2,15 @@
 
 A mod that applies various tweaks and fixes to supported mods. Each tweak is toggleable via config file.
 
+## Refined Storage & Dye Depot Compat
+(0.8.0-beta)<br>
+
+Adds compatibility between **Refined Storage** and **Dye Depot** colors. Now there are more variations for all the colored blocks  in Refined Storage (Controller, Grid, Autocrafter, etc) as well more colored RS cables.
+
 ## Mekanism & Dye Depot Pigmentation Compat 
 (0.7.0-beta)<br>
 
-Adds proper compatibility between **Mekanism** and **Dye Depot** colors. The **Pigment Extractor** and **Painter** now work not only with vanilla blocks like Mekanism does, but also with blocks colored using Dye Depot’s palette.
+Adds compatibility between **Mekanism** and **Dye Depot** colors. The **Pigment Extractor** and **Painter** now work not only with vanilla blocks like Mekanism does, but also with blocks colored using Dye Depot’s palette.
 
 - This isn’t a mixin, so it doesn’t require a toggle—it’s a full compat feature.
 - Recipes and interactions are fully conditional; nothing breaks or produces invalid recipes.

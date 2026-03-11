@@ -139,8 +139,9 @@ dependencies {
     compileOnlyApi("maven.modrinth:curios:${project.curios_version}")
     compileOnlyApi("maven.modrinth:yigd:${project.yigd_version}")
     compileOnlyApi("maven.modrinth:death-charm:${project.deathcharm_version}")
-    compileOnlyApi("maven.modrinth:mekanism:${project.mekanism_version}")
     compileOnlyApi("maven.modrinth:dye-depot:${project.dyedepot_version}")
+    compileOnlyApi("maven.modrinth:mekanism:${project.mekanism_version}")
+    compileOnlyApi("maven.modrinth:refined-storage:${project.refined_storage_version}")
     compileOnlyApi(files("libs/DiagonalBlocks-v21.1.2-1.21.1-NeoForge.jar"))
 
     // Example optional mod dependency with JEI
@@ -221,12 +222,19 @@ idea {
 tasks.register('runDataGen', JavaExec) {
     group = "datagen"
     mainClass.set("com.dadoirie.assortedtweaksnfixes.data.ModDataGenerators")
-    classpath = sourceSets.main.runtimeClasspath + configurations.compileClasspath
+    //classpath changed so it no longer includes the output of processResources
+    classpath = configurations.compileClasspath + sourceSets.main.output.classesDirs
     workingDir = project.projectDir
 }
 
-tasks.named("jar") {
+//add this
+tasks.named("processResources") {
+    delete "src/generated/resources"
     dependsOn "runDataGen"
+}
+
+tasks.named('jar', Jar) {
+    exclude 'com/dadoirie/assortedtweaksnfixes/data/**'
 }
 
 tasks.named("clean") {
