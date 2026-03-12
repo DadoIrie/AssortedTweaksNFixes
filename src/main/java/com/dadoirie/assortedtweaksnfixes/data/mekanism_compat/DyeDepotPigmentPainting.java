@@ -71,7 +71,7 @@ public class DyeDepotPigmentPainting {
 
         JsonObject chemicalInput = new JsonObject();
         chemicalInput.addProperty("amount", amount);
-        chemicalInput.addProperty("chemical", "mekanism:" + pigment);
+        chemicalInput.addProperty("chemical", "assortedtweaksnfixes:" + pigment);
         json.add("chemical_input", chemicalInput);
 
         JsonObject itemInput = getJsonObject(name, type, fileName);

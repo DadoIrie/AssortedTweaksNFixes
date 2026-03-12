@@ -101,7 +101,7 @@ public class DyeDepotPigmentExtraction {
 
         JsonObject output = new JsonObject();
         output.addProperty("amount", amount);
-        output.addProperty("id", "mekanism:" + pigment);
+        output.addProperty("id", "assortedtweaksnfixes:" + pigment);
         json.add("output", output);
 
         return json;

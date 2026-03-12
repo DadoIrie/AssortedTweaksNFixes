@@ -39,22 +39,22 @@ public class PigmentMixer {
         COLORS.put(new RGB(161, 118, 73), "mekanism:brown");
         COLORS.put(new RGB(255, 0, 255), "mekanism:magenta");
 
-        COLORS.put(new RGB(123, 39, 19), "mekanism:dd_maroon");
-        COLORS.put(new RGB(255, 94, 100), "mekanism:dd_rose");
-        COLORS.put(new RGB(223, 119, 88), "mekanism:dd_coral");
-        COLORS.put(new RGB(51, 30, 87), "mekanism:dd_indigo");
-        COLORS.put(new RGB(21, 61, 100), "mekanism:dd_navy");
-        COLORS.put(new RGB(76, 94, 134), "mekanism:dd_slate");
-        COLORS.put(new RGB(140, 143, 42), "mekanism:dd_olive");
-        COLORS.put(new RGB(215, 175, 0), "mekanism:dd_amber");
-        COLORS.put(new RGB(225, 213, 163), "mekanism:dd_beige");
-        COLORS.put(new RGB(47, 123, 103), "mekanism:dd_teal");
-        COLORS.put(new RGB(56, 206, 125), "mekanism:dd_mint");
-        COLORS.put(new RGB(94, 240, 204), "mekanism:dd_aqua");
-        COLORS.put(new RGB(37, 87, 20), "mekanism:dd_verdant");
-        COLORS.put(new RGB(50, 163, 38), "mekanism:dd_forest");
-        COLORS.put(new RGB(207, 97, 33), "mekanism:dd_ginger");
-        COLORS.put(new RGB(244, 156, 93), "mekanism:dd_tan");
+        COLORS.put(new RGB(123, 39, 19), "assortedtweaksnfixes:dd_maroon");
+        COLORS.put(new RGB(255, 94, 100), "assortedtweaksnfixes:dd_rose");
+        COLORS.put(new RGB(223, 119, 88), "assortedtweaksnfixes:dd_coral");
+        COLORS.put(new RGB(51, 30, 87), "assortedtweaksnfixes:dd_indigo");
+        COLORS.put(new RGB(21, 61, 100), "assortedtweaksnfixes:dd_navy");
+        COLORS.put(new RGB(76, 94, 134), "assortedtweaksnfixes:dd_slate");
+        COLORS.put(new RGB(140, 143, 42), "assortedtweaksnfixes:dd_olive");
+        COLORS.put(new RGB(215, 175, 0), "assortedtweaksnfixes:dd_amber");
+        COLORS.put(new RGB(225, 213, 163), "assortedtweaksnfixes:dd_beige");
+        COLORS.put(new RGB(47, 123, 103), "assortedtweaksnfixes:dd_teal");
+        COLORS.put(new RGB(56, 206, 125), "assortedtweaksnfixes:dd_mint");
+        COLORS.put(new RGB(94, 240, 204), "assortedtweaksnfixes:dd_aqua");
+        COLORS.put(new RGB(37, 87, 20), "assortedtweaksnfixes:dd_verdant");
+        COLORS.put(new RGB(50, 163, 38), "assortedtweaksnfixes:dd_forest");
+        COLORS.put(new RGB(207, 97, 33), "assortedtweaksnfixes:dd_ginger");
+        COLORS.put(new RGB(244, 156, 93), "assortedtweaksnfixes:dd_tan");
     }
 
     private static final Path RECIPE_OUTPUT = Path.of(

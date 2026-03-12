@@ -1,6 +1,7 @@
 package com.dadoirie.assortedtweaksnfixes;
 
 import com.dadoirie.assortedtweaksnfixes.compat.mekanism.DyeDepotCompat;
+import net.neoforged.bus.api.IEventBus;
 import org.slf4j.Logger;
 import com.dadoirie.assortedtweaksnfixes.compat.yigd.DeathCharmCompat;
 import net.neoforged.fml.ModList;
@@ -12,15 +13,13 @@ public class AssortedTweaksNFixes {
     private static final boolean IS_DEDICATED_SERVER = FMLEnvironment.dist.isDedicatedServer();
     private static final Logger LOGGER = AssortedTweaksNFixesConstants.getLogger(AssortedTweaksNFixes.class);
 
-    public AssortedTweaksNFixes() {
+    public AssortedTweaksNFixes(IEventBus modEventBus) {
         LOGGER.info("AssortedTweaksNFixes loaded on {}", IS_DEDICATED_SERVER ? "dedicated server" : "client");
         if (ModList.get().isLoaded("mekanism") && ModList.get().isLoaded("dye_depot")) {
-            // Hard dependency check
             if (!ModList.get().isLoaded("recipe_modification")) {
                 throw new IllegalStateException("Recipe modification mod is required for the Mekanism and Dye Depot compat.");
             }
-
-            DyeDepotCompat.populatePigments();
+            DyeDepotCompat.register(modEventBus);
         }
         DeathCharmCompat.init();
     }
