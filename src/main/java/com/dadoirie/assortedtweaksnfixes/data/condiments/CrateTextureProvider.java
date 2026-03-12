@@ -27,8 +27,22 @@ public class CrateTextureProvider {
     // Border brightness boost per color (1.0 = no change, >1.0 = brighter)
     private static final Map<String, Double> BORDER_BRIGHTNESS = new HashMap<>();
     static {
-        BORDER_BRIGHTNESS.put("indigo", 2.5);
-        BORDER_BRIGHTNESS.put("navy",   2.5);
+        BORDER_BRIGHTNESS.put("maroon",  1.5);
+        BORDER_BRIGHTNESS.put("rose",    1.0);
+        BORDER_BRIGHTNESS.put("coral",   1.0);
+        BORDER_BRIGHTNESS.put("indigo",  2.5);
+        BORDER_BRIGHTNESS.put("navy",    2.2);
+        BORDER_BRIGHTNESS.put("slate",   1.5);
+        BORDER_BRIGHTNESS.put("olive",   1.5);
+        BORDER_BRIGHTNESS.put("amber",   1.0);
+        BORDER_BRIGHTNESS.put("beige",   1.0);
+        BORDER_BRIGHTNESS.put("teal",    1.5);
+        BORDER_BRIGHTNESS.put("mint",    1.5);
+        BORDER_BRIGHTNESS.put("aqua",    1.0);
+        BORDER_BRIGHTNESS.put("verdant", 2.0);
+        BORDER_BRIGHTNESS.put("forest",  1.0);
+        BORDER_BRIGHTNESS.put("ginger",  1.0);
+        BORDER_BRIGHTNESS.put("tan",     1.0);
     }
 
     public static void run() throws IOException {
@@ -40,7 +54,7 @@ public class CrateTextureProvider {
                     "libs/resources/dye_depot/assets/dye_depot/textures/block",
                     colorName + "_wool.png"
             ));
-            double borderBoost = BORDER_BRIGHTNESS.getOrDefault(colorName, 1.0);
+            double borderBoost = BORDER_BRIGHTNESS.get(colorName);
             BufferedImage result = recolorCrate(source, borderTemplate, wool, borderBoost);
 
             File outFile = new File(BASESTORE_PATH, colorName + "_crate.png");
