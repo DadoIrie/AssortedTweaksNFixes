@@ -11,19 +11,21 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class CrateAssetsProvider {
+public class CrateAssetsDataProvider {
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
-    private static final String BASE_IN = "libs/resources/condiments/assets/condiments/";
-    private static final String BASE_OUT = "src/generated/resources/assets/condiments/";
+    private static final String ASSETS_BASE_IN = "libs/resources/condiments/assets/condiments/";
+    private static final String ASSETS_BASE_OUT = "src/generated/resources/assets/condiments/";
+    private static final String DATA_BASE_OUT = "src/generated/resources/data/condiments/";
+    private static final String EMI_OUT = "src/generated/resources/assets/emi/recipe/defaults/condiments.json";
 
-    private static final String BASE_BLOCK_MODEL = BASE_IN + "blockstates/black_crate.json";
-    private static final String BASE_BLOCK_MODEL_TEMPLATE = BASE_IN + "models/block/crates/black_crate.json";
+    private static final String BASE_BLOCK_MODEL = ASSETS_BASE_IN + "blockstates/black_crate.json";
+    private static final String BASE_BLOCK_MODEL_TEMPLATE = ASSETS_BASE_IN + "models/block/crates/black_crate.json";
 
-    private static final String BLOCK_MODELS_OUT = BASE_OUT + "models/block/crates/";
-    private static final String ITEM_MODELS_OUT = BASE_OUT + "models/item/";
-    private static final String BLOCKSTATES_OUT = BASE_OUT + "blockstates/";
+    private static final String BLOCK_MODELS_OUT = ASSETS_BASE_OUT + "models/block/crates/";
+    private static final String ITEM_MODELS_OUT = ASSETS_BASE_OUT + "models/item/";
+    private static final String BLOCKSTATES_OUT = ASSETS_BASE_OUT + "blockstates/";
 
     public static void run() throws IOException {
         JsonObject baseBlockstate;
@@ -35,6 +37,14 @@ public class CrateAssetsProvider {
         try (FileReader reader = new FileReader(BASE_BLOCK_MODEL_TEMPLATE)) {
             baseBlockModel = GSON.fromJson(reader, JsonObject.class);
         }
+
+        JsonObject blockTag = new JsonObject();
+        blockTag.add("values", GSON.toJsonTree(new String[0]));
+        JsonObject itemTag = new JsonObject();
+        itemTag.add("values", GSON.toJsonTree(new String[0]));
+
+        JsonObject emiTag = new JsonObject();
+        emiTag.add("added", GSON.toJsonTree(new String[0]));
 
         for (DDDyes dye : DDDyes.values()) {
             String colorName = dye.getName();
@@ -68,8 +78,18 @@ public class CrateAssetsProvider {
 
             writeJson(new File(BLOCKSTATES_OUT, blockModelName + ".json"), blockstateCopy);
 
+            blockTag.getAsJsonArray("values").add("condiments:" + blockModelName);
+            itemTag.getAsJsonArray("values").add("condiments:" + blockModelName);
+
+            emiTag.getAsJsonArray("added").add("condiments:/crate_coloring_" + colorName);
+
             System.out.println("Generated Conditments crate assets for: " + colorName);
         }
+
+        writeJson(new File(DATA_BASE_OUT + "tags/block", "crates.json"), blockTag);
+        writeJson(new File(DATA_BASE_OUT + "tags/item", "crates.json"), itemTag);
+
+        writeJson(new File(EMI_OUT), emiTag);
     }
 
     private static void writeJson(File file, JsonObject content) throws IOException {

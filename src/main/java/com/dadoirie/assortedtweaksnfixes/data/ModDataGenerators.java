@@ -1,6 +1,6 @@
 package com.dadoirie.assortedtweaksnfixes.data;
 
-import com.dadoirie.assortedtweaksnfixes.data.condiments.CrateAssetsProvider;
+import com.dadoirie.assortedtweaksnfixes.data.condiments.CrateAssetsDataProvider;
 import com.dadoirie.assortedtweaksnfixes.data.condiments.CrateTextureProvider;
 import com.dadoirie.assortedtweaksnfixes.data.mekanism_compat.DyeDepotPigmentPainting;
 import com.dadoirie.assortedtweaksnfixes.data.mekanism_compat.DyeDepotPigmentExtraction;
@@ -43,7 +43,7 @@ public class ModDataGenerators {
         RefinedStorageAssetsProvider.generateColoredAssets();
 
         CrateTextureProvider.run();
-        CrateAssetsProvider.run();
+        CrateAssetsDataProvider.run();
 
         System.out.println("Data generation complete!");
     }

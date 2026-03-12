@@ -19,6 +19,7 @@
   ],
   "mixins": [
     "condiments.ModBlocksAddBlockMixin",
+    "condiments.modblocksaddblock.CrateBlockGetByColorMixin",
     "condiments.modblocksaddblock.DyeDepotCrateMixin",
     "deathcharm.RestoreInventoryEventsMixin",
     "diagonalblocks.DiagonalBlockHandlerMixin"
