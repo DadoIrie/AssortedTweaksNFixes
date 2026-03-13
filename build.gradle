@@ -132,7 +132,6 @@ configurations {
 dependencies {
     compileOnlyApi("maven.modrinth:pops:${project.pop_version}")
     compileOnlyApi("maven.modrinth:puzzles-lib:${project.puzzlesLib_version}")
-    compileOnlyApi("maven.modrinth:moonlight:${project.moonlightLib_version}")
     compileOnlyApi("maven.modrinth:condiments:${project.condiments_version}")
     compileOnlyApi("maven.modrinth:etched:${project.etched_version}")
     compileOnlyApi("maven.modrinth:travelersbackpack:${project.travelersbackpack_version}")

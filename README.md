@@ -5,7 +5,7 @@ A mod that applies various tweaks and fixes to supported mods. Each tweak is tog
 ## Refined Storage & Dye Depot Compat
 (0.8.0-beta)<br>
 
-Adds compatibility between **Refined Storage** and **Dye Depot** colors. Now there are more variations for all the colored blocks  in Refined Storage (Controller, Grid, Autocrafter, etc) as well more colored RS cables.
+Adds compatibility between **Refined Storage** and **Dye Depot** colors. Now there are more variations for all the colored blocks in Refined Storage (Controller, Grid, Autocrafter, Cables, etc.) as well more colored RS cables.
 
 ## Mekanism & Dye Depot Pigmentation Compat 
 (0.7.0-beta)<br>

@@ -9,9 +9,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 public class PigmentMixer {
 
@@ -58,77 +60,142 @@ public class PigmentMixer {
     }
 
     private static final Path RECIPE_OUTPUT = Path.of(
-            "src/generated/resources/data/assortedtweaksnfixes/recipe/mekanism_compat/dye_depot_compat/mixing"
+            "src/generated/resources/overlay_mek_dd/data/assortedtweaksnfixes/recipe/mekanism_compat/dye_depot_compat/mixing"
     );
 
     public static void generateRecipes() throws IOException {
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
-
         if (!Files.exists(RECIPE_OUTPUT)) Files.createDirectories(RECIPE_OUTPUT);
 
+        double realisticMax = 0;
+        for (Entry<RGB, String> l : COLORS.entrySet())
+            for (Entry<RGB, String> r : COLORS.entrySet())
+                if (!l.getValue().equals(r.getValue())) {
+                    MixResult m = mixColors(l.getKey(), r.getKey());
+                    if (m.matchDistance() > realisticMax) realisticMax = m.matchDistance();
+                }
+
+        Set<String> writtenPairs = new HashSet<>();
         for (Entry<RGB, String> left : COLORS.entrySet()) {
             for (Entry<RGB, String> right : COLORS.entrySet()) {
                 String leftId = left.getValue();
                 String rightId = right.getValue();
 
-                int outputAmount = leftId.equals(rightId) ? 2 : 1;
-                String outputId = mixColors(left.getKey(), right.getKey());
-                if (outputId == null) continue;
-
-                JsonObject recipe = new JsonObject();
-                recipe.addProperty("type", "mekanism:pigment_mixing");
-
-                JsonObject leftInput = new JsonObject();
-                leftInput.addProperty("amount", 1);
-                leftInput.addProperty("chemical", leftId);
-
-                JsonObject rightInput = new JsonObject();
-                rightInput.addProperty("amount", 1);
-                rightInput.addProperty("chemical", rightId);
-
-                JsonObject output = new JsonObject();
-                output.addProperty("amount", outputAmount);
-                output.addProperty("id", outputId);
-
-                recipe.add("left_input", leftInput);
-                recipe.add("right_input", rightInput);
-                recipe.add("output", output);
-
-                JsonArray conditions = new JsonArray();
-                JsonObject cond1 = new JsonObject();
-                cond1.addProperty("type", "neoforge:mod_loaded");
-                cond1.addProperty("modid", "mekanism");
-
-                JsonObject cond2 = new JsonObject();
-                cond2.addProperty("type", "neoforge:mod_loaded");
-                cond2.addProperty("modid", "dye_depot");
-
-                conditions.add(cond1);
-                conditions.add(cond2);
-                recipe.add("neoforge:conditions", conditions);
-
                 String[] names = { leftId.split(":")[1], rightId.split(":")[1] };
                 Arrays.sort(names);
                 String fileName = names[0] + "_" + names[1] + ".json";
 
-                Path file = RECIPE_OUTPUT.resolve(fileName);
-                Files.writeString(file, gson.toJson(recipe));
+                if (!writtenPairs.add(fileName)) continue;
+
+                // same color — always 5 + 5 → 10
+                if (leftId.equals(rightId)) {
+                    JsonObject recipe = buildRecipe(leftId, rightId, 5, 5, 10, leftId);
+                    Files.writeString(RECIPE_OUTPUT.resolve(fileName), gson.toJson(recipe));
+                    continue;
+                }
+
+                MixResult mix = mixColors(left.getKey(), right.getKey());
+
+                int leftAmount, rightAmount, outputAmount;
+                String outputId;
+
+                if (mix.outputId().equals(leftId) || mix.outputId().equals(rightId)) {
+                    // bad mix — equal inputs, half output as punishment
+                    leftAmount   = 6;
+                    rightAmount  = 6;
+                    outputAmount = 6;
+                    outputId     = mix.outputId();
+                } else {
+                    // input ratio — how far is output from each input
+                    double distToLeft  = rgbDistance(mix.outputRGB(), left.getKey());
+                    double distToRight = rgbDistance(mix.outputRGB(), right.getKey());
+                    double total       = distToLeft + distToRight;
+
+                    // closer to left → more left needed, closer to right → more right needed
+                    int[] ratio = toRatio(distToLeft / total);
+                    leftAmount  = ratio[0];
+                    rightAmount = ratio[1];
+
+                    // output amount based on how close the mix result is to the actual palette color
+                    double normalised = mix.matchDistance() / realisticMax;
+                    outputAmount = (int) Math.round((1.0 - normalised) * (leftAmount + rightAmount));
+                    outputAmount = Math.min(Math.max(1, outputAmount), leftAmount + rightAmount);
+                    outputId     = mix.outputId();
+                }
+
+                JsonObject recipe = buildRecipe(leftId, rightId, leftAmount, rightAmount, outputAmount, outputId);
+                Files.writeString(RECIPE_OUTPUT.resolve(fileName), gson.toJson(recipe));
             }
         }
     }
 
-    private static String mixColors(RGB left, RGB right) {
-        double[] hslLeft = rgbToHsl(left);
+    private record MixResult(String outputId, RGB outputRGB, double matchDistance) {}
+
+    private static MixResult mixColors(RGB left, RGB right) {
+        double[] hslLeft  = rgbToHsl(left);
         double[] hslRight = rgbToHsl(right);
 
-        double hue = averageHue(hslLeft[0], hslRight[0]);
-
-        double lightness = (hslLeft[2] + hslRight[2]) / 2.0;
+        double hue        = averageHue(hslLeft[0], hslRight[0]);
+        double lightness  = (hslLeft[2] + hslRight[2]) / 2.0;
         double saturation = (hslLeft[1] + hslRight[1]) / 2.0;
 
         RGB mixRGB = hslToRgb(hue, saturation, lightness);
 
-        return closestColor(mixRGB, left, right);
+        String closest    = null;
+        RGB closestRGB    = null;
+        double minDistance = Double.MAX_VALUE;
+
+        for (Entry<RGB, String> entry : COLORS.entrySet()) {
+            RGB c = entry.getKey();
+
+            double distance = rgbDistance(c, mixRGB);
+            if (distance < minDistance) {
+                minDistance = distance;
+                closest     = entry.getValue();
+                closestRGB  = c;
+            }
+        }
+
+        return new MixResult(closest, closestRGB, minDistance);
+    }
+
+    private static double rgbDistance(RGB a, RGB b) {
+        return Math.pow(a.r - b.r, 2)
+                + Math.pow(a.g - b.g, 2)
+                + Math.pow(a.b - b.b, 2);
+    }
+
+    private static int[] toRatio(double wLeft) {
+        int leftAmount  = (int) Math.max(1, Math.min(11, Math.round(wLeft * 12)));
+        int rightAmount = 12 - leftAmount;
+        return new int[]{ leftAmount, rightAmount };
+    }
+
+    private static JsonObject buildRecipe(
+            String leftId, String rightId,
+            int leftAmount, int rightAmount,
+            int outputAmount, String outputId) {
+
+        JsonObject recipe = new JsonObject();
+        recipe.addProperty("type", "mekanism:pigment_mixing");
+
+        JsonObject leftInput = new JsonObject();
+        leftInput.addProperty("amount", leftAmount);
+        leftInput.addProperty("chemical", leftId);
+
+        JsonObject rightInput = new JsonObject();
+        rightInput.addProperty("amount", rightAmount);
+        rightInput.addProperty("chemical", rightId);
+
+        JsonObject output = new JsonObject();
+        output.addProperty("amount", outputAmount);
+        output.addProperty("id", outputId);
+
+        recipe.add("left_input",  leftInput);
+        recipe.add("right_input", rightInput);
+        recipe.add("output",      output);
+
+        return recipe;
     }
 
     private static double[] rgbToHsl(RGB c) {
@@ -147,9 +214,9 @@ public class PigmentMixer {
         } else {
             double d = max - min;
             s = l > 0.5 ? d / (2.0 - max - min) : d / (max + min);
-            if (max == r) h = (g - b) / d + (g < b ? 6 : 0);
+            if      (max == r) h = (g - b) / d + (g < b ? 6 : 0);
             else if (max == g) h = (b - r) / d + 2;
-            else h = (r - g) / d + 4;
+            else               h = (r - g) / d + 4;
             h *= 60.0;
         }
 
@@ -157,18 +224,18 @@ public class PigmentMixer {
     }
 
     private static RGB hslToRgb(double h, double s, double l) {
-        double c = (1 - Math.abs(2 * l - 1)) * s;
-        double x = c * (1 - Math.abs((h / 60.0) % 2 - 1));
-        double m = l - c / 2;
+        double c  = (1 - Math.abs(2 * l - 1)) * s;
+        double x  = c * (1 - Math.abs((h / 60.0) % 2 - 1));
+        double m  = l - c / 2;
 
         double r1, g1, b1;
 
-        if (h < 60) { r1 = c; g1 = x; b1 = 0; }
+        if      (h < 60)  { r1 = c; g1 = x; b1 = 0; }
         else if (h < 120) { r1 = x; g1 = c; b1 = 0; }
         else if (h < 180) { r1 = 0; g1 = c; b1 = x; }
         else if (h < 240) { r1 = 0; g1 = x; b1 = c; }
         else if (h < 300) { r1 = x; g1 = 0; b1 = c; }
-        else { r1 = c; g1 = 0; b1 = x; }
+        else              { r1 = c; g1 = 0; b1 = x; }
 
         int r = (int) Math.round((r1 + m) * 255);
         int g = (int) Math.round((g1 + m) * 255);
@@ -181,29 +248,6 @@ public class PigmentMixer {
         double x = Math.cos(Math.toRadians(h1)) + Math.cos(Math.toRadians(h2));
         double y = Math.sin(Math.toRadians(h1)) + Math.sin(Math.toRadians(h2));
         return (Math.toDegrees(Math.atan2(y, x)) + 360) % 360;
-    }
-
-    private static String closestColor(RGB target, RGB left, RGB right) {
-        if (left.equals(right)) return COLORS.get(left);
-
-        String closest = null;
-        double minDistance = Double.MAX_VALUE;
-
-        for (Entry<RGB, String> entry : COLORS.entrySet()) {
-            RGB c = entry.getKey();
-
-            if (!c.equals(left) && !c.equals(right)) {
-                double distance = Math.pow(c.r - target.r, 2)
-                        + Math.pow(c.g - target.g, 2)
-                        + Math.pow(c.b - target.b, 2);
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    closest = entry.getValue();
-                }
-            }
-        }
-
-        return closest;
     }
 
     public static void main(String[] args) throws IOException {

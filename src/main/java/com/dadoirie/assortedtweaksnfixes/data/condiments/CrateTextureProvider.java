@@ -15,7 +15,7 @@ public class CrateTextureProvider {
             "libs/resources/condiments/assets/condiments/textures/block";
 
     private static final String BASESTORE_PATH =
-            "src/generated/resources/assets/condiments/textures/block";
+            "src/generated/resources/overlay_con_dd/assets/condiments/textures/block";
 
     private static final String SOURCE_TEXTURE = "gray_crate.png";
 

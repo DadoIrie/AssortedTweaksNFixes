@@ -19,11 +19,11 @@ public class DyeDepotPigmentExtraction {
     private static final Gson GSON = new GsonBuilder().disableHtmlEscaping().create();
 
     private static final Path RECIPE_OUTPUT = Path.of(
-            "src/generated/resources/data/assortedtweaksnfixes/recipe/mekanism_compat/dye_depot_compat/pigment_extracting"
+            "src/generated/resources/overlay_mek_dd/data/assortedtweaksnfixes/recipe/mekanism_compat/dye_depot_compat/pigment_extracting"
     );
 
     private static final Path TAG_OUTPUT = Path.of(
-            "src/generated/resources/data/mekanism/tags/item/colorable"
+            "src/generated/resources/overlay_mek_dd/data/mekanism/tags/item/colorable"
     );
 
     public static void init(Map<String, RecipeData> types) throws IOException {
@@ -83,17 +83,6 @@ public class DyeDepotPigmentExtraction {
 
         JsonObject json = new JsonObject();
         json.addProperty("type", "mekanism:pigment_extracting");
-
-        JsonArray conditions = new JsonArray();
-        JsonObject mek = new JsonObject();
-        mek.addProperty("type", "neoforge:mod_loaded");
-        mek.addProperty("modid", "mekanism");
-        JsonObject dd = new JsonObject();
-        dd.addProperty("type", "neoforge:mod_loaded");
-        dd.addProperty("modid", "dye_depot");
-        conditions.add(mek);
-        conditions.add(dd);
-        json.add("neoforge:conditions", conditions);
 
         JsonObject input = getJsonObject(name, type, fileName);
 

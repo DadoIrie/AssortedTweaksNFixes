@@ -19,10 +19,10 @@ public class RefinedStorageAssetsProvider {
             "libs/resources/refinedstorage/assets/refinedstorage";
 
     private static final String BASESTORE_PATH =
-            "src/generated/resources/assets/refinedstorage";
+            "src/generated/resources/overlay_rs_dd/assets/refinedstorage";
 
     private static final String TAGS_PATH =
-            "src/generated/resources/data/refinedstorage/tags/item";
+            "src/generated/resources/overlay_rs_dd/data/refinedstorage/tags/item";
 
     private static final List<String> DYE_COLORS = List.of(
             "maroon", "rose", "coral", "indigo", "navy", "slate",

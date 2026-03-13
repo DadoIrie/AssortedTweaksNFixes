@@ -16,9 +16,9 @@ public class CrateAssetsDataProvider {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
     private static final String ASSETS_BASE_IN = "libs/resources/condiments/assets/condiments/";
-    private static final String ASSETS_BASE_OUT = "src/generated/resources/assets/condiments/";
-    private static final String DATA_BASE_OUT = "src/generated/resources/data/condiments/";
-    private static final String EMI_OUT = "src/generated/resources/assets/emi/recipe/defaults/condiments.json";
+    private static final String ASSETS_BASE_OUT = "src/generated/resources/overlay_con_dd/assets/condiments/";
+    private static final String DATA_BASE_OUT = "src/generated/resources/overlay_con_dd/data/condiments/";
+    private static final String EMI_OUT = "src/generated/resources/overlay_con_dd/assets/emi/recipe/defaults/condiments.json";
 
     private static final String BASE_BLOCK_MODEL = ASSETS_BASE_IN + "blockstates/black_crate.json";
     private static final String BASE_BLOCK_MODEL_TEMPLATE = ASSETS_BASE_IN + "models/block/crates/black_crate.json";
