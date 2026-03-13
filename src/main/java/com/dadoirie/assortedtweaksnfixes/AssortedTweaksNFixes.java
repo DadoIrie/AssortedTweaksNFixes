@@ -2,6 +2,9 @@ package com.dadoirie.assortedtweaksnfixes;
 
 import com.dadoirie.assortedtweaksnfixes.compat.mekanism.DyeDepotCompat;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.player005.recipe_modification.serialization.RecipeModifierManager;
 import org.slf4j.Logger;
 import com.dadoirie.assortedtweaksnfixes.compat.yigd.DeathCharmCompat;
 import net.neoforged.fml.ModList;
@@ -20,7 +23,12 @@ public class AssortedTweaksNFixes {
                 throw new IllegalStateException("Recipe modification mod is required for the Mekanism and Dye Depot compat.");
             }
             DyeDepotCompat.register(modEventBus);
+            NeoForge.EVENT_BUS.addListener(AssortedTweaksNFixes::onAddReloadListeners);
         }
         DeathCharmCompat.init();
+    }
+
+    private static void onAddReloadListeners(AddReloadListenerEvent event) {
+        event.addListener(new RecipeModifierManager());
     }
 }
