@@ -246,7 +246,7 @@ public class RefinedStorageAssetsGenerator {
             JsonObject variant = blockstateVariants.getAsJsonObject(key);
             String model = variant.get("model").getAsString();
             if (model.contains("red")) {
-                variant.addProperty("model", model.replace("red", color));
+                variant.addProperty("model", model.replace("block/detector/red", "block/detector/" + color));
             }
         }
 
