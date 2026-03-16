@@ -6,9 +6,9 @@
     import java.io.IOException;
     import java.util.Map;
 
-    public class RefinedStorageTextureProvider {
+    public class RefinedStorageTextureGenerator {
         private static final String BASESOURCE_PATH =
-                "libs/resources/refinedstorage/assets/refinedstorage/textures";
+                "libs/resources/refined-storage/assets/refinedstorage/textures";
 
         private static final String BASESTORE_PATH =
                 "src/generated/resources/overlay_rs_dd/assets/refinedstorage/textures";
@@ -289,7 +289,7 @@
 
         // Three-zone color ramp:
         //   0.00-0.35 dark : lerp dark -> mid
-        //   0.35-0.65 mid  : solid mid color (RS's punchy identity surface)
+        //   0.35-0.65 mid  : solid mid-color (RS's punchy identity surface)
         //   0.65-1.00 hot  : lerp mid -> highlight, scaled by pulse
         private static int[] applyGlow(ColorDef def, float lum, float pulse) {
             int dr = def.dark().r(),      dg = def.dark().g(),      db = def.dark().b();

@@ -2,6 +2,16 @@
 
 A mod that applies various tweaks and fixes to supported mods. Each tweak is toggleable via config file.
 
+
+## Puzzles Lib Compat
+`puzzleslib.ConfigTranslationsManagerMixin` (0.9.6-beta)<br>
+- Fixes raw translation keys in config screens for mods that depend on Puzzles Lib when Server Translations API is present.
+
+## Condiments & Dye Depot Compat
+(0.9.0-beta)<br>
+
+Adds compatibility between **Condiments** and **Dye Depot** colors. Generates colored crate variants using Dye Depot's color palette.
+
 ## Refined Storage & Dye Depot Compat
 (0.8.0-beta)<br>
 
@@ -14,7 +24,7 @@ Adds compatibility between **Mekanism** and **Dye Depot** colors. The **Pigment 
 
 - This isn’t a mixin, so it doesn’t require a toggle—it’s a full compat feature.
 - Recipes and interactions are fully conditional; nothing breaks or produces invalid recipes.
-- The **Pigment Mixer** includes almost 300 combinations already.
+- The **Pigment Mixer** includes almost 600 combinations now.s
 - Future updates will expand compat to more vanilla and non-vanilla blocks for the Painter and Pigment Extractor.
 
 ## Death Charm & You're in Grave Danger Compat

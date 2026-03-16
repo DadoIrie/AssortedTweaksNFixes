@@ -26,18 +26,18 @@ public class DyeDepotPigmentExtraction {
             "src/generated/resources/overlay_mek_dd/data/mekanism/tags/item/colorable"
     );
 
-    public static void init(Map<String, RecipeData> types) throws IOException {
-        for (Map.Entry<String, RecipeData> entry : types.entrySet()) {
-            String type = entry.getKey();
+    public static void init(Map<String, RecipeData> additional_ingredients) throws IOException {
+        for (Map.Entry<String, RecipeData> entry : additional_ingredients.entrySet()) {
+            String additional_ingredient = entry.getKey();
             int extractAmount = entry.getValue().extract();
             String fileName = entry.getValue().file();
-            generateType(type, extractAmount, fileName);
+            generateRecipe(additional_ingredient, extractAmount, fileName);
         }
     }
 
-    private static void generateType(String type, int amount, String fileName) throws IOException {
+    private static void generateRecipe(String additional_ingredient, int amount, String fileName) throws IOException {
 
-        Path recipeFolder = RECIPE_OUTPUT.resolve(type);
+        Path recipeFolder = RECIPE_OUTPUT.resolve(additional_ingredient);
         File recipeDir = recipeFolder.toFile();
         if (!recipeDir.exists() && !recipeDir.mkdirs())
             throw new IOException("Failed to create folder: " + recipeDir);
@@ -48,21 +48,21 @@ public class DyeDepotPigmentExtraction {
             String name = dye.getSerializedName();
             String pigment = "dd_" + name;
 
-            JsonObject json = getJsonObject(name, pigment, type, amount, fileName);
+            JsonObject json = getJsonObject(name, pigment, additional_ingredient, amount, fileName);
 
             File outFile = recipeFolder.resolve(pigment + ".json").toFile();
             try (FileWriter writer = new FileWriter(outFile)) {
                 GSON.toJson(json, writer);
             }
 
-            if (!"dye".equals(type)) {
-                tagValues.add("dye_depot:" + name + "_" + type);
+            if (!"dye".equals(additional_ingredient)) {
+                tagValues.add("dye_depot:" + name + "_" + additional_ingredient);
             }
 
             System.out.println("Generated recipe: " + outFile);
         }
 
-        if (!"dye".equals(type)) {
+        if (!"dye".equals(additional_ingredient)) {
             Path tagFile = TAG_OUTPUT.resolve(fileName);
             File file = tagFile.toFile();
             if (!file.getParentFile().exists() && !file.getParentFile().mkdirs())
@@ -79,12 +79,12 @@ public class DyeDepotPigmentExtraction {
         }
     }
 
-    private static @NotNull JsonObject getJsonObject(String name, String pigment, String type, int amount, String fileName) {
+    private static @NotNull JsonObject getJsonObject(String name, String pigment, String additional_ingredient, int amount, String fileName) {
 
         JsonObject json = new JsonObject();
         json.addProperty("type", "mekanism:pigment_extracting");
 
-        JsonObject input = getJsonObject(name, type, fileName);
+        JsonObject input = getJsonObject(name, additional_ingredient, fileName);
 
         json.add("input", input);
 
@@ -96,11 +96,11 @@ public class DyeDepotPigmentExtraction {
         return json;
     }
 
-    private static @NotNull JsonObject getJsonObject(String name, String type, String fileName) {
+    private static @NotNull JsonObject getJsonObject(String name, String additional_ingredient, String fileName) {
         JsonObject input = new JsonObject();
         input.addProperty("count", 1);
 
-        if ("dye".equals(type)) {
+        if ("dye".equals(additional_ingredient)) {
             input.addProperty("tag", "c:dyes/" + name);
         } else {
             input.addProperty("type", "neoforge:intersection");

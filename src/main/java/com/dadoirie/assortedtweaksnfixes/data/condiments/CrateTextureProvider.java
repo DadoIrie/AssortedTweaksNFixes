@@ -51,7 +51,7 @@ public class CrateTextureProvider {
 
         for (String colorName : COLORS) {
             BufferedImage wool = ImageIO.read(new File(
-                    "libs/resources/dye_depot/assets/dye_depot/textures/block",
+                    "libs/resources/dye-depot/assets/dye_depot/textures/block",
                     colorName + "_wool.png"
             ));
             double borderBoost = BORDER_BRIGHTNESS.get(colorName);

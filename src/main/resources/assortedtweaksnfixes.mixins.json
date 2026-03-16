@@ -22,7 +22,8 @@
     "condiments.modblocksaddblock.CrateBlockGetByColorMixin",
     "condiments.modblocksaddblock.DyeDepotCrateMixin",
     "deathcharm.RestoreInventoryEventsMixin",
-    "diagonalblocks.DiagonalBlockHandlerMixin"
+    "diagonalblocks.DiagonalBlockHandlerMixin",
+    "puzzleslib.ConfigTranslationsManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

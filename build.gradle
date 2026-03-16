@@ -131,7 +131,11 @@ configurations {
 
 dependencies {
     compileOnlyApi("maven.modrinth:pops:${project.pop_version}")
+    compileOnlyApi("maven.modrinth:blueprint:${project.blueprint_version}")
+    compileOnlyApi("maven.modrinth:cloth-config:${project.cloth_config_version}")
     compileOnlyApi("maven.modrinth:puzzles-lib:${project.puzzlesLib_version}")
+    compileOnlyApi("maven.modrinth:recipe-modification:${project.recipe_modification_version}")
+    compileOnlyApi("maven.modrinth:moonlight:${project.moonlight_version}")
     compileOnlyApi("maven.modrinth:condiments:${project.condiments_version}")
     compileOnlyApi("maven.modrinth:etched:${project.etched_version}")
     compileOnlyApi("maven.modrinth:travelersbackpack:${project.travelersbackpack_version}")
@@ -144,6 +148,7 @@ dependencies {
     compileOnlyApi("maven.modrinth:mekanism:${project.mekanism_version}")
     compileOnlyApi("maven.modrinth:refined-storage:${project.refined_storage_version}")
     compileOnlyApi(files("libs/DiagonalBlocks-v21.1.2-1.21.1-NeoForge.jar"))
+    compileOnlyApi(files("libs/server-translations-api-2.3.1+1.21-pre2.jar"))
 
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
@@ -221,7 +226,7 @@ idea {
 }
 
 tasks.register('runDataGen', JavaExec) {
-    group = "datagen"
+    group = "mod resources"
     mainClass.set("com.dadoirie.assortedtweaksnfixes.data.ModDataGenerators")
     //classpath changed so it no longer includes the output of processResources
     classpath = configurations.compileClasspath + sourceSets.main.output.classesDirs
@@ -240,4 +245,59 @@ tasks.named('jar', Jar) {
 
 tasks.named("clean") {
     delete "src/generated/resources"
+}
+
+tasks.register('listArtifacts') {
+    group = "mod resources"
+    doLast {
+        configurations.compileClasspath.resolvedConfiguration.resolvedArtifacts.each {
+            println "${it.name} -> ${it.file.name}"
+        }
+    }
+}
+
+tasks.register('extractModResources') {
+    group = "mod resources"
+    description = "Extracts assets, data, and neoforge.mods.toml from selected mod JARs"
+
+    def modsToExtract = [
+            "condiments",
+            "dye-depot",
+            "mekanism",
+            "refined-storage",
+    ]
+
+    doLast {
+        modsToExtract.each { modKey ->
+            def artifact = configurations.compileClasspath.resolvedConfiguration.resolvedArtifacts
+                    .find { it.name == modKey }
+
+            if (artifact == null) {
+                logger.lifecycle("Could not find artifact for: ${modKey}")
+                return
+            }
+
+            def outputDir = file("libs/resources/${modKey}")
+            logger.lifecycle("Extracting from: ${artifact.file.name} -> ${outputDir}")
+
+            copy {
+                from zipTree(artifact.file)
+                into outputDir
+                include "assets/**"
+                include "data/**"
+                include "META-INF/neoforge.mods.toml"
+
+                filesMatching("META-INF/neoforge.mods.toml") {
+                    path = "neoforge.mods.toml"
+                }
+                includeEmptyDirs = false
+            }
+        }
+    }
+}
+
+tasks.register('cleanModResources', Delete) {
+    group = "mod resources"
+    description = "Deletes the extracted mod resources folder"
+    delete file("libs/resources")
 }

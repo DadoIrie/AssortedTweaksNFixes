@@ -133,5 +133,35 @@
         "max": ""
       }
     }
+  },
+  "blueprint.BlueprintReloadableServerResourcesMixin": {
+    "enabled": true,
+    "blueprint": {
+      "version": {
+        "min": "8.0.8",
+        "max": ""
+      }
+    },
+    "recipe_modification": {
+      "version": {
+        "min": "0.1.2",
+        "max": ""
+      }
+    }
+  },
+  "puzzleslib.ConfigTranslationsManagerMixin": {
+    "enabled": true,
+    "puzzleslib": {
+      "version": {
+        "min": "21.1.39",
+        "max": ""
+      }
+    },
+    "server_translations_api": {
+      "version": {
+        "min": "2.3.1",
+        "max": ""
+      }
+    }
   }
 }
