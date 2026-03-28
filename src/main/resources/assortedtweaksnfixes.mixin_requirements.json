@@ -163,5 +163,35 @@
         "max": ""
       }
     }
+  },
+  "danger_close.SoulFiredMixin": {
+    "enabled": true,
+    "danger_close": {
+      "version": {
+        "min": "3.1.3",
+        "max": ""
+      }
+    },
+    "prometheus": {
+      "version": {
+        "min": "1.2.5",
+        "max": ""
+      }
+    }
+  },
+  "helditemtooltips.HoverTextManagerMixin": {
+    "enabled": true,
+    "helditemtooltips": {
+      "version": {
+        "min": "21.1.0",
+        "max": ""
+      }
+    },
+    "condiments": {
+      "version": {
+        "min": "1.4.8",
+        "max": ""
+      }
+    }
   }
 }

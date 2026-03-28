@@ -147,6 +147,9 @@ dependencies {
     compileOnlyApi("maven.modrinth:dye-depot:${project.dyedepot_version}")
     compileOnlyApi("maven.modrinth:mekanism:${project.mekanism_version}")
     compileOnlyApi("maven.modrinth:refined-storage:${project.refined_storage_version}")
+    compileOnlyApi("maven.modrinth:danger-close:${project.danger_close_version}")
+    compileOnlyApi("maven.modrinth:prometheus-api:${project.prometheus_api_version}")
+    compileOnlyApi("maven.modrinth:held-item-tooltips:${project.held_item_tooltips_version}")
     compileOnlyApi(files("libs/DiagonalBlocks-v21.1.2-1.21.1-NeoForge.jar"))
     compileOnlyApi(files("libs/server-translations-api-2.3.1+1.21-pre2.jar"))
 
@@ -264,7 +267,7 @@ tasks.register('extractModResources') {
             "condiments",
             "dye-depot",
             "mekanism",
-            "refined-storage",
+            "refined-storage"
     ]
 
     doLast {

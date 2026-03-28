@@ -15,12 +15,14 @@
     "accessories.removecosmeticbutton.ShiftRightClickToggleMixin",
     "etched.EtchingScreenMixin",
     "pop.FadeInFadeOutRenderMixin",
-    "travelersbackpack.JukeboxWidgetMixin"
+    "travelersbackpack.JukeboxWidgetMixin",
+    "helditemtooltips.HoverTextManagerMixin"
   ],
   "mixins": [
     "condiments.ModBlocksAddBlockMixin",
     "condiments.modblocksaddblock.CrateBlockGetByColorMixin",
     "condiments.modblocksaddblock.DyeDepotCrateMixin",
+    "danger_close.SoulFiredMixin",
     "deathcharm.RestoreInventoryEventsMixin",
     "diagonalblocks.DiagonalBlockHandlerMixin",
     "puzzleslib.ConfigTranslationsManagerMixin"

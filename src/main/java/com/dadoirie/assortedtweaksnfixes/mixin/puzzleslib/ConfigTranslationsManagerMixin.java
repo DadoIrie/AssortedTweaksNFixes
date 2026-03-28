@@ -14,16 +14,17 @@ public class ConfigTranslationsManagerMixin {
 
     @Redirect(
             method = "lambda$onAddResourcePackReloadListeners$0",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/locale/Language;getInstance()Lnet/minecraft/locale/Language;")
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/locale/Language;getInstance()Lnet/minecraft/locale/Language;"),
+            require = 0
     )
-    private static Language stapi$feedUnwrappedLanguageToPuzzlesLib() {
+    private static Language stapi$feedUnwrappedLanguage() {
         Language instance = Language.getInstance();
         Language current = instance;
 
-        // Universally unwrap any layers (Sinytra Connector, STAPI, etc.)
+        // unwrap any layers (Sinytra Connector, STAPI, etc.)
         while (true) {
             if (current instanceof ClientLanguage) {
-                // We found the raw ClientLanguage core! Give it to Puzzles Lib.
+                //found ClientLanguage
                 return current;
             }
 
@@ -34,7 +35,7 @@ public class ConfigTranslationsManagerMixin {
                         field.setAccessible(true);
                         Language candidate = (Language) field.get(current);
 
-                        // Prevent infinite loops if a class holds a reference to itself
+                        // prevent infinite loop
                         if (candidate != null && candidate != current) {
                             nextLayer = candidate;
                             break;
@@ -45,12 +46,12 @@ public class ConfigTranslationsManagerMixin {
             }
 
             if (nextLayer == null) {
-                break; // Dead end, exit the loop
+                break; // dead end
             }
             current = nextLayer;
         }
 
-        // If we couldn't unwrap it, return the original instance and let it fail naturally
+        // unwrapping failed, return original instance and let it fail
         return instance;
     }
 }
