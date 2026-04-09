@@ -14,9 +14,10 @@
     "accessories.removecosmeticarmorslots.RemoveCosmeticArmorSlotsTextureMixin",
     "accessories.removecosmeticbutton.ShiftRightClickToggleMixin",
     "etched.EtchingScreenMixin",
+    "helditemtooltips.HoverTextManagerMixin",
     "pop.FadeInFadeOutRenderMixin",
-    "travelersbackpack.JukeboxWidgetMixin",
-    "helditemtooltips.HoverTextManagerMixin"
+    "moonlight.RespriterMixin",
+    "travelersbackpack.JukeboxWidgetMixin"
   ],
   "mixins": [
     "condiments.ModBlocksAddBlockMixin",

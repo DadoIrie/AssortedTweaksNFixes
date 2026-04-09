@@ -193,5 +193,14 @@
         "max": ""
       }
     }
+  },
+  "moonlight.RespriterMixin": {
+    "enabled": true,
+    "moonlight": {
+      "version": {
+        "min": "1.21",
+        "max": ""
+      }
+    }
   }
 }
