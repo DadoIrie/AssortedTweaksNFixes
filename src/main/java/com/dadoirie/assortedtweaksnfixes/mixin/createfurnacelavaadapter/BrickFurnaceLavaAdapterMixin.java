@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -40,7 +41,7 @@ public class BrickFurnaceLavaAdapterMixin {
         BlockPos targetPos = adapterPos.relative(dir);
         BlockEntity be = world.getBlockEntity(targetPos);
 
-        if (!(be instanceof AbstractBrickFurnaceBlockEntity brickFurnace) || !(world instanceof ILevelExtension ext)) {
+        if (!(be instanceof AbstractBrickFurnaceBlockEntity brickFurnace) || !(world instanceof Level level) || !(world instanceof ILevelExtension ext)) {
             return;
         }
 
@@ -59,6 +60,7 @@ public class BrickFurnaceLavaAdapterMixin {
 
         ItemStack input = itemHandler.getStackInSlot(0);
         ItemStack fuel  = itemHandler.getStackInSlot(1);
+        ItemStack output = itemHandler.getStackInSlot(2);
 
         BlockState targetState = world.getBlockState(targetPos);
         boolean isLit = targetState.hasProperty(AbstractFurnaceBlock.LIT) && targetState.getValue(AbstractFurnaceBlock.LIT);
@@ -73,6 +75,13 @@ public class BrickFurnaceLavaAdapterMixin {
                 return;
             }
 
+            ItemStack recipeOutput = activeRecipe.value().getResultItem(level.registryAccess());
+            if (!output.isEmpty()) {
+                if (!ItemStack.isSameItemSameComponents(output, recipeOutput) || (output.getCount() + recipeOutput.getCount() > output.getMaxStackSize())) {
+                    return;
+                }
+            }
+
             ItemStack mockLavaBucket = new ItemStack(Items.LAVA_BUCKET);
             int dynamicBurnTime = ((AbstractFurnaceBlockEntityAccessor) brickFurnace).invokeGetBurnDuration(mockLavaBucket);
 
@@ -82,7 +91,6 @@ public class BrickFurnaceLavaAdapterMixin {
 
             ContainerData data = brickFurnace.getContainerData();
             data.set(AbstractBrickFurnaceBlockEntity.BURN_TIME, dynamicBurnTime);
-            data.set(AbstractBrickFurnaceBlockEntity.RECIPES_USED, dynamicBurnTime);
 
             world.setBlock(targetPos, targetState.setValue(AbstractFurnaceBlock.LIT, true), 3);
             fluidHandler.drain(1000, FluidAction.EXECUTE);

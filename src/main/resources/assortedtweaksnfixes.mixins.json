@@ -29,6 +29,7 @@
     "diagonalblocks.DiagonalBlockHandlerMixin",
     "puzzleslib.ConfigTranslationsManagerMixin",
     "createfurnacelavaadapter.BrickFurnaceLavaAdapterMixin",
+    "createfurnacelavaadapter.brickfurnacelavaadapter.AbstractBrickFurnaceBlockEntityAccessor",
     "createfurnacelavaadapter.brickfurnacelavaadapter.AbstractFurnaceBlockEntityAccessor"
   ],
   "injectors": {
