@@ -30,7 +30,9 @@
     "puzzleslib.ConfigTranslationsManagerMixin",
     "createfurnacelavaadapter.BrickFurnaceLavaAdapterMixin",
     "createfurnacelavaadapter.brickfurnacelavaadapter.AbstractBrickFurnaceBlockEntityAccessor",
-    "createfurnacelavaadapter.brickfurnacelavaadapter.AbstractFurnaceBlockEntityAccessor"
+    "createfurnacelavaadapter.brickfurnacelavaadapter.AbstractFurnaceBlockEntityAccessor",
+    "minecraft.BlockEntityTypeAccessor",
+    "createfurnacelavaadapter.CreateFurnaceLavaAdapterModBlockEntitiesMixin"
   ],
   "injectors": {
     "defaultRequire": 1

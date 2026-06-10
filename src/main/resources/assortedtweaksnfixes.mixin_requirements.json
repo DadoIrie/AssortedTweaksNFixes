@@ -217,5 +217,23 @@
         "max": ""
       }
     }
+  },
+  "minecraft.BlockEntityTypeAccessor": {
+    "enabled": true,
+    "minecraft": {
+      "version": {
+        "min": "1.21.1",
+        "max": ""
+      }
+    }
+  },
+  "createfurnacelavaadapter.CreateFurnaceLavaAdapterModBlockEntitiesMixin": {
+    "enabled": true,
+    "create_furnace_lava_adapter": {
+      "version": {
+        "min": "1.4.1",
+        "max": ""
+      }
+    }
   }
 }

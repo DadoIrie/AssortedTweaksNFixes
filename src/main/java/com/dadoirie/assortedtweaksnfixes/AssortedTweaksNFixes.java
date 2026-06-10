@@ -2,7 +2,13 @@ package com.dadoirie.assortedtweaksnfixes;
 
 import com.dadoirie.assortedtweaksnfixes.compat.mekanism.DyeDepotCompat;
 import com.dadoirie.assortedtweaksnfixes.compat.yigd.DeathCharmCompat;
+import com.dadoirie.assortedtweaksnfixes.registry.createfurnacelavaadapter.ColoredAdapterRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.neoforged.bus.api.IEventBus;
@@ -14,6 +20,8 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import net.player005.recipe_modification.serialization.RecipeModifierManager;
 import org.slf4j.Logger;
 
@@ -25,8 +33,22 @@ public class AssortedTweaksNFixes {
     private static final boolean IS_DEDICATED_SERVER = FMLEnvironment.dist.isDedicatedServer();
     private static final Logger LOGGER = AssortedTweaksNFixesConstants.getLogger(AssortedTweaksNFixes.class);
 
+    private static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, AssortedTweaksNFixesConstants.MOD_ID);
+
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MAIN_TAB = CREATIVE_TABS.register("main_tab", () -> CreativeModeTab.builder()
+            .title(Component.translatable("itemGroup." + AssortedTweaksNFixesConstants.MOD_ID))
+            .icon(() -> new ItemStack(Items.LAVA_BUCKET))
+            .build());
+
     public AssortedTweaksNFixes(IEventBus modEventBus) {
         LOGGER.info("AssortedTweaksNFixes loaded on {}", IS_DEDICATED_SERVER ? "dedicated server" : "client");
+
+        CREATIVE_TABS.register(modEventBus);
+
+        if (ModList.get().isLoaded("create_furnace_lava_adapter") && ModList.get().isLoaded("colorfulpipes")) {
+            ColoredAdapterRegistry.register(modEventBus, MAIN_TAB);
+        }
+
         if (ModList.get().isLoaded("mekanism") && ModList.get().isLoaded("dye_depot")) {
             if (!ModList.get().isLoaded("recipe_modification")) {
                 throw new IllegalStateException("Recipe modification mod is required for the Mekanism and Dye Depot compat.");
