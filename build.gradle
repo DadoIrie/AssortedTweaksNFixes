@@ -150,8 +150,12 @@ dependencies {
     compileOnlyApi("maven.modrinth:danger-close:${project.danger_close_version}")
     compileOnlyApi("maven.modrinth:prometheus-api:${project.prometheus_api_version}")
     compileOnlyApi("maven.modrinth:held-item-tooltips:${project.held_item_tooltips_version}")
+    compileOnlyApi("maven.modrinth:every-compat:${project.every_compat_version}")
+    compileOnlyApi("maven.modrinth:brick-furnace:${project.brickfurnace_version}")
+
     compileOnlyApi(files("libs/DiagonalBlocks-v21.1.2-1.21.1-NeoForge.jar"))
     compileOnlyApi(files("libs/server-translations-api-2.3.1+1.21-pre2.jar"))
+    compileOnlyApi(files("libs/create_furnace_lava_adapter-1.21.1-1.4.1.jar"))
 
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime

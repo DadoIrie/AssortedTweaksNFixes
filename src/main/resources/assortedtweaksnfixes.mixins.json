@@ -15,8 +15,9 @@
     "accessories.removecosmeticbutton.ShiftRightClickToggleMixin",
     "etched.EtchingScreenMixin",
     "helditemtooltips.HoverTextManagerMixin",
+    "minecraft.GameOptionsMixin",
+    "minecraft.gameoptions.KeyMappingAllAccessor",
     "pop.FadeInFadeOutRenderMixin",
-    "moonlight.RespriterMixin",
     "travelersbackpack.JukeboxWidgetMixin"
   ],
   "mixins": [
@@ -26,7 +27,9 @@
     "danger_close.SoulFiredMixin",
     "deathcharm.RestoreInventoryEventsMixin",
     "diagonalblocks.DiagonalBlockHandlerMixin",
-    "puzzleslib.ConfigTranslationsManagerMixin"
+    "puzzleslib.ConfigTranslationsManagerMixin",
+    "createfurnacelavaadapter.BrickFurnaceLavaAdapterMixin",
+    "createfurnacelavaadapter.brickfurnacelavaadapter.AbstractFurnaceBlockEntityAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
