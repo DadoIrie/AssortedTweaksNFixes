@@ -2,7 +2,6 @@ package com.dadoirie.assortedtweaksnfixes;
 
 import com.dadoirie.assortedtweaksnfixes.compat.mekanism.DyeDepotCompat;
 import com.dadoirie.assortedtweaksnfixes.compat.yigd.DeathCharmCompat;
-import com.dadoirie.assortedtweaksnfixes.registry.createfurnacelavaadapter.ColoredAdapterRegistry;
 import com.dadoirie.assortedtweaksnfixes.tweaks.fluid.FurnaceFluidWrapper;
 import com.dadoirie.assortedtweaksnfixes.tweaks.fluid.BrickFurnaceFluidWrapper;
 import de.cech12.brickfurnace.blockentity.AbstractBrickFurnaceBlockEntity;
@@ -49,10 +48,6 @@ public class AssortedTweaksNFixes {
         LOGGER.info("AssortedTweaksNFixes loaded on {}", IS_DEDICATED_SERVER ? "dedicated server" : "client");
 
         CREATIVE_TABS.register(modEventBus);
-
-        if (ModList.get().isLoaded("create_furnace_lava_adapter") && ModList.get().isLoaded("colorfulpipes")) {
-            ColoredAdapterRegistry.register(modEventBus, MAIN_TAB);
-        }
 
         if (ModList.get().isLoaded("mekanism") && ModList.get().isLoaded("dye_depot")) {
             if (!ModList.get().isLoaded("recipe_modification")) {

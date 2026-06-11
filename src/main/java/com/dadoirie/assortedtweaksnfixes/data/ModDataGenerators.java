@@ -2,7 +2,6 @@ package com.dadoirie.assortedtweaksnfixes.data;
 
 import com.dadoirie.assortedtweaksnfixes.data.condiments.CrateAssetsDataProvider;
 import com.dadoirie.assortedtweaksnfixes.data.condiments.CrateTextureProvider;
-import com.dadoirie.assortedtweaksnfixes.data.createfurnacelavaadapter.CreateFurnaceLavaAdapterGenerator;
 import com.dadoirie.assortedtweaksnfixes.data.mekanism_compat.DyeDepotPigmentPainting;
 import com.dadoirie.assortedtweaksnfixes.data.mekanism_compat.DyeDepotPigmentExtraction;
 import com.dadoirie.assortedtweaksnfixes.data.mekanism_compat.PigmentMixer;
@@ -60,10 +59,6 @@ public class ModDataGenerators {
         CrateTextureProvider.run();
         CrateAssetsDataProvider.run();
         addCondimentsOverlayEntry();
-
-        CreateFurnaceLavaAdapterGenerator.run();
-        CreateFurnaceLavaAdapterGenerator.generateModel();
-        addCreateFurnaceLavaAdapterOverlayEntry();
 
         savePackMcmeta();
 
@@ -153,34 +148,6 @@ public class ModDataGenerators {
 
         entry.add("neoforge:conditions", conditions);
         entry.addProperty("directory", "overlay_con_dd");
-
-        JsonArray formats = new JsonArray();
-        formats.add(0);
-        formats.add(2147483647);
-        entry.add("formats", formats);
-
-        entries.add(entry);
-    }
-
-    private static void addCreateFurnaceLavaAdapterOverlayEntry() {
-        JsonObject overlays = currentPackMcmeta.getAsJsonObject("overlays");
-        JsonArray entries = overlays.getAsJsonArray("entries");
-
-        JsonObject entry = new JsonObject();
-        JsonArray conditions = new JsonArray();
-
-        JsonObject adapter = new JsonObject();
-        adapter.addProperty("type", "neoforge:mod_loaded");
-        adapter.addProperty("modid", "create_furnace_lava_adapter");
-        conditions.add(adapter);
-
-        JsonObject pipes = new JsonObject();
-        pipes.addProperty("type", "neoforge:mod_loaded");
-        pipes.addProperty("modid", "colorfulpipes");
-        conditions.add(pipes);
-
-        entry.add("neoforge:conditions", conditions);
-        entry.addProperty("directory", "overlay_adapter_pipes");
 
         JsonArray formats = new JsonArray();
         formats.add(0);

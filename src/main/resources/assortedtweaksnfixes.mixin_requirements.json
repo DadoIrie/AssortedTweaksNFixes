@@ -188,21 +188,6 @@
       }
     }
   },
-  "createfurnacelavaadapter.BrickFurnaceLavaAdapterMixin": {
-    "enabled": true,
-    "create_furnace_lava_adapter": {
-      "version": {
-        "min": "1.4.1",
-        "max": ""
-      }
-    },
-    "brickfurnace": {
-      "version": {
-        "min": "1.21.1",
-        "max": ""
-      }
-    }
-  },
   "minecraft.BlockEntityTypeAccessor": {
     "enabled": true,
     "minecraft": {
