@@ -1,19 +1,24 @@
 package com.dadoirie.assortedtweaksnfixes.mixin.minecraft;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.AbstractCookingRecipe;
-import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.item.crafting.SingleRecipeInput;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
+import org.spongepowered.asm.mixin.gen.Invoker;
 
-@Mixin(AbstractFurnaceBlockEntity.class)
+@Mixin(value = AbstractFurnaceBlockEntity.class, remap = false)
 public interface AbstractFurnaceBlockEntityAccessor {
-    @Accessor("litTime") int getLitTime();
-    @Accessor("litTime") void setLitTime(int time);
-    @Accessor("litDuration") void setLitDuration(int duration);
-    @Accessor("items") NonNullList<ItemStack> getItems();
-    @Accessor("quickCheck") RecipeManager.CachedCheck<SingleRecipeInput, ? extends AbstractCookingRecipe> getQuickCheck();
+    @Invoker("getBurnDuration")
+    int invokeGetBurnDuration(ItemStack fuel);
+
+    @Invoker("canBurn")
+    static boolean invokeCanBurn(RegistryAccess registryAccess, RecipeHolder<?> recipe, NonNullList<ItemStack> inventory, int maxStackSize, AbstractFurnaceBlockEntity furnace) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Accessor("cookingTotalTime")
+    int getCookingTotalTime();
 }

@@ -46,7 +46,6 @@
             if (handler == null) return;
 
             int available = handler.getFluidInTank(0).getAmount();
-            if (available < 10) return;
 
             int itemCount = Math.min(input.getCount(), 64);
             int mbNeeded = itemCount * 10;

@@ -134,21 +134,6 @@
       }
     }
   },
-  "blueprint.BlueprintReloadableServerResourcesMixin": {
-    "enabled": true,
-    "blueprint": {
-      "version": {
-        "min": "8.0.8",
-        "max": ""
-      }
-    },
-    "recipe_modification": {
-      "version": {
-        "min": "0.1.2",
-        "max": ""
-      }
-    }
-  },
   "puzzleslib.ConfigTranslationsManagerMixin": {
     "enabled": true,
     "puzzleslib": {
@@ -236,11 +221,20 @@
       }
     }
   },
-  "createfurnacelavaadapter.CreateFurnaceLavaAdapterModBlockEntitiesMixin": {
+  "minecraft.AbstractFurnaceBlockEntityAccessor": {
     "enabled": true,
-    "create_furnace_lava_adapter": {
+    "minecraft": {
       "version": {
-        "min": "1.4.1",
+        "min": "1.21.1",
+        "max": ""
+      }
+    }
+  },
+  "brickfurnace.AbstractBrickFurnaceBlockEntityMixin": {
+    "enabled": true,
+    "brickfurnace": {
+      "version": {
+        "min": "1.21.1",
         "max": ""
       }
     }

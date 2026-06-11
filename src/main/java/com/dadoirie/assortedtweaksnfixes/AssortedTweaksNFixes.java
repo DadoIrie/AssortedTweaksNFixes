@@ -4,6 +4,9 @@ import com.dadoirie.assortedtweaksnfixes.compat.mekanism.DyeDepotCompat;
 import com.dadoirie.assortedtweaksnfixes.compat.yigd.DeathCharmCompat;
 import com.dadoirie.assortedtweaksnfixes.registry.createfurnacelavaadapter.ColoredAdapterRegistry;
 import com.dadoirie.assortedtweaksnfixes.tweaks.fluid.FurnaceFluidWrapper;
+import com.dadoirie.assortedtweaksnfixes.tweaks.fluid.BrickFurnaceFluidWrapper;
+import de.cech12.brickfurnace.blockentity.AbstractBrickFurnaceBlockEntity;
+import de.cech12.brickfurnace.Constants;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -91,6 +94,20 @@ public class AssortedTweaksNFixes {
                     (be, dir) -> (dir == null || dir.getAxis().isHorizontal())
                             ? new FurnaceFluidWrapper(be) : null
             );
+        }
+
+        if (ModList.get().isLoaded("brickfurnace")) {
+            for (var supplier : List.of(
+                    Constants.BRICK_FURNACE_BLOCK_ENTITY_TYPE,
+                    Constants.BRICK_BLAST_FURNACE_BLOCK_ENTITY_TYPE,
+                    Constants.BRICK_SMOKER_BLOCK_ENTITY_TYPE)) {
+                event.registerBlockEntity(
+                        Capabilities.FluidHandler.BLOCK,
+                        supplier.get(),
+                        (be, dir) -> dir == null || dir.getAxis().isHorizontal()
+                                ? new BrickFurnaceFluidWrapper((AbstractBrickFurnaceBlockEntity) be) : null
+                );
+            }
         }
     }
 
