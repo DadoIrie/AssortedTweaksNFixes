@@ -32,6 +32,7 @@
     "createfurnacelavaadapter.brickfurnacelavaadapter.AbstractBrickFurnaceBlockEntityAccessor",
     "createfurnacelavaadapter.brickfurnacelavaadapter.AbstractFurnaceBlockEntityAccessor",
     "minecraft.BlockEntityTypeAccessor",
+    "minecraft.AbstractFurnaceBlockEntityMixin",
     "createfurnacelavaadapter.CreateFurnaceLavaAdapterModBlockEntitiesMixin"
   ],
   "injectors": {

@@ -3,6 +3,7 @@ package com.dadoirie.assortedtweaksnfixes;
 import com.dadoirie.assortedtweaksnfixes.compat.mekanism.DyeDepotCompat;
 import com.dadoirie.assortedtweaksnfixes.compat.yigd.DeathCharmCompat;
 import com.dadoirie.assortedtweaksnfixes.registry.createfurnacelavaadapter.ColoredAdapterRegistry;
+import com.dadoirie.assortedtweaksnfixes.tweaks.fluid.FurnaceFluidWrapper;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -10,6 +11,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModList;
@@ -59,6 +61,7 @@ public class AssortedTweaksNFixes {
         if (ModList.get().isLoaded("everycomp") || ModList.get().isLoaded("stonezone")) {
             modEventBus.addListener(AssortedTweaksNFixes::onRegisterCapabilities);
         }
+        modEventBus.addListener(AssortedTweaksNFixes::onRegisterFurnaceCapabilities);
         DeathCharmCompat.init();
     }
 
@@ -73,6 +76,20 @@ public class AssortedTweaksNFixes {
             registerCompatChestCapabilities(event,
                     "net.mehvahdjukaar.stone_zone.common_classes.CompatChestBlock",
                     "net.mehvahdjukaar.stone_zone.common_classes.CompatTrappedChestBlock"
+            );
+        }
+    }
+
+    static void onRegisterFurnaceCapabilities(RegisterCapabilitiesEvent event) {
+        for (var type : List.of(
+                BlockEntityType.FURNACE,
+                BlockEntityType.BLAST_FURNACE,
+                BlockEntityType.SMOKER)) {
+            event.registerBlockEntity(
+                    Capabilities.FluidHandler.BLOCK,
+                    type,
+                    (be, dir) -> (dir == null || dir.getAxis().isHorizontal())
+                            ? new FurnaceFluidWrapper(be) : null
             );
         }
     }
