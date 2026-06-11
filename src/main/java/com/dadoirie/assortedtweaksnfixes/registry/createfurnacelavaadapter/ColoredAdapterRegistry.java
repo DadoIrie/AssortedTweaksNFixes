@@ -1,15 +1,24 @@
 package com.dadoirie.assortedtweaksnfixes.registry.createfurnacelavaadapter;
 
 import net.mcreator.createfurnacelavaadapter.block.FurnaceLavaAdapterBlock;
+import net.mcreator.createfurnacelavaadapter.block.entity.FurnaceLavaAdapterBlockEntity;
+import net.mcreator.createfurnacelavaadapter.init.CreateFurnaceLavaAdapterModBlockEntities;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import org.jetbrains.annotations.NotNull;
 
 public class ColoredAdapterRegistry {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks("assortedtweaksnfixes");
@@ -20,9 +29,20 @@ public class ColoredAdapterRegistry {
             "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black"
     };
 
+    private static class ColoredAdapterBlock extends FurnaceLavaAdapterBlock implements EntityBlock {
+        public ColoredAdapterBlock() {
+            super();
+        }
+
+        @Override
+        public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+            return CreateFurnaceLavaAdapterModBlockEntities.FURNACE_LAVA_ADAPTER.get().create(pos, state);
+        }
+    }
+
     public static void register(IEventBus bus, DeferredHolder<CreativeModeTab, CreativeModeTab> tab) {
         for (String color : COLORS) {
-            DeferredBlock<Block> block = BLOCKS.register(color + "_furnace_lava_adapter", FurnaceLavaAdapterBlock::new);
+            DeferredBlock<Block> block = BLOCKS.register(color + "_furnace_lava_adapter", ColoredAdapterBlock::new);
             ITEMS.register(color + "_furnace_lava_adapter", () -> new BlockItem(block.get(), new Item.Properties()));
         }
         BLOCKS.register(bus);
