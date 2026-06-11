@@ -1,7 +1,6 @@
 package com.dadoirie.assortedtweaksnfixes.registry.createfurnacelavaadapter;
 
 import net.mcreator.createfurnacelavaadapter.block.FurnaceLavaAdapterBlock;
-import net.mcreator.createfurnacelavaadapter.block.entity.FurnaceLavaAdapterBlockEntity;
 import net.mcreator.createfurnacelavaadapter.init.CreateFurnaceLavaAdapterModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.BlockItem;
@@ -11,8 +10,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
