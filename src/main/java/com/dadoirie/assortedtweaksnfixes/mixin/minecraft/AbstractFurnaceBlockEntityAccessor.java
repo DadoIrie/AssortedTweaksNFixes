@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
-@Mixin(value = AbstractFurnaceBlockEntity.class, remap = false)
+@Mixin(value = AbstractFurnaceBlockEntity.class)
 public interface AbstractFurnaceBlockEntityAccessor {
     @Invoker("getBurnDuration")
     int invokeGetBurnDuration(ItemStack fuel);
@@ -21,4 +21,10 @@ public interface AbstractFurnaceBlockEntityAccessor {
 
     @Accessor("cookingTotalTime")
     int getCookingTotalTime();
+
+    @Accessor("litTime")
+    void setLitTime(int litTime);
+
+    @Accessor("litDuration")
+    void setLitDuration(int litDuration);
 }

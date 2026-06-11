@@ -2,7 +2,10 @@ package com.dadoirie.assortedtweaksnfixes;
 
 import com.dadoirie.assortedtweaksnfixes.compat.mekanism.DyeDepotCompat;
 import com.dadoirie.assortedtweaksnfixes.compat.yigd.DeathCharmCompat;
-import com.dadoirie.assortedtweaksnfixes.tweaks.fluid.FurnaceFluidWrapper;
+import com.dadoirie.assortedtweaksnfixes.registry.furnace_tank.FurnaceItemRegistry;
+import com.dadoirie.assortedtweaksnfixes.registry.furnace_tank.FurnaceTankRegistry;
+import com.dadoirie.assortedtweaksnfixes.registry.furnace_tank.entity.AbstractFurnaceTankBlockEntity;
+import com.dadoirie.assortedtweaksnfixes.registry.furnace_tank.fluid_capability.FurnaceFluidWrapper;
 import com.dadoirie.assortedtweaksnfixes.tweaks.fluid.BrickFurnaceFluidWrapper;
 import de.cech12.brickfurnace.Constants;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -12,7 +15,6 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModList;
@@ -48,6 +50,9 @@ public class AssortedTweaksNFixes {
 
         CREATIVE_TABS.register(modEventBus);
 
+        FurnaceTankRegistry.register(modEventBus);
+        FurnaceItemRegistry.register(modEventBus);
+
         if (ModList.get().isLoaded("mekanism") && ModList.get().isLoaded("dye_depot")) {
             if (!ModList.get().isLoaded("recipe_modification")) {
                 throw new IllegalStateException("Recipe modification mod is required for the Mekanism and Dye Depot compat.");
@@ -79,9 +84,10 @@ public class AssortedTweaksNFixes {
 
     static void onRegisterFurnaceCapabilities(RegisterCapabilitiesEvent event) {
         for (var type : List.of(
-                BlockEntityType.FURNACE,
-                BlockEntityType.BLAST_FURNACE,
-                BlockEntityType.SMOKER)) {
+                FurnaceTankRegistry.FURNACE_TANK_ENTITY.get(),
+                FurnaceTankRegistry.BLAST_FURNACE_TANK_ENTITY.get(),
+                FurnaceTankRegistry.SMOKER_TANK_ENTITY.get())) {
+
             event.registerBlockEntity(
                     Capabilities.FluidHandler.BLOCK,
                     type,

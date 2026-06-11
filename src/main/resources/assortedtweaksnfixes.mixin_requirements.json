@@ -197,15 +197,6 @@
       }
     }
   },
-  "minecraft.AbstractFurnaceBlockEntityMixin": {
-    "enabled": true,
-    "minecraft": {
-      "version": {
-        "min": "1.21.1",
-        "max": ""
-      }
-    }
-  },
   "minecraft.AbstractFurnaceBlockEntityAccessor": {
     "enabled": true,
     "minecraft": {

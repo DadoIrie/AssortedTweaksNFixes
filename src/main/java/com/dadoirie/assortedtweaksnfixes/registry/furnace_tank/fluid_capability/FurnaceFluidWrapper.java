@@ -1,6 +1,6 @@
-package com.dadoirie.assortedtweaksnfixes.tweaks.fluid;
+package com.dadoirie.assortedtweaksnfixes.registry.furnace_tank.fluid_capability;
 
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
+import com.dadoirie.assortedtweaksnfixes.registry.furnace_tank.entity.AbstractFurnaceTankBlockEntity;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
@@ -8,22 +8,10 @@ import org.jetbrains.annotations.NotNull;
 
 public class FurnaceFluidWrapper implements IFluidHandler {
 
-    private static final String TAG_KEY = "assortedtweaks_lava_mb";
-    private static final int CAPACITY = 1000;
+    private final AbstractFurnaceTankBlockEntity furnace;
 
-    private final AbstractFurnaceBlockEntity furnace;
-
-    public FurnaceFluidWrapper(AbstractFurnaceBlockEntity furnace) {
+    public FurnaceFluidWrapper(AbstractFurnaceTankBlockEntity furnace) {
         this.furnace = furnace;
-    }
-
-    private int getStored() {
-        return furnace.getPersistentData().getInt(TAG_KEY);
-    }
-
-    private void setStored(int amount) {
-        furnace.getPersistentData().putInt(TAG_KEY, Math.max(0, amount));
-        furnace.setChanged();
     }
 
     @Override
@@ -32,12 +20,14 @@ public class FurnaceFluidWrapper implements IFluidHandler {
     @Override
     public @NotNull FluidStack getFluidInTank(int tank) {
         if (tank != 0) return FluidStack.EMPTY;
-        int stored = getStored();
+        int stored = furnace.getLavaStored();
         return stored > 0 ? new FluidStack(Fluids.LAVA, stored) : FluidStack.EMPTY;
     }
 
     @Override
-    public int getTankCapacity(int tank) { return CAPACITY; }
+    public int getTankCapacity(int tank) {
+        return AbstractFurnaceTankBlockEntity.CAPACITY;
+    }
 
     @Override
     public boolean isFluidValid(int tank, @NotNull FluidStack stack) {
@@ -47,13 +37,10 @@ public class FurnaceFluidWrapper implements IFluidHandler {
     @Override
     public int fill(FluidStack resource, @NotNull FluidAction action) {
         if (resource.isEmpty() || resource.getFluid() != Fluids.LAVA) return 0;
-        int current = getStored();
-        int space = CAPACITY - current;
+        int space = AbstractFurnaceTankBlockEntity.CAPACITY - furnace.getLavaStored();
         if (space <= 0) return 0;
         int filled = Math.min(resource.getAmount(), space);
-        if (action.execute()) {
-            setStored(current + filled);
-        }
+        if (action.execute()) furnace.setLavaStored(furnace.getLavaStored() + filled);
         return filled;
     }
 
@@ -65,12 +52,10 @@ public class FurnaceFluidWrapper implements IFluidHandler {
 
     @Override
     public @NotNull FluidStack drain(int maxDrain, @NotNull FluidAction action) {
-        int stored = getStored();
+        int stored = furnace.getLavaStored();
         if (stored <= 0) return FluidStack.EMPTY;
         int drained = Math.min(stored, maxDrain);
-        if (action.execute()) {
-            setStored(stored - drained);
-        }
+        if (action.execute()) furnace.setLavaStored(stored - drained);
         return new FluidStack(Fluids.LAVA, drained);
     }
 }

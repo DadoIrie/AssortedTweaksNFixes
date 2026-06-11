@@ -29,7 +29,6 @@
     "diagonalblocks.DiagonalBlockHandlerMixin",
     "puzzleslib.ConfigTranslationsManagerMixin",
     "minecraft.BlockEntityTypeAccessor",
-    "minecraft.AbstractFurnaceBlockEntityMixin",
     "minecraft.AbstractFurnaceBlockEntityAccessor",
     "brickfurnace.AbstractBrickFurnaceBlockEntityMixin",
     "brickfurnace.abstractbrickfurnaceblockentity.AbstractBrickFurnaceBlockEntityAccessor"
