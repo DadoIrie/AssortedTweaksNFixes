@@ -31,7 +31,8 @@
     "minecraft.BlockEntityTypeAccessor",
     "minecraft.AbstractFurnaceBlockEntityMixin",
     "minecraft.AbstractFurnaceBlockEntityAccessor",
-    "brickfurnace.AbstractBrickFurnaceBlockEntityMixin"
+    "brickfurnace.AbstractBrickFurnaceBlockEntityMixin",
+    "brickfurnace.abstractbrickfurnaceblockentity.AbstractBrickFurnaceBlockEntityAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

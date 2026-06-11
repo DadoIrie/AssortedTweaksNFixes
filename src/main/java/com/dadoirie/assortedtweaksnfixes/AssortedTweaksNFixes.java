@@ -4,7 +4,6 @@ import com.dadoirie.assortedtweaksnfixes.compat.mekanism.DyeDepotCompat;
 import com.dadoirie.assortedtweaksnfixes.compat.yigd.DeathCharmCompat;
 import com.dadoirie.assortedtweaksnfixes.tweaks.fluid.FurnaceFluidWrapper;
 import com.dadoirie.assortedtweaksnfixes.tweaks.fluid.BrickFurnaceFluidWrapper;
-import de.cech12.brickfurnace.blockentity.AbstractBrickFurnaceBlockEntity;
 import de.cech12.brickfurnace.Constants;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -100,7 +99,7 @@ public class AssortedTweaksNFixes {
                         Capabilities.FluidHandler.BLOCK,
                         supplier.get(),
                         (be, dir) -> dir == null || dir.getAxis().isHorizontal()
-                                ? new BrickFurnaceFluidWrapper((AbstractBrickFurnaceBlockEntity) be) : null
+                                ? new BrickFurnaceFluidWrapper(be) : null
                 );
             }
         }

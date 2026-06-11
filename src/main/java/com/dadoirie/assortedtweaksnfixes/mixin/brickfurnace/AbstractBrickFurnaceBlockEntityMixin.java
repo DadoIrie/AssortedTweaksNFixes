@@ -2,7 +2,7 @@ package com.dadoirie.assortedtweaksnfixes.mixin.brickfurnace;
 
 import com.dadoirie.assortedtweaksnfixes.mixin.minecraft.AbstractFurnaceBlockEntityAccessor;
 import de.cech12.brickfurnace.blockentity.AbstractBrickFurnaceBlockEntity;
-import de.cech12.brickfurnace.platform.Services;
+import com.dadoirie.assortedtweaksnfixes.mixin.brickfurnace.abstractbrickfurnaceblockentity.AbstractBrickFurnaceBlockEntityAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -49,11 +49,11 @@ public class AbstractBrickFurnaceBlockEntityMixin {
 
         int available = handler.getFluidInTank(0).getAmount();
 
-        double burnFactor = Services.CONFIG.getBurnTimeFactor();
-        int totalBurnTime = (int) (((AbstractFurnaceBlockEntityAccessor) entity).invokeGetBurnDuration(new ItemStack(Items.LAVA_BUCKET)) * burnFactor);
+        // double burnFactor = Services.CONFIG.getBurnTimeFactor();
+        int totalBurnTime = (int) (((AbstractFurnaceBlockEntityAccessor) entity).invokeGetBurnDuration(new ItemStack(Items.LAVA_BUCKET)));
         if (totalBurnTime <= 0) return;
 
-        int cookTimeTicks = ((AbstractFurnaceBlockEntityAccessor) entity).getCookingTotalTime();
+        int cookTimeTicks = ((AbstractBrickFurnaceBlockEntityAccessor) entity).invokeGetTotalCookTime(activeRecipe);
         int itemCount = Math.min(input.getCount(), 64);
 
         int totalTicksNeeded = itemCount * cookTimeTicks;

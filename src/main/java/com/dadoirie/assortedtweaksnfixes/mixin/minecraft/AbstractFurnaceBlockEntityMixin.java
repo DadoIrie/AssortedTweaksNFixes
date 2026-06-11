@@ -45,19 +45,32 @@
                     pos, state, blockEntity, null);
             if (handler == null) return;
 
-            int available = handler.getFluidInTank(0).getAmount();
+            int fuelAvailable = handler.getFluidInTank(0).getAmount();
+            if (fuelAvailable <= 0) return;
 
+            int cookTimeTicks = ((AbstractFurnaceBlockEntityAccessor) blockEntity).getCookingTotalTime();
+            int totalBurnTime = 20000;
             int itemCount = Math.min(input.getCount(), 64);
-            int mbNeeded = itemCount * 10;
 
-            if (available < mbNeeded) {
-                itemCount = available / 10;
-                mbNeeded = itemCount * 10;
+            int totalTicksNeeded = itemCount * cookTimeTicks;
+            int mbNeeded = (int) Math.ceil((double) (totalTicksNeeded * 1000) / totalBurnTime);
+
+            if (fuelAvailable < mbNeeded) {
+                double ticksPerMb = (double) totalBurnTime / 1000.0;
+                int availableTicks = (int) (fuelAvailable * ticksPerMb);
+                itemCount = availableTicks / cookTimeTicks;
+                totalTicksNeeded = itemCount * cookTimeTicks;
+                mbNeeded = (int) Math.ceil((double) (totalTicksNeeded * 1000) / totalBurnTime);
             }
 
+            if (itemCount <= 0 || mbNeeded <= 0) return;
+
+            double burnTicksPerMb = (double) totalBurnTime / 1000.0;
+            int totalFuelTicks = (int) (mbNeeded * burnTicksPerMb);
+
             handler.drain(mbNeeded, IFluidHandler.FluidAction.EXECUTE);
-            blockEntity.litTime = itemCount * 200 + 1;
-            blockEntity.litDuration = itemCount * 200 + 1;
+            blockEntity.litTime = totalFuelTicks + 1;
+            blockEntity.litDuration = totalFuelTicks + 1 ;
 
             if (!state.getValue(AbstractFurnaceBlock.LIT)) {
                 level.setBlock(pos, state.setValue(AbstractFurnaceBlock.LIT, true), 3);
