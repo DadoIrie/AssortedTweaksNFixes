@@ -2,6 +2,7 @@ package com.dadoirie.assortedtweaksnfixes.data;
 
 import com.dadoirie.assortedtweaksnfixes.data.condiments.CrateAssetsDataProvider;
 import com.dadoirie.assortedtweaksnfixes.data.condiments.CrateTextureProvider;
+import com.dadoirie.assortedtweaksnfixes.data.furnace_tank.FurnaceTankAssetsProvider;
 import com.dadoirie.assortedtweaksnfixes.data.mekanism_compat.DyeDepotPigmentPainting;
 import com.dadoirie.assortedtweaksnfixes.data.mekanism_compat.DyeDepotPigmentExtraction;
 import com.dadoirie.assortedtweaksnfixes.data.mekanism_compat.PigmentMixer;
@@ -59,6 +60,8 @@ public class ModDataGenerators {
         CrateTextureProvider.run();
         CrateAssetsDataProvider.run();
         addCondimentsOverlayEntry();
+
+        FurnaceTankAssetsProvider.run();
 
         savePackMcmeta();
 
