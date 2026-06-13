@@ -277,7 +277,7 @@
                         float range    = pxSmoothMax[idx] - pxSmoothMin[idx];
                         float t        = (smooth - pxSmoothMin[idx]) / range;
                         float flickerT = (flicker / range) * FLICKER_AMOUNT;
-                        float lum      = Math.max(0f, Math.min(0.30f, (t + flickerT) * 0.30f));
+                        float lum      = Math.clamp((t + flickerT) * 0.30f, 0f, 0.30f);
 
                         int[] c = applyGlow(def, lum, 1.0f);
                         result.setRGB(x, y + yOff, (a << 24) | (c[0] << 16) | (c[1] << 8) | c[2]);

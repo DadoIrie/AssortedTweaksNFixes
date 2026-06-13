@@ -11,6 +11,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 
+@SuppressWarnings("unused")
 @Mod(value = AssortedTweaksNFixesConstants.MOD_ID, dist = Dist.CLIENT)
 public class AssortedTweaksNFixesClient {
     public AssortedTweaksNFixesClient(IEventBus modBus) {

@@ -118,7 +118,7 @@ public class PigmentMixer {
                     // output amount based on how close the mix result is to the actual palette color
                     double normalised = mix.matchDistance() / realisticMax;
                     outputAmount = (int) Math.round((1.0 - normalised) * (leftAmount + rightAmount));
-                    outputAmount = Math.min(Math.max(1, outputAmount), leftAmount + rightAmount);
+                    outputAmount = Math.clamp(outputAmount, 1, leftAmount + rightAmount);
                     outputId     = mix.outputId();
                 }
 
@@ -165,7 +165,7 @@ public class PigmentMixer {
     }
 
     private static int[] toRatio(double wLeft) {
-        int leftAmount  = (int) Math.max(1, Math.min(11, Math.round(wLeft * 12)));
+        int leftAmount = Math.clamp((int) Math.round(wLeft * 12), 1, 11);
         int rightAmount = 12 - leftAmount;
         return new int[]{ leftAmount, rightAmount };
     }
