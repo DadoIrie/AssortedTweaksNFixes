@@ -6,6 +6,7 @@ import com.dadoirie.assortedtweaksnfixes.content.component.furnace_tank.FurnaceT
 import com.dadoirie.assortedtweaksnfixes.content.component.furnace_tank.FurnaceTankHost;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
@@ -23,16 +24,8 @@ public abstract class AbstractFurnaceTankBlockEntity extends AbstractFurnaceBloc
     public AbstractFurnaceTankBlockEntity(BlockEntityType<?> type, BlockPos pos,
                                           BlockState state, RecipeType<? extends AbstractCookingRecipe> recipeType) {
         super(type, pos, state, recipeType);
-        this.items = net.minecraft.core.NonNullList.withSize(5, ItemStack.EMPTY);
+        this.items = NonNullList.withSize(5, ItemStack.EMPTY);
         this.tankComponent = new FurnaceTankComponent(this);
-    }
-
-    public int getLavaStored() {
-        return tankComponent.getLavaStored();
-    }
-
-    public void setLavaStored(int amount) {
-        tankComponent.setLavaStored(amount);
     }
 
     public FurnaceTankComponent getTankComponent() {

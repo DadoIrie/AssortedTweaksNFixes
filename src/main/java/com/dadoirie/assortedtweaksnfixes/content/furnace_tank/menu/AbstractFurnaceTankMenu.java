@@ -40,7 +40,7 @@ public abstract class AbstractFurnaceTankMenu extends AbstractFurnaceMenu {
             @Override
             public int get() {
                 if (container instanceof com.dadoirie.assortedtweaksnfixes.content.furnace_tank.entity.AbstractFurnaceTankBlockEntity be) {
-                    return be.getLavaStored();
+                    return be.getTankComponent().getLavaStored();
                 }
                 return 0;
             }

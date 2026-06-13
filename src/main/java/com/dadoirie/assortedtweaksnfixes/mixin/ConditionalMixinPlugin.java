@@ -36,7 +36,7 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
             }
         }
 
-    private static boolean isModLoaded(String modId) {
+    private static boolean isModMissing(String modId) {
         if (LoadingModList.get() != null) {
             return LoadingModList.get().getModFileById(modId) == null;
         }
@@ -303,7 +303,7 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
             Map<String, VersionConstraint> parentRequirements = REQUIRED_MODS.get(parentMixin);
             if (parentRequirements != null) {
                 for (String modId : parentRequirements.keySet()) {
-                    if (isModLoaded(modId)) {
+                    if (isModMissing(modId)) {
                         return false;
                     }
                 }
@@ -347,7 +347,7 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
             String modId = entry.getKey();
             VersionConstraint constraint = entry.getValue();
             
-            if (isModLoaded(modId)) {
+            if (isModMissing(modId)) {
                 LOGGER.info("skipping {} (requires mod '{}' which is not loaded)", mixinPath, modId);
                 return false;
             }
