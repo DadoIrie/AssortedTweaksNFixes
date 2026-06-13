@@ -14,13 +14,11 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.lang.reflect.Method;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -39,8 +37,8 @@ public class DiagonalBlockHandlerMixin {
         for (Map.Entry<ResourceKey<Item>, Item> entry : BuiltInRegistries.ITEM.entrySet()) {
             if (entry.getValue() instanceof BlockItem blockItem) {
                 Block block = blockItem.getBlock();
-                setItemForBlock(entry.getKey().location(), blockItem, block);
-                setBlockForItem(blockItem, block);
+                assortedTweaksNFixes$setItemForBlock(entry.getKey().location(), blockItem, block);
+                assortedTweaksNFixes$setBlockForItem(blockItem, block);
             }
         }
 
@@ -71,7 +69,8 @@ public class DiagonalBlockHandlerMixin {
         ci.cancel(); // skip the original method entirely
     }
 
-    private static void setItemForBlock(ResourceLocation resourceLocation, BlockItem blockItem, Block block) {
+    @Unique
+    private static void assortedTweaksNFixes$setItemForBlock(ResourceLocation resourceLocation, BlockItem blockItem, Block block) {
         for (DiagonalBlockType type : DiagonalBlockType.TYPES) {
             // item id should be fine to use for block items
             if (type.isTarget(resourceLocation, block)) {
@@ -81,7 +80,8 @@ public class DiagonalBlockHandlerMixin {
         }
     }
 
-    private static void setBlockForItem(BlockItem blockItem, Block block) {
+    @Unique
+    private static void assortedTweaksNFixes$setBlockForItem(BlockItem blockItem, Block block) {
         for (DiagonalBlockType type : DiagonalBlockType.TYPES) {
             BiMap<Block, Block> conversions = type.getBlockConversions();
             Block baseBlock;

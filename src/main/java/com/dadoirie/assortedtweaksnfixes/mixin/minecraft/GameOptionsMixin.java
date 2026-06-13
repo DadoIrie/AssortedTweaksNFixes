@@ -9,6 +9,7 @@ import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.client.settings.KeyModifier;
 import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -25,14 +26,16 @@ import java.util.Map;
 @Mixin(Options.class)
 public class GameOptionsMixin {
 
-    private static final Logger LOGGER = AssortedTweaksNFixesConstants.getLogger(AssortedTweaksNFixes.class);
+    @Unique
+    private static final Logger assortedTweaksNFixes$LOGGER = AssortedTweaksNFixesConstants.getLogger(AssortedTweaksNFixes.class);
 
     @Inject(method = "save", at = @At("TAIL"))
     private void onSave(CallbackInfo ci) {
-        syncKeybinds();
+        assortedTweaksNFixes$syncKeybinds();
     }
 
-    private void syncKeybinds() {
+    @Unique
+    private void assortedTweaksNFixes$syncKeybinds() {
         Path syncFile = FMLPaths.CONFIGDIR.get()
                 .resolve(AssortedTweaksNFixesConstants.MOD_ID + "_keysync.txt");
 
@@ -46,7 +49,7 @@ public class GameOptionsMixin {
                     overrides.put(line.substring(0, sep).trim(), line.substring(sep + 1).trim());
                 }
             } catch (IOException e) {
-                LOGGER.error("Failed to read keysync file", e);
+                assortedTweaksNFixes$LOGGER.error("Failed to read keysync file", e);
             }
         }
 
@@ -78,7 +81,7 @@ public class GameOptionsMixin {
                     StandardOpenOption.CREATE,
                     StandardOpenOption.TRUNCATE_EXISTING);
         } catch (IOException e) {
-            LOGGER.error("Failed to write keysync file", e);
+            assortedTweaksNFixes$LOGGER.error("Failed to write keysync file", e);
         }
     }
 }

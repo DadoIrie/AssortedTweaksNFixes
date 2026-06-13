@@ -27,7 +27,7 @@ public abstract class RemoveCosmeticButtonMixin {
         
         List<Component> children = togglePanel.children();
         if (!children.isEmpty()) {
-            Component cosmeticButton = children.get(0);
+            Component cosmeticButton = children.getFirst();
             togglePanel.removeChild(cosmeticButton);
         }
         

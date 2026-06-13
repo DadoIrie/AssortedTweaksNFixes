@@ -22,14 +22,14 @@ public abstract class EtchingScreenMixin {
             target = "(Ljava/lang/String;)Lgg/moonflower/etched/common/network/play/SetUrlPacket;"
         )
     )
-    private SetUrlPacket redirectSetUrlPacket(String urlValue) {
-        if (TrackData.isLocalSound(urlValue)) {
-            ResourceLocation soundId = ResourceLocation.tryParse(urlValue);
+    private SetUrlPacket redirectSetUrlPacket(String url) {
+        if (TrackData.isLocalSound(url)) {
+            ResourceLocation soundId = ResourceLocation.tryParse(url);
             if (soundId != null && Minecraft.getInstance().getSoundManager().getSoundEvent(soundId) != null) {
-                return new SetUrlPacket(urlValue);
+                return new SetUrlPacket(url);
             }
             return new SetUrlPacket("");
         }
-        return new SetUrlPacket(urlValue);
+        return new SetUrlPacket(url);
     }
 }
