@@ -91,7 +91,7 @@ public class AssortedTweaksNFixes {
                     Capabilities.FluidHandler.BLOCK,
                     type,
                     (be, dir) -> (dir == null || dir.getAxis().isHorizontal())
-                            ? new FurnaceFluidWrapper(be) : null
+                            ? new FurnaceFluidWrapper(be.getTankComponent()) : null
             );
             event.registerBlockEntity(
                     Capabilities.ItemHandler.BLOCK,
