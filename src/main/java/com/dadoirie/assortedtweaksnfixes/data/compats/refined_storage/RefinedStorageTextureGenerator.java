@@ -1,4 +1,4 @@
-    package com.dadoirie.assortedtweaksnfixes.data.refined_storage;
+    package com.dadoirie.assortedtweaksnfixes.data.compats.refined_storage;
 
     import javax.imageio.ImageIO;
     import java.awt.image.BufferedImage;

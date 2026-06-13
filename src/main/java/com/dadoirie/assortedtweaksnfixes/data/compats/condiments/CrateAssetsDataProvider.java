@@ -1,4 +1,4 @@
-package com.dadoirie.assortedtweaksnfixes.data.condiments;
+package com.dadoirie.assortedtweaksnfixes.data.compats.condiments;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

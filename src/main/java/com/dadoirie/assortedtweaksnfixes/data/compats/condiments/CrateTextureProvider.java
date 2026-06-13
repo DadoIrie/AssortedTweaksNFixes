@@ -1,4 +1,4 @@
-package com.dadoirie.assortedtweaksnfixes.data.condiments;
+package com.dadoirie.assortedtweaksnfixes.data.compats.condiments;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

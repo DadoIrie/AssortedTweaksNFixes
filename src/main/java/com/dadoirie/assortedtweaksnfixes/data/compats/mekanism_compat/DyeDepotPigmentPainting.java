@@ -1,4 +1,4 @@
-package com.dadoirie.assortedtweaksnfixes.data.mekanism_compat;
+package com.dadoirie.assortedtweaksnfixes.data.compats.mekanism_compat;
 
 import com.ninni.dye_depot.registry.DDDyes;
 import com.google.gson.Gson;

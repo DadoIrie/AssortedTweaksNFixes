@@ -1,15 +1,15 @@
 package com.dadoirie.assortedtweaksnfixes.data;
 
-import com.dadoirie.assortedtweaksnfixes.data.condiments.CrateAssetsDataProvider;
-import com.dadoirie.assortedtweaksnfixes.data.condiments.CrateTextureProvider;
+import com.dadoirie.assortedtweaksnfixes.data.compats.condiments.CrateAssetsDataProvider;
+import com.dadoirie.assortedtweaksnfixes.data.compats.condiments.CrateTextureProvider;
 import com.dadoirie.assortedtweaksnfixes.data.furnace_tank.FurnaceTankAssetsProvider;
-import com.dadoirie.assortedtweaksnfixes.data.mekanism_compat.DyeDepotPigmentPainting;
-import com.dadoirie.assortedtweaksnfixes.data.mekanism_compat.DyeDepotPigmentExtraction;
-import com.dadoirie.assortedtweaksnfixes.data.mekanism_compat.PigmentMixer;
-import com.dadoirie.assortedtweaksnfixes.data.mekanism_compat.PigmentMixerRemoval;
-import com.dadoirie.assortedtweaksnfixes.data.refined_storage.RefinedStorageAssetsGenerator;
-import com.dadoirie.assortedtweaksnfixes.data.refined_storage.RefinedStorageDataGenerator;
-import com.dadoirie.assortedtweaksnfixes.data.refined_storage.RefinedStorageTextureGenerator;
+import com.dadoirie.assortedtweaksnfixes.data.compats.mekanism_compat.DyeDepotPigmentPainting;
+import com.dadoirie.assortedtweaksnfixes.data.compats.mekanism_compat.DyeDepotPigmentExtraction;
+import com.dadoirie.assortedtweaksnfixes.data.compats.mekanism_compat.PigmentMixer;
+import com.dadoirie.assortedtweaksnfixes.data.compats.mekanism_compat.PigmentMixerRemoval;
+import com.dadoirie.assortedtweaksnfixes.data.compats.refined_storage.RefinedStorageAssetsGenerator;
+import com.dadoirie.assortedtweaksnfixes.data.compats.refined_storage.RefinedStorageDataGenerator;
+import com.dadoirie.assortedtweaksnfixes.data.compats.refined_storage.RefinedStorageTextureGenerator;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;

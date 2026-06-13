@@ -60,7 +60,6 @@ public class FurnaceTankAssetsProvider {
             generateBlockModel(variant, false);
             generateBlockModel(variant, true);
             generateItemModel(variant);
-            System.out.println("Generated furnace tank assets for: " + variant.id());
         }
     }
 
@@ -80,7 +79,7 @@ public class FurnaceTankAssetsProvider {
                     case "south" -> 180;
                     case "east"  -> 90;
                     case "west"  -> 270;
-                    default      -> 0; // north
+                    default      -> 0;
                 };
                 if (y != 0) entry.addProperty("y", y);
 
@@ -95,32 +94,17 @@ public class FurnaceTankAssetsProvider {
     private static void generateBlockModel(FurnaceVariant variant, boolean lit) throws IOException {
         JsonObject root = new JsonObject();
         root.addProperty("parent", "minecraft:block/block");
-        root.addProperty("render_type", "translucent");
 
-        // Textures
         JsonObject textures = new JsonObject();
         textures.addProperty("front", lit ? variant.frontOn() : variant.frontOff());
         textures.addProperty("side",  variant.side());
         textures.addProperty("top",   variant.top());
         textures.addProperty("bottom", variant.bottom());
-        textures.addProperty("glass", "minecraft:block/light_blue_stained_glass");
         textures.addProperty("particle", variant.side());
         root.add("textures", textures);
 
         JsonArray elements = new JsonArray();
-
-        // Main furnace cube
         elements.add(buildCube());
-
-        elements.add(buildGlassPane(-0.1f, 0f, 3f, 13f, 6f, 10f, "west"));
-        elements.add(buildGlassPane(16f, 16.1f, 3f, 13f, 6f, 10f, "east"));
-
-        // elements.add(buildGlassPane(-0.1f, 0f, 2f, 14f, 3f, 6f, "west"));
-        // elements.add(buildGlassPane(-0.1f, 0f, 2f, 14f, 10f, 13f, "west"));
-
-        // elements.add(buildGlassPane(16f, 16.1f, 2f, 14f, 3f, 6f, "east"));
-        // elements.add(buildGlassPane(16f, 16.1f, 2f, 14f, 10f, 13f, "east"));
-
         root.add("elements", elements);
 
         String suffix = lit ? "_on" : "";
@@ -141,20 +125,6 @@ public class FurnaceTankAssetsProvider {
         faces.add("down",  buildFace("#bottom", "down"));
         el.add("faces", faces);
 
-        return el;
-    }
-
-    private static JsonObject buildGlassPane(float x1, float x2, float y1, float y2, float z1, float z2, String face) {
-        JsonObject el = new JsonObject();
-        el.add("from", jsonArray(x1, y1, z1));
-        el.add("to",   jsonArray(x2, y2, z2));
-
-        JsonObject faces = new JsonObject();
-        JsonObject pane = new JsonObject();
-        pane.addProperty("texture", "#glass");
-        pane.add("uv", jsonArray(1, 1, 5, 15));
-        faces.add(face, pane);
-        el.add("faces", faces);
         return el;
     }
 

@@ -1,4 +1,4 @@
-package com.dadoirie.assortedtweaksnfixes.data.mekanism_compat;
+package com.dadoirie.assortedtweaksnfixes.data.compats.mekanism_compat;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
