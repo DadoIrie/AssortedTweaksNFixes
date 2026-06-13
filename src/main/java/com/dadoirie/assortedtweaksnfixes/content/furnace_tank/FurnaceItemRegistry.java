@@ -1,4 +1,4 @@
-package com.dadoirie.assortedtweaksnfixes.registry.furnace_tank;
+package com.dadoirie.assortedtweaksnfixes.content.furnace_tank;
 
 import com.dadoirie.assortedtweaksnfixes.AssortedTweaksNFixesConstants;
 import net.minecraft.core.registries.Registries;

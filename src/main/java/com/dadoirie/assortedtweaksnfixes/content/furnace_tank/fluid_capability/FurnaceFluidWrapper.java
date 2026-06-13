@@ -1,6 +1,6 @@
-package com.dadoirie.assortedtweaksnfixes.registry.furnace_tank.fluid_capability;
+package com.dadoirie.assortedtweaksnfixes.content.furnace_tank.fluid_capability;
 
-import com.dadoirie.assortedtweaksnfixes.registry.furnace_tank.entity.AbstractFurnaceTankBlockEntity;
+import com.dadoirie.assortedtweaksnfixes.content.furnace_tank.entity.AbstractFurnaceTankBlockEntity;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;

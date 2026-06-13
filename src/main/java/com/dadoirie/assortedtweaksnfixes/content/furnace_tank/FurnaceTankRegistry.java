@@ -1,14 +1,19 @@
-package com.dadoirie.assortedtweaksnfixes.registry.furnace_tank;
+package com.dadoirie.assortedtweaksnfixes.content.furnace_tank;
 
 import com.dadoirie.assortedtweaksnfixes.AssortedTweaksNFixesConstants;
-import com.dadoirie.assortedtweaksnfixes.registry.furnace_tank.block.BlastFurnaceTankBlock;
-import com.dadoirie.assortedtweaksnfixes.registry.furnace_tank.block.FurnaceTankBlock;
-import com.dadoirie.assortedtweaksnfixes.registry.furnace_tank.block.SmokerTankBlock;
-import com.dadoirie.assortedtweaksnfixes.registry.furnace_tank.entity.BlastFurnaceTankBlockEntity;
-import com.dadoirie.assortedtweaksnfixes.registry.furnace_tank.entity.FurnaceTankBlockEntity;
-import com.dadoirie.assortedtweaksnfixes.registry.furnace_tank.entity.SmokerTankBlockEntity;
+import com.dadoirie.assortedtweaksnfixes.content.furnace_tank.block.BlastFurnaceTankBlock;
+import com.dadoirie.assortedtweaksnfixes.content.furnace_tank.block.FurnaceTankBlock;
+import com.dadoirie.assortedtweaksnfixes.content.furnace_tank.block.SmokerTankBlock;
+import com.dadoirie.assortedtweaksnfixes.content.furnace_tank.entity.BlastFurnaceTankBlockEntity;
+import com.dadoirie.assortedtweaksnfixes.content.furnace_tank.entity.FurnaceTankBlockEntity;
+import com.dadoirie.assortedtweaksnfixes.content.furnace_tank.entity.SmokerTankBlockEntity;
+import com.dadoirie.assortedtweaksnfixes.content.furnace_tank.menu.BlastFurnaceTankMenu;
+import com.dadoirie.assortedtweaksnfixes.content.furnace_tank.menu.FurnaceTankMenu;
+import com.dadoirie.assortedtweaksnfixes.content.furnace_tank.menu.SmokerTankMenu;
 import com.mojang.datafixers.DSL;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -38,8 +43,20 @@ public class FurnaceTankRegistry {
             () -> BlockEntityType.Builder.of(SmokerTankBlockEntity::new, SMOKER_TANK.get())
                     .build(DSL.remainderType()));
 
+    public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, AssortedTweaksNFixesConstants.MOD_ID);
+
+    public static final DeferredHolder<MenuType<?>, MenuType<FurnaceTankMenu>> FURNACE_TANK_MENU = MENUS.register("furnace_tank",
+            () -> new MenuType<>(FurnaceTankMenu::new, FeatureFlags.DEFAULT_FLAGS));
+
+    public static final DeferredHolder<MenuType<?>, MenuType<BlastFurnaceTankMenu>> BLAST_FURNACE_TANK_MENU = MENUS.register("blast_furnace_tank",
+            () -> new MenuType<>(BlastFurnaceTankMenu::new, FeatureFlags.DEFAULT_FLAGS));
+
+    public static final DeferredHolder<MenuType<?>, MenuType<SmokerTankMenu>> SMOKER_TANK_MENU = MENUS.register("smoker_tank",
+            () -> new MenuType<>(SmokerTankMenu::new, FeatureFlags.DEFAULT_FLAGS));
+
     public static void register(IEventBus bus) {
         BLOCKS.register(bus);
         BLOCK_ENTITIES.register(bus);
+        MENUS.register(bus);
     }
 }

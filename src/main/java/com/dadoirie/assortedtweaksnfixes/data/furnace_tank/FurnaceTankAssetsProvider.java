@@ -112,8 +112,8 @@ public class FurnaceTankAssetsProvider {
         // Main furnace cube
         elements.add(buildCube());
 
-        elements.add(buildGlassPane(-0.1f, 0f, 2f, 14f, 6f, 10f, "west"));
-        elements.add(buildGlassPane(16f, 16.1f, 2f, 14f, 6f, 10f, "east"));
+        elements.add(buildGlassPane(-0.1f, 0f, 3f, 13f, 6f, 10f, "west"));
+        elements.add(buildGlassPane(16f, 16.1f, 3f, 13f, 6f, 10f, "east"));
 
         // elements.add(buildGlassPane(-0.1f, 0f, 2f, 14f, 3f, 6f, "west"));
         // elements.add(buildGlassPane(-0.1f, 0f, 2f, 14f, 10f, 13f, "west"));

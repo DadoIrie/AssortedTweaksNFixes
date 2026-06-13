@@ -2,10 +2,9 @@ package com.dadoirie.assortedtweaksnfixes;
 
 import com.dadoirie.assortedtweaksnfixes.compat.mekanism.DyeDepotCompat;
 import com.dadoirie.assortedtweaksnfixes.compat.yigd.DeathCharmCompat;
-import com.dadoirie.assortedtweaksnfixes.registry.furnace_tank.FurnaceItemRegistry;
-import com.dadoirie.assortedtweaksnfixes.registry.furnace_tank.FurnaceTankRegistry;
-import com.dadoirie.assortedtweaksnfixes.registry.furnace_tank.entity.AbstractFurnaceTankBlockEntity;
-import com.dadoirie.assortedtweaksnfixes.registry.furnace_tank.fluid_capability.FurnaceFluidWrapper;
+import com.dadoirie.assortedtweaksnfixes.content.furnace_tank.FurnaceItemRegistry;
+import com.dadoirie.assortedtweaksnfixes.content.furnace_tank.FurnaceTankRegistry;
+import com.dadoirie.assortedtweaksnfixes.content.furnace_tank.fluid_capability.FurnaceFluidWrapper;
 import com.dadoirie.assortedtweaksnfixes.tweaks.fluid.BrickFurnaceFluidWrapper;
 import de.cech12.brickfurnace.Constants;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -93,6 +92,13 @@ public class AssortedTweaksNFixes {
                     type,
                     (be, dir) -> (dir == null || dir.getAxis().isHorizontal())
                             ? new FurnaceFluidWrapper(be) : null
+            );
+            event.registerBlockEntity(
+                    Capabilities.ItemHandler.BLOCK,
+                    type,
+                    (be, dir) -> dir != null
+                            ? new net.neoforged.neoforge.items.wrapper.SidedInvWrapper(be, dir)
+                            : new net.neoforged.neoforge.items.wrapper.InvWrapper(be)
             );
         }
 

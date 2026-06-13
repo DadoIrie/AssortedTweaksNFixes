@@ -1,8 +1,8 @@
-    package com.dadoirie.assortedtweaksnfixes.registry.furnace_tank.block;
+    package com.dadoirie.assortedtweaksnfixes.content.furnace_tank.block;
 
-    import com.dadoirie.assortedtweaksnfixes.registry.furnace_tank.FurnaceTankRegistry;
-    import com.dadoirie.assortedtweaksnfixes.registry.furnace_tank.entity.AbstractFurnaceTankBlockEntity;
-    import com.dadoirie.assortedtweaksnfixes.registry.furnace_tank.entity.FurnaceTankBlockEntity;
+    import com.dadoirie.assortedtweaksnfixes.content.furnace_tank.FurnaceTankRegistry;
+    import com.dadoirie.assortedtweaksnfixes.content.furnace_tank.entity.AbstractFurnaceTankBlockEntity;
+    import com.dadoirie.assortedtweaksnfixes.content.furnace_tank.entity.FurnaceTankBlockEntity;
     import com.mojang.serialization.MapCodec;
     import com.mojang.serialization.codecs.RecordCodecBuilder;
     import net.minecraft.core.BlockPos;
