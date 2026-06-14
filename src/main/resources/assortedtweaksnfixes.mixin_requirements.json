@@ -134,21 +134,6 @@
       }
     }
   },
-  "puzzleslib.ConfigTranslationsManagerMixin": {
-    "enabled": true,
-    "puzzleslib": {
-      "version": {
-        "min": "21.1.39",
-        "max": ""
-      }
-    },
-    "server_translations_api": {
-      "version": {
-        "min": "2.3.1",
-        "max": ""
-      }
-    }
-  },
   "danger_close.SoulFiredMixin": {
     "enabled": true,
     "danger_close": {

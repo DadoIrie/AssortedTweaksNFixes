@@ -27,7 +27,6 @@
     "danger_close.SoulFiredMixin",
     "deathcharm.RestoreInventoryEventsMixin",
     "diagonalblocks.DiagonalBlockHandlerMixin",
-    "puzzleslib.ConfigTranslationsManagerMixin",
     "minecraft.BlockEntityTypeAccessor",
     "minecraft.AbstractFurnaceBlockEntityAccessor",
     "brickfurnace.AbstractBrickFurnaceBlockEntityMixin",

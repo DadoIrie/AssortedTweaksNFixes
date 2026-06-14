@@ -133,7 +133,6 @@ dependencies {
     compileOnlyApi("maven.modrinth:pops:${project.pop_version}")
     compileOnlyApi("maven.modrinth:blueprint:${project.blueprint_version}")
     compileOnlyApi("maven.modrinth:cloth-config:${project.cloth_config_version}")
-    compileOnlyApi("maven.modrinth:puzzles-lib:${project.puzzlesLib_version}")
     compileOnlyApi("maven.modrinth:recipe-modification:${project.recipe_modification_version}")
     compileOnlyApi("maven.modrinth:moonlight:${project.moonlight_version}")
     compileOnlyApi("maven.modrinth:condiments:${project.condiments_version}")
