@@ -133,6 +133,7 @@ dependencies {
     compileOnlyApi("maven.modrinth:pops:${project.pop_version}")
     compileOnlyApi("maven.modrinth:blueprint:${project.blueprint_version}")
     compileOnlyApi("maven.modrinth:cloth-config:${project.cloth_config_version}")
+    compileOnlyApi("maven.modrinth:puzzles-lib:${project.puzzlesLib_version}")
     compileOnlyApi("maven.modrinth:recipe-modification:${project.recipe_modification_version}")
     compileOnlyApi("maven.modrinth:moonlight:${project.moonlight_version}")
     compileOnlyApi("maven.modrinth:condiments:${project.condiments_version}")
@@ -151,6 +152,9 @@ dependencies {
     compileOnlyApi("maven.modrinth:held-item-tooltips:${project.held_item_tooltips_version}")
     compileOnlyApi("maven.modrinth:every-compat:${project.every_compat_version}")
     compileOnlyApi("maven.modrinth:brick-furnace:${project.brickfurnace_version}")
+
+    compileOnlyApi("curse.maven:kubejs-tweaks-1306367:7516288")
+    compileOnlyApi("curse.maven:variant-vanilla-blocks-866509:5703471")
 
     compileOnlyApi(files("libs/DiagonalBlocks-v21.1.2-1.21.1-NeoForge.jar"))
     compileOnlyApi(files("libs/server-translations-api-2.3.1+1.21-pre2.jar"))

@@ -173,6 +173,15 @@
       }
     }
   },
+  "minecraft.PoiTypesAccessor": {
+    "enabled": true,
+    "minecraft": {
+      "version": {
+        "min": "1.21.1",
+        "max": ""
+      }
+    }
+  },
   "minecraft.BlockEntityTypeAccessor": {
     "enabled": true,
     "minecraft": {
@@ -196,6 +205,66 @@
     "brickfurnace": {
       "version": {
         "min": "1.21.1",
+        "max": ""
+      }
+    }
+  },
+  "brickfurnace.CommonLoaderMixin": {
+    "enabled": true,
+    "brickfurnace": {
+      "version": {
+        "min": "1.21.1",
+        "max": ""
+      }
+    }
+  },
+  "kubejstweaks.TempResourceManagerMixin": {
+    "enabled": true,
+    "kubejstweaks": {
+      "version": {
+        "min": "1.0.6",
+        "max": ""
+      }
+    },
+    "excavated_variants": {
+      "version": {
+        "min": "4.3.1",
+        "max": ""
+      }
+    }
+  },
+  "neoforge.PoiTypeExtenderDebugMixin": {
+    "enabled": true,
+    "minecraft": {
+      "version": {
+        "min": "1.21.1",
+        "max": ""
+      }
+    }
+  },
+  "neoforge.PoiStateSetAccessor": {
+    "enabled": true,
+    "minecraft": {
+      "version": {
+        "min": "1.21.1",
+        "max": ""
+      }
+    }
+  },
+  "minecraft.PoiTypeMixin": {
+    "enabled": true,
+    "brickfurnace": {
+      "version": {
+        "min": "1.21.1",
+        "max": ""
+      }
+    }
+  },
+  "variantvanillablocks.ModPOITypesMixin": {
+    "enabled": true,
+    "variantvanillablocks": {
+      "version": {
+        "min": "2.1",
         "max": ""
       }
     }
