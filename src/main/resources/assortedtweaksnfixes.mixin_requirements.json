@@ -182,33 +182,6 @@
       }
     }
   },
-  "minecraft.BlockEntityTypeAccessor": {
-    "enabled": true,
-    "minecraft": {
-      "version": {
-        "min": "1.21.1",
-        "max": ""
-      }
-    }
-  },
-  "minecraft.AbstractFurnaceBlockEntityAccessor": {
-    "enabled": true,
-    "minecraft": {
-      "version": {
-        "min": "1.21.1",
-        "max": ""
-      }
-    }
-  },
-  "brickfurnace.AbstractBrickFurnaceBlockEntityMixin": {
-    "enabled": true,
-    "brickfurnace": {
-      "version": {
-        "min": "1.21.1",
-        "max": ""
-      }
-    }
-  },
   "brickfurnace.CommonLoaderMixin": {
     "enabled": true,
     "brickfurnace": {

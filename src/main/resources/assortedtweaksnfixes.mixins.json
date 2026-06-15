@@ -21,9 +21,7 @@
     "travelersbackpack.JukeboxWidgetMixin"
   ],
   "mixins": [
-    "brickfurnace.AbstractBrickFurnaceBlockEntityMixin",
     "brickfurnace.CommonLoaderMixin",
-    "brickfurnace.abstractbrickfurnaceblockentity.AbstractBrickFurnaceBlockEntityAccessor",
     "condiments.ModBlocksAddBlockMixin",
     "condiments.modblocksaddblock.CrateBlockGetByColorMixin",
     "condiments.modblocksaddblock.DyeDepotCrateMixin",
@@ -31,8 +29,6 @@
     "deathcharm.RestoreInventoryEventsMixin",
     "diagonalblocks.DiagonalBlockHandlerMixin",
     "kubejstweaks.TempResourceManagerMixin",
-    "minecraft.AbstractFurnaceBlockEntityAccessor",
-    "minecraft.BlockEntityTypeAccessor",
     "minecraft.PoiTypeAccessor",
     "minecraft.PoiTypesAccessor",
     "neoforge.PoiStateSetAccessor",
