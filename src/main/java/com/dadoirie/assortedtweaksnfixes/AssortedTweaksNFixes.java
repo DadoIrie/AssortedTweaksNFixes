@@ -2,9 +2,6 @@ package com.dadoirie.assortedtweaksnfixes;
 
 import com.dadoirie.assortedtweaksnfixes.compat.mekanism.DyeDepotCompat;
 import com.dadoirie.assortedtweaksnfixes.compat.yigd.DeathCharmCompat;
-import com.dadoirie.assortedtweaksnfixes.content.furnace_tank.FurnaceItemRegistry;
-import com.dadoirie.assortedtweaksnfixes.content.furnace_tank.FurnaceTankRegistry;
-import com.dadoirie.assortedtweaksnfixes.content.furnace_tank.fluid_capability.FurnaceFluidWrapper;
 import com.dadoirie.assortedtweaksnfixes.tweaks.fluid.BrickFurnaceFluidWrapper;
 import de.cech12.brickfurnace.Constants;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -37,20 +34,8 @@ public class AssortedTweaksNFixes {
     private static final boolean IS_DEDICATED_SERVER = FMLEnvironment.dist.isDedicatedServer();
     private static final Logger LOGGER = AssortedTweaksNFixesConstants.getLogger(AssortedTweaksNFixes.class);
 
-    private static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, AssortedTweaksNFixesConstants.MOD_ID);
-
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MAIN_TAB = CREATIVE_TABS.register("main_tab", () -> CreativeModeTab.builder()
-            .title(Component.translatable("itemGroup." + AssortedTweaksNFixesConstants.MOD_ID))
-            .icon(() -> new ItemStack(Items.LAVA_BUCKET))
-            .build());
-
     public AssortedTweaksNFixes(IEventBus modEventBus) {
         LOGGER.info("AssortedTweaksNFixes loaded on {}", IS_DEDICATED_SERVER ? "dedicated server" : "client");
-
-        CREATIVE_TABS.register(modEventBus);
-
-        FurnaceTankRegistry.register(modEventBus);
-        FurnaceItemRegistry.register(modEventBus);
 
         if (ModList.get().isLoaded("mekanism") && ModList.get().isLoaded("dye_depot")) {
             if (!ModList.get().isLoaded("recipe_modification")) {
@@ -62,7 +47,6 @@ public class AssortedTweaksNFixes {
         if (ModList.get().isLoaded("everycomp") || ModList.get().isLoaded("stonezone")) {
             modEventBus.addListener(AssortedTweaksNFixes::onRegisterCapabilities);
         }
-        modEventBus.addListener(AssortedTweaksNFixes::onRegisterFurnaceCapabilities);
         DeathCharmCompat.init();
     }
 
@@ -78,42 +62,6 @@ public class AssortedTweaksNFixes {
                     "net.mehvahdjukaar.stone_zone.common_classes.CompatChestBlock",
                     "net.mehvahdjukaar.stone_zone.common_classes.CompatTrappedChestBlock"
             );
-        }
-    }
-
-    static void onRegisterFurnaceCapabilities(RegisterCapabilitiesEvent event) {
-        for (var type : List.of(
-                FurnaceTankRegistry.FURNACE_TANK_ENTITY.get(),
-                FurnaceTankRegistry.BLAST_FURNACE_TANK_ENTITY.get(),
-                FurnaceTankRegistry.SMOKER_TANK_ENTITY.get())) {
-
-            event.registerBlockEntity(
-                    Capabilities.FluidHandler.BLOCK,
-                    type,
-                    (be, dir) -> (dir == null || dir.getAxis().isHorizontal())
-                            ? new FurnaceFluidWrapper(be.getTankComponent()) : null
-            );
-            event.registerBlockEntity(
-                    Capabilities.ItemHandler.BLOCK,
-                    type,
-                    (be, dir) -> dir != null
-                            ? new net.neoforged.neoforge.items.wrapper.SidedInvWrapper(be, dir)
-                            : new net.neoforged.neoforge.items.wrapper.InvWrapper(be)
-            );
-        }
-
-        if (ModList.get().isLoaded("brickfurnace")) {
-            for (var supplier : List.of(
-                    Constants.BRICK_FURNACE_BLOCK_ENTITY_TYPE,
-                    Constants.BRICK_BLAST_FURNACE_BLOCK_ENTITY_TYPE,
-                    Constants.BRICK_SMOKER_BLOCK_ENTITY_TYPE)) {
-                event.registerBlockEntity(
-                        Capabilities.FluidHandler.BLOCK,
-                        supplier.get(),
-                        (be, dir) -> dir == null || dir.getAxis().isHorizontal()
-                                ? new BrickFurnaceFluidWrapper(be) : null
-                );
-            }
         }
     }
 
