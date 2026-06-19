@@ -37,7 +37,7 @@ public final class KeybindHandler {
     private static KeybindHandler instance;
 
     private List<Pattern> hiddenKeyPatterns = new ArrayList<>();
-    private Map<String, String> syncs = new LinkedHashMap<>();
+    private final Map<String, String> syncs = new LinkedHashMap<>();
 
     public static KeybindHandler getInstance() {
         if (instance == null) instance = new KeybindHandler();

@@ -5,6 +5,7 @@ import dev.uncandango.kubejstweaks.kubejs.event.PreRecipeEventJS;
 import com.dadoirie.assortedtweaksnfixes.mixin.kubejstweaks.prerecipeeventjs.PreRecipeEventJSAccessor;
 import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -17,6 +18,7 @@ import java.util.stream.Stream;
 @Mixin(value = PreRecipeEventJS.class, remap = false)
 public abstract class PreRecipeEventJSMixin {
 
+    @Unique
     private Stream<PreRecipeEventJS.RecipeEntry> assortedtweaksnfixes$safeFilter(Predicate<PreRecipeEventJS.RecipeEntry> predicate) {
         Map<ResourceLocation, JsonElement> recipeJsons = ((PreRecipeEventJSAccessor) this).assortedtweaksnfixes$getRecipeJsons();
         return recipeJsons.entrySet().stream()
