@@ -152,12 +152,26 @@ dependencies {
     compileOnlyApi("maven.modrinth:held-item-tooltips:${project.held_item_tooltips_version}")
     compileOnlyApi("maven.modrinth:every-compat:${project.every_compat_version}")
     compileOnlyApi("maven.modrinth:brick-furnace:${project.brickfurnace_version}")
+    compileOnlyApi("maven.modrinth:additional-placements:${project.additional_placements_version}")
+
+    compileOnlyApi zipTree(configurations.detachedConfiguration(
+            dependencies.create("maven.modrinth:better-controls:${project.better_controls_version}")
+    ).singleFile).matching { include "jars/BetterControls-NeoForge.jar" }
+
+    compileOnlyApi zipTree(configurations.detachedConfiguration(
+            dependencies.create("maven.modrinth:diagonal-walls:${project.diagonal_walls_version}")
+    ).singleFile).matching { include "META-INF/jars/diagonalblocks-neoforge-21.1.2.jar" }
+
+    compileOnlyApi zipTree(configurations.detachedConfiguration(
+            dependencies.create("maven.modrinth:sleep-warp-updated:${project.sleep_warp_updated_version}")
+    ).singleFile).matching { include "META-INF/jars/server-translations-api-2.3.1+1.21-pre2.jar" }
 
     compileOnlyApi("curse.maven:kubejs-tweaks-1306367:7516288")
     compileOnlyApi("curse.maven:variant-vanilla-blocks-866509:5703471")
+    compileOnlyApi("curse.maven:keybinding-hider-1129419:7670685")
 
-    compileOnlyApi(files("libs/DiagonalBlocks-v21.1.2-1.21.1-NeoForge.jar"))
-    compileOnlyApi(files("libs/server-translations-api-2.3.1+1.21-pre2.jar"))
+    // compileOnlyApi(files("libs/DiagonalBlocks-v21.1.2-1.21.1-NeoForge.jar"))
+    // compileOnlyApi(files("libs/server-translations-api-2.3.1+1.21-pre2.jar"))
 
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime

@@ -15,12 +15,18 @@
     "accessories.removecosmeticbutton.ShiftRightClickToggleMixin",
     "etched.EtchingScreenMixin",
     "helditemtooltips.HoverTextManagerMixin",
+    "minecraft.FreeCamMixin",
     "minecraft.GameOptionsMixin",
+    "minecraft.KeyBindsListMixin",
+    "minecraft.freecam.MouseHandlerMixin",
     "minecraft.gameoptions.KeyMappingAllAccessor",
+    "minecraft.keybindslist.KeyEntryAccessor",
     "pop.FadeInFadeOutRenderMixin",
-    "travelersbackpack.JukeboxWidgetMixin"
+    "travelersbackpack.JukeboxWidgetMixin",
+    "additionalplacements.ClientModEventsMixin"
   ],
   "mixins": [
+
     "brickfurnace.CommonLoaderMixin",
     "condiments.ModBlocksAddBlockMixin",
     "condiments.modblocksaddblock.CrateBlockGetByColorMixin",
@@ -28,9 +34,12 @@
     "danger_close.SoulFiredMixin",
     "deathcharm.RestoreInventoryEventsMixin",
     "diagonalblocks.DiagonalBlockHandlerMixin",
+    "kubejstweaks.PreRecipeEventJSMixin",
     "kubejstweaks.TempResourceManagerMixin",
+    "kubejstweaks.prerecipeeventjs.PreRecipeEventJSAccessor",
     "minecraft.PoiTypeAccessor",
     "minecraft.PoiTypesAccessor",
+    "minecraft.ReversePlacementMixin",
     "neoforge.PoiStateSetAccessor",
     "neoforge.PoiTypeExtenderDebugMixin",
     "variantvanillablocks.ModPOITypesMixin"

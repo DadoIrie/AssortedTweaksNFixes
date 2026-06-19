@@ -1,37 +1,35 @@
 package com.dadoirie.assortedtweaksnfixes.mixin.helditemtooltips;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import dev.chililisoup.condiments.block.entity.CrateContents;
 import dev.chililisoup.condiments.item.CrateItem;
+import fuzs.helditemtooltips.client.gui.screens.inventory.tooltip.HoverTextManager;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 import java.util.Optional;
 
-@Mixin(fuzs.helditemtooltips.client.gui.screens.inventory.tooltip.HoverTextManager.class)
-public class HoverTextManagerMixin {
+@Mixin(HoverTextManager.class)
+public abstract class HoverTextManagerMixin {
 
-    @Inject(method = "getTooltipLines", at = @At("RETURN"))
-    private static void modifyCrateItemName(ItemStack itemStack, Level level, int maxLines, CallbackInfoReturnable<List<Component>> cir) {
-        if (itemStack.getItem() instanceof CrateItem) {
+    @ModifyReturnValue(
+            method = "getTooltipLines",
+            at = @At("RETURN")
+    )
+    private static List<Component> assortedtweaksnfixes$modifyCrateTooltip(List<Component> original, ItemStack itemStack, Level level, int maxLines) {
+        if (itemStack.getItem() instanceof CrateItem && original.size() >= 2) {
             CrateContents crateContents = CrateContents.fromCrateItem(itemStack);
-            Optional<ItemStack> containedItem = crateContents.item();
-            
-            if (containedItem.isPresent() && !containedItem.get().is(Items.AIR)) {
-                List<Component> tooltipLines = cir.getReturnValue();
-                if (!tooltipLines.isEmpty()) {
-                    Component originalName = tooltipLines.getFirst();
-                    MutableComponent modifiedName = Component.literal(originalName.getString() + " (" + containedItem.get().getHoverName().getString() + ")");
-                    tooltipLines.set(0, modifiedName);
-                }
+            Optional<ItemStack> contained = crateContents.item();
+            if (contained.isPresent() && !contained.get().is(Items.AIR)) {
+                original.set(1, original.get(1).copy().append(" ").append(contained.get().getHoverName().copy().withStyle(ChatFormatting.WHITE)));
             }
         }
+        return original;
     }
 }

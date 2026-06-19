@@ -47,7 +47,7 @@ public abstract class ModPOITypesMixin {
         Holder<PoiType> holder = poiStatesToType.values().stream()
                 .filter(h -> h.unwrapKey().map(k -> k.equals(poiTypeKey)).orElse(false))
                 .findFirst()
-                .orElseThrow();
+                .orElseThrow(() -> new IllegalStateException("POI holder not found: " + poiTypeKey));
 
         PoiType poiType = holder.value();
         Set<BlockState> addedStates = new HashSet<>();

@@ -206,6 +206,15 @@
       }
     }
   },
+  "kubejstweaks.PreRecipeEventJSMixin": {
+    "enabled": true,
+    "kubejstweaks": {
+      "version": {
+        "min": "1.0.6",
+        "max": ""
+      }
+    }
+  },
   "neoforge.PoiTypeExtenderDebugMixin": {
     "enabled": true,
     "minecraft": {
@@ -238,6 +247,48 @@
     "variantvanillablocks": {
       "version": {
         "min": "2.1",
+        "max": ""
+      }
+    }
+  },
+  "minecraft.KeyBindsListMixin": {
+    "enabled": true,
+    "minecraft": {
+      "version": {
+        "min": "1.21.1",
+        "max": ""
+      }
+    }
+  },
+  "minecraft.FreeCamMixin": {
+    "enabled": true,
+    "minecraft": {
+      "version": {
+        "min": "1.21.1",
+        "max": ""
+      }
+    }
+  },
+  "minecraft.ReversePlacementMixin": {
+    "enabled": true,
+    "minecraft": {
+      "version": {
+        "min": "1.21.1",
+        "max": ""
+      }
+    }
+  },
+  "additionalplacements.ClientModEventsMixin": {
+    "enabled": true,
+    "additionalplacements": {
+      "version": {
+        "min": "3.0.1",
+        "max": ""
+      }
+    },
+    "condiments": {
+      "version": {
+        "min": "1.4.9",
         "max": ""
       }
     }
