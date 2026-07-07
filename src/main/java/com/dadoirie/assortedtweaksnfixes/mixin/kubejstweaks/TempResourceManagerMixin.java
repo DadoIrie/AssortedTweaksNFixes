@@ -17,9 +17,9 @@ public abstract class TempResourceManagerMixin {
             argsOnly = true,
             ordinal = 0
     )
-
     private static List<PackResources> filterPacksEarly(List<PackResources> packs) {
-        packs.removeIf(pack -> pack.packId().contains("excavated_variants"));
-        return packs;
+        return packs.stream()
+                .filter(pack -> !pack.packId().contains("excavated_variants"))
+                .toList();
     }
 }

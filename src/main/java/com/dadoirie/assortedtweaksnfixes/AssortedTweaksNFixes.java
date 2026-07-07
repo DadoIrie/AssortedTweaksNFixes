@@ -2,14 +2,9 @@ package com.dadoirie.assortedtweaksnfixes;
 
 import com.dadoirie.assortedtweaksnfixes.compat.mekanism.DyeDepotCompat;
 import com.dadoirie.assortedtweaksnfixes.compat.yigd.DeathCharmCompat;
-import com.dadoirie.assortedtweaksnfixes.tweaks.fluid.BrickFurnaceFluidWrapper;
-import de.cech12.brickfurnace.Constants;
+import com.dadoirie.assortedtweaksnfixes.content.FullThirstDrinkBlocker;
+import com.dadoirie.assortedtweaksnfixes.content.HeatThirstHandler;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.neoforged.bus.api.IEventBus;
@@ -21,8 +16,6 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
 import net.player005.recipe_modification.serialization.RecipeModifierManager;
 import org.slf4j.Logger;
 
@@ -47,6 +40,14 @@ public class AssortedTweaksNFixes {
         if (ModList.get().isLoaded("everycomp") || ModList.get().isLoaded("stonezone")) {
             modEventBus.addListener(AssortedTweaksNFixes::onRegisterCapabilities);
         }
+
+        if (ModList.get().isLoaded("thirst")) {
+            NeoForge.EVENT_BUS.register(FullThirstDrinkBlocker.class);
+            if (ModList.get().isLoaded("create")) {
+                NeoForge.EVENT_BUS.register(HeatThirstHandler.class);
+            }
+        }
+
         DeathCharmCompat.init();
     }
 

@@ -44,6 +44,15 @@
       }
     }
   },
+  "accessories.FixLayoutZIndexMixin": {
+    "enabled": true,
+    "accessories": {
+      "version": {
+        "min": "1.1.0",
+        "max": ""
+      }
+    }
+  },
   "etched.EtchingScreenMixin": {
     "enabled": true,
     "etched": {
@@ -278,6 +287,33 @@
       }
     }
   },
+  "minecraft.KeyBindsListKeyEntryMixin": {
+    "enabled": true,
+    "minecraft": {
+      "version": {
+        "min": "1.21.1",
+        "max": ""
+      }
+    }
+  },
+  "controlling.NewKeyBindsListKeyEntryMixin": {
+    "enabled": true,
+    "controlling": {
+      "version": {
+        "min": "19.0.5",
+        "max": ""
+      }
+    }
+  },
+  "controlling.NewKeyBindsListMixin": {
+    "enabled": true,
+    "controlling": {
+      "version": {
+        "min": "19.0.5",
+        "max": ""
+      }
+    }
+  },
   "additionalplacements.ClientModEventsMixin": {
     "enabled": true,
     "additionalplacements": {
@@ -289,6 +325,117 @@
     "condiments": {
       "version": {
         "min": "1.4.9",
+        "max": ""
+      }
+    }
+  },
+  "computercraft.EMIComputerCraftDedupRegistryMixin": {
+    "enabled": true,
+    "computercraft": {
+      "version": {
+        "min": "1.120.0",
+        "max": ""
+      }
+    },
+    "emi": {
+      "version": {
+        "min": "1.1.24",
+        "max": ""
+      }
+    }
+  },
+  "stylisheffects.AbstractEffectRendererMixin": {
+    "enabled": true,
+    "stylisheffects": {
+      "version": {
+        "min": "21.1.2",
+        "max": ""
+      }
+    }
+  },
+  "stylisheffects.AccessoriesEffectRendererZOffsetMixin": {
+    "enabled": true,
+    "stylisheffects": {
+      "version": {
+        "min": "21.1.2",
+        "max": ""
+      }
+    },
+    "accessories": {
+      "version": {
+        "min": "1.1.0",
+        "max": ""
+      }
+    }
+  },
+  "prettybeaches.FloodingManagerMixin": {
+    "enabled": true,
+    "prettybeaches": {
+      "version": {
+        "min": "21.1.3",
+        "max": ""
+      }
+    }
+  },
+  "technonw.BankCardPaymentServiceMixin": {
+    "enabled": true,
+    "technonw": {
+      "version": {
+        "min": "1.1.0",
+        "max": ""
+      }
+    }
+  },
+  "fasttravelwaypoints.WaystoneMapTpModMixin": {
+    "enabled": true,
+    "technonw": {
+      "version": {
+        "min": "1.1.0",
+        "max": ""
+      }
+    },
+    "fast_travel_waypoints": {
+      "version": {
+        "min": "1.3.1",
+        "max": ""
+      }
+    }
+  },
+  "betteradvancements.BAScreenZoomMixin": {
+    "enabled": true,
+    "betteradvancements": {
+      "version": {
+        "min": "0.4.3",
+        "max": ""
+      }
+    }
+  },
+  "petrochem.SmallEngineBlockEntityMixin": {
+    "enabled": true,
+    "petrochem": {
+      "version": {
+        "min": "1.2.1",
+        "max": ""
+      }
+    },
+    "create": {
+      "version": {
+        "min": "6.0.10",
+        "max": ""
+      }
+    }
+  },
+  "petrochem.MediumEngineBlockEntityMixin": {
+    "enabled": true,
+    "petrochem": {
+      "version": {
+        "min": "1.2.1",
+        "max": ""
+      }
+    },
+    "create": {
+      "version": {
+        "min": "6.0.10",
         "max": ""
       }
     }
