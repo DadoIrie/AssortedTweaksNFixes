@@ -166,6 +166,8 @@ dependencies {
     compileOnlyApi("maven.modrinth:better-advancements:${project.better_advancements_version}")
     compileOnlyApi("maven.modrinth:biolith:${project.biolith_version}")
     compileOnlyApi("maven.modrinth:thirst-was-reclaimed:${project.thirst_relaimed_version}")
+    compileOnlyApi("maven.modrinth:create-electro-energetics:${create_electro_energetics_version}")
+    compileOnlyApi("maven.modrinth:jei:${jei_version}")
 
     compileOnlyApi zipTree(configurations.detachedConfiguration(
             dependencies.create("maven.modrinth:better-controls:${project.better_controls_version}")

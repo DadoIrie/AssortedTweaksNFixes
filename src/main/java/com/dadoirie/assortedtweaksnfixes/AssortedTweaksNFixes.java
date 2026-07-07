@@ -1,5 +1,6 @@
 package com.dadoirie.assortedtweaksnfixes;
 
+import com.dadoirie.assortedtweaksnfixes.compat.electroenergetics.ATNFSimulatedDevices;
 import com.dadoirie.assortedtweaksnfixes.compat.mekanism.DyeDepotCompat;
 import com.dadoirie.assortedtweaksnfixes.compat.yigd.DeathCharmCompat;
 import com.dadoirie.assortedtweaksnfixes.content.FullThirstDrinkBlocker;
@@ -48,6 +49,9 @@ public class AssortedTweaksNFixes {
             }
         }
 
+        if (ModList.get().isLoaded("petrochem") && ModList.get().isLoaded("electroenergetics")) {
+            ATNFSimulatedDevices.register(modEventBus);
+        }
         DeathCharmCompat.init();
     }
 

@@ -439,5 +439,50 @@
         "max": ""
       }
     }
+  },
+  "petrochem.ElectrolyzerBlockEntityMixin": {
+    "enabled": true,
+    "petrochem": {
+      "version": {
+        "min": "1.2.1",
+        "max": ""
+      }
+    },
+    "electroenergetics": {
+      "version": {
+        "min": "1.21.1",
+        "max": ""
+      }
+    }
+  },
+  "petrochem.ElectrolyzerBlockMixin": {
+    "enabled": true,
+    "petrochem": {
+      "version": {
+        "min": "1.2.1",
+        "max": ""
+      }
+    },
+    "electroenergetics": {
+      "version": {
+        "min": "1.21.1",
+        "max": ""
+      }
+    }
+  },
+  "petrochem.ElectrolyzingCategoryMixin": {
+    "enabled": true,
+    "petrochem": {
+      "version": {
+        "min": "1.2.1",
+        "max": ""
+      }
+    },
+    "electroenergetics": {
+      "version": {
+        "min": "1.21.1",
+        "max": ""
+      }
+    }
   }
 }
