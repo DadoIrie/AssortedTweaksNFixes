@@ -87,6 +87,33 @@ config="${mod_id}.mixins.json"
     ordering="NONE"
     side="CLIENT"
 
+[[dependencies.assortedtweaksnfixes]]
+    modId="petrochem"
+    type="optional"
+    versionRange="[1.2.1,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.assortedtweaksnfixes]]
+    modId="mekanism"
+    type="optional"
+    versionRange="[10.7.19,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.assortedtweaksnfixes]]
+    modId="refinedstorage"
+    type="optional"
+    versionRange="[2.0.9,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.assortedtweaksnfixes]]
+    modId="condiments"
+    type="optional"
+    versionRange="[1.4.8,)"
+    ordering="AFTER"
+    side="BOTH"
 # Features are specific properties of the game environment, that you may want to declare you require. This example declares
 # that your mod requires GL version 3.2 or higher. Other features will be added. They are side aware so declaring this won't
 # stop your mod loading on the server for example.

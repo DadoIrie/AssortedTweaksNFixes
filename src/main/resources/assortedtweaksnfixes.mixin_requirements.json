@@ -440,7 +440,7 @@
       }
     }
   },
-  "petrochem.ElectrolyzerBlockEntityMixin": {
+  "petrochem.VoltedElectrolyzerMixin": {
     "enabled": true,
     "petrochem": {
       "version": {
@@ -455,7 +455,7 @@
       }
     }
   },
-  "petrochem.ElectrolyzerBlockMixin": {
+  "petrochem.voltedelectrolyzer.ElectrolyzingCategoryMixin": {
     "enabled": true,
     "petrochem": {
       "version": {
@@ -466,11 +466,17 @@
     "electroenergetics": {
       "version": {
         "min": "1.21.1",
+        "max": ""
+      }
+    },
+    "jei": {
+      "version": {
+        "min": "19.27.0",
         "max": ""
       }
     }
   },
-  "petrochem.ElectrolyzingCategoryMixin": {
+  "petrochem.voltedelectrolyzer.KubeJSPetrochemPluginMixin": {
     "enabled": true,
     "petrochem": {
       "version": {
@@ -481,6 +487,66 @@
     "electroenergetics": {
       "version": {
         "min": "1.21.1",
+        "max": ""
+      }
+    },
+    "kubejs": {
+      "version": {
+        "min": "2101.7.2",
+        "max": ""
+      }
+    }
+  },
+  "incontrol.SpawnRuleMixin": {
+    "enabled": true,
+    "incontrol": {
+      "version": {
+        "min": "1.21",
+        "max": ""
+      }
+    }
+  },
+  "incontrol.SpawnerSystemMixin": {
+    "enabled": true,
+    "incontrol": {
+      "version": {
+        "min": "1.21",
+        "max": ""
+      }
+    },
+    "dataanchor": {
+      "version": {
+        "min": "2.0.0",
+        "max": ""
+      }
+    }
+  },
+  "railwaysuntold_additions.SafetyZoneServerEventsMixin": {
+    "enabled": true,
+    "railwaysuntold_additions": {
+      "version": {
+        "min": "1.0.1",
+        "max": "1.0.1"
+      }
+    }
+  },
+  "create.HeatJsRegisterFixMixin": {
+    "enabled": true,
+    "create": {
+      "version": {
+        "min": "6.0.10",
+        "max": ""
+      }
+    },
+    "kubejs": {
+      "version": {
+        "min": "2101.7.2",
+        "max": ""
+      }
+    },
+    "sliceanddice": {
+      "version": {
+        "min": "4.3.2",
         "max": ""
       }
     }

@@ -6,9 +6,12 @@ import com.dadoirie.assortedtweaksnfixes.data.compats.mekanism_compat.DyeDepotPi
 import com.dadoirie.assortedtweaksnfixes.data.compats.mekanism_compat.DyeDepotPigmentExtraction;
 import com.dadoirie.assortedtweaksnfixes.data.compats.mekanism_compat.PigmentMixer;
 import com.dadoirie.assortedtweaksnfixes.data.compats.mekanism_compat.PigmentMixerRemoval;
+import com.dadoirie.assortedtweaksnfixes.data.compats.petrochem.ElectrolyzingRecipeGenerator;
 import com.dadoirie.assortedtweaksnfixes.data.compats.refined_storage.RefinedStorageAssetsGenerator;
 import com.dadoirie.assortedtweaksnfixes.data.compats.refined_storage.RefinedStorageDataGenerator;
 import com.dadoirie.assortedtweaksnfixes.data.compats.refined_storage.RefinedStorageTextureGenerator;
+import com.dadoirie.assortedtweaksnfixes.data.content.HammerAssetsGenerator;
+import com.dadoirie.assortedtweaksnfixes.data.content.HammerDataGenerator;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -43,6 +46,8 @@ public class ModDataGenerators {
 
     public static void init() throws IOException {
         System.out.println("Starting data generation...");
+        ATNFLangGenerator.run();
+
         generateOverlayPackMcmeta();
         PigmentMixerRemoval.removeMekanismNamespacePigmentMixing();
 
@@ -59,6 +64,13 @@ public class ModDataGenerators {
         CrateTextureProvider.run();
         CrateAssetsDataProvider.run();
         addCondimentsOverlayEntry();
+
+        ElectrolyzingRecipeGenerator.run();
+        addPetrochemElectroenergeticsOverlayEntry();
+
+        HammerAssetsGenerator.run();
+        HammerDataGenerator.run();
+        addHammerOverlayEntry();
 
         savePackMcmeta();
 
@@ -148,6 +160,63 @@ public class ModDataGenerators {
 
         entry.add("neoforge:conditions", conditions);
         entry.addProperty("directory", "overlay_con_dd");
+
+        JsonArray formats = new JsonArray();
+        formats.add(0);
+        formats.add(2147483647);
+        entry.add("formats", formats);
+
+        entries.add(entry);
+    }
+
+    private static void addPetrochemElectroenergeticsOverlayEntry() {
+        JsonObject overlays = currentPackMcmeta.getAsJsonObject("overlays");
+        JsonArray entries = overlays.getAsJsonArray("entries");
+
+        JsonObject entry = new JsonObject();
+        JsonArray conditions = new JsonArray();
+        JsonObject pc = new JsonObject();
+        pc.addProperty("type", "neoforge:mod_loaded");
+        pc.addProperty("modid", "petrochem");
+        conditions.add(pc);
+        JsonObject ee = new JsonObject();
+        ee.addProperty("type", "neoforge:mod_loaded");
+        ee.addProperty("modid", "electroenergetics");
+        conditions.add(ee);
+
+        entry.add("neoforge:conditions", conditions);
+        entry.addProperty("directory", "overlay_pc_ee");
+
+        JsonArray formats = new JsonArray();
+        formats.add(0);
+        formats.add(2147483647);
+        entry.add("formats", formats);
+
+        entries.add(entry);
+    }
+
+    private static void addHammerOverlayEntry() {
+        JsonObject overlays = currentPackMcmeta.getAsJsonObject("overlays");
+        JsonArray entries = overlays.getAsJsonArray("entries");
+
+        JsonObject entry = new JsonObject();
+        JsonArray conditions = new JsonArray();
+
+        JsonObject notCdg = new JsonObject();
+        notCdg.addProperty("type", "neoforge:not");
+        JsonObject cdgLoaded = new JsonObject();
+        cdgLoaded.addProperty("type", "neoforge:mod_loaded");
+        cdgLoaded.addProperty("modid", "createdieselgenerators");
+        notCdg.add("value", cdgLoaded);
+        conditions.add(notCdg);
+
+        JsonObject createLoaded = new JsonObject();
+        createLoaded.addProperty("type", "neoforge:mod_loaded");
+        createLoaded.addProperty("modid", "create");
+        conditions.add(createLoaded);
+
+        entry.add("neoforge:conditions", conditions);
+        entry.addProperty("directory", "overlay_hammer");
 
         JsonArray formats = new JsonArray();
         formats.add(0);

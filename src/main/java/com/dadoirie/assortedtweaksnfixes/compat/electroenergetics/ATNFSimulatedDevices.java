@@ -8,10 +8,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-/**
- * Registers ATNF's simulated device types into CEE's open registry.
- * Only classload this when both "electroenergetics" and "petrochem" are present.
- */
 public class ATNFSimulatedDevices {
 
     private static final DeferredRegister<SimulatedDeviceType<?>> DEVICES =

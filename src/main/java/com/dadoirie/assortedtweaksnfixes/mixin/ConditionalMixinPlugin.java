@@ -291,10 +291,10 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         int mixinIdx = mixinClassName.indexOf(".mixin.");
-        String mixinPath = mixinIdx >= 0 
-            ? mixinClassName.substring(mixinIdx + ".mixin.".length()) 
-            : mixinClassName.substring(mixinClassName.lastIndexOf('.') + 1);
-        
+        String mixinPath = mixinIdx >= 0
+                ? mixinClassName.substring(mixinIdx + ".mixin.".length())
+                : mixinClassName.substring(mixinClassName.lastIndexOf('.') + 1);
+
         String parentMixin = COUPLED_CHILDREN.get(mixinPath);
         if (parentMixin != null) {
             Boolean parentEnabled = MIXIN_CONFIG.get(parentMixin);
@@ -309,24 +309,61 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
                     }
                 }
             }
+
             String childClassName = mixinPath.substring(mixinPath.lastIndexOf('.') + 1);
+
+            Map<String, VersionConstraint> childRequirements = REQUIRED_MODS.get(mixinPath);
+            if (childRequirements != null) {
+                Boolean childEnabled = MIXIN_ENABLED.get(mixinPath);
+                if (childEnabled != null && !childEnabled) {
+                    LOGGER.info("skipping coupled child {} of parent {} (disabled for triage)", childClassName, parentMixin);
+                    return false;
+                }
+
+                for (Map.Entry<String, VersionConstraint> entry : childRequirements.entrySet()) {
+                    String modId = entry.getKey();
+                    VersionConstraint constraint = entry.getValue();
+
+                    if (isModMissing(modId)) {
+                        LOGGER.info("skipping coupled child {} of parent {} (requires mod '{}' which is not loaded)", childClassName, parentMixin, modId);
+                        return false;
+                    }
+
+                    String currentVersion = getModVersion(modId);
+                    if (currentVersion == null) {
+                        LOGGER.info("skipping coupled child {} of parent {} (cannot determine version of mod '{}')", childClassName, parentMixin, modId);
+                        return false;
+                    }
+
+                    if (constraint.min != null && compareVersions(currentVersion, constraint.min) < 0) {
+                        LOGGER.info("skipping coupled child {} of parent {} (mod '{}' version {} is below minimum {})", childClassName, parentMixin, modId, currentVersion, constraint.min);
+                        return false;
+                    }
+
+                    if (constraint.max != null && compareVersions(currentVersion, constraint.max) > 0) {
+                        LOGGER.info("skipping coupled child {} of parent {} (mod '{}' version {} is above maximum {})", childClassName, parentMixin, modId, currentVersion, constraint.max);
+                        return false;
+                    }
+                }
+            }
+
             LOGGER.info("applying coupled child {} of parent {}", childClassName, parentMixin);
             return true;
         }
-        
+
         Map<String, VersionConstraint> modConstraints = REQUIRED_MODS.get(mixinPath);
         if (modConstraints == null) {
             LOGGER.info("skipping {} (not in requirements json)", mixinPath);
             return false;
         }
-        
+
         // Check if mixin is enabled in JSON
         Boolean jsonEnabled = MIXIN_ENABLED.get(mixinPath);
         if (jsonEnabled != null && !jsonEnabled) {
             LOGGER.info("skipping {} (disabled for triage)", mixinPath);
             return false;
         }
-        
+
         // Check mod-level overrides first
         for (String modId : modConstraints.keySet()) {
             Boolean modEnabled = MOD_CONFIG.get(modId);
@@ -335,43 +372,43 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
                 return false;
             }
         }
-        
+
         // Check individual mixin config
         Boolean enabled = MIXIN_CONFIG.get(mixinPath);
         if (enabled != null && !enabled) {
             LOGGER.info("skipping {} (disabled in config)", mixinPath);
             return false;
         }
-        
+
         // Check if required mods are loaded and satisfy version constraints
         for (Map.Entry<String, VersionConstraint> entry : modConstraints.entrySet()) {
             String modId = entry.getKey();
             VersionConstraint constraint = entry.getValue();
-            
+
             if (isModMissing(modId)) {
                 LOGGER.info("skipping {} (requires mod '{}' which is not loaded)", mixinPath, modId);
                 return false;
             }
-            
+
             String currentVersion = getModVersion(modId);
             if (currentVersion == null) {
                 LOGGER.info("skipping {} (cannot determine version of mod '{}')", mixinPath, modId);
                 return false;
             }
-            
+
             // Check min version
             if (constraint.min != null && compareVersions(currentVersion, constraint.min) < 0) {
                 LOGGER.info("skipping {} (mod '{}' version {} is below minimum {})", mixinPath, modId, currentVersion, constraint.min);
                 return false;
             }
-            
+
             // Check max version
             if (constraint.max != null && compareVersions(currentVersion, constraint.max) > 0) {
                 LOGGER.info("skipping {} (mod '{}' version {} is above maximum {})", mixinPath, modId, currentVersion, constraint.max);
                 return false;
             }
         }
-        
+
         // Log applying with mod versions
         StringBuilder versionInfo = new StringBuilder();
         for (String modId : modConstraints.keySet()) {

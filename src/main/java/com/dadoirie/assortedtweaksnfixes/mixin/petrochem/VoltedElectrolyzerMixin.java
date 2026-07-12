@@ -18,23 +18,9 @@ import org.spongepowered.asm.mixin.Unique;
 
 import java.util.Map;
 
-/**
- * Makes the Petrochem electrolyzer a first-class CEE electrical device.
- * CEE's own systems detect the interface and handle device creation, node
- * registration, wire attachment, node rendering, and the hover overlay
- * (label + live voltage) without further code.
- * <p>
- * Two wire terminals on the back face (opposite the speed dial), labeled
- * + and - via CEE's own lang keys.
- */
 @Mixin(ElectrolyzerBlock.class)
-public abstract class ElectrolyzerBlockMixin implements ElectricalDeviceBlock<ElectrolyzerElectricDevice> {
+public abstract class VoltedElectrolyzerMixin implements ElectricalDeviceBlock<ElectrolyzerElectricDevice> {
 
-    /**
-     * Node positions defined for a SOUTH-facing block (dial on the south
-     * face, terminals on the north/back face at z = 1px), rotated to the
-     * placed facing by CEE's configurator. Pixel coords, id 0 = +, id 1 = -.
-     */
     @Unique
     private static final NodeConfigurator ATNF$NODES = new NodeConfigurator.Builder()
             .add(16, 8, 8)

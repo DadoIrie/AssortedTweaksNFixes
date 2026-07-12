@@ -26,12 +26,25 @@ repositories {
     maven { url = "https://maven.su5ed.dev/releases" }
     maven { url 'https://maven.fabricmc.net' }
     maven { url 'https://maven.shedaniel.me/' }
-    maven { url 'https://www.jitpack.io' }
+    //maven { url 'https://www.jitpack.io' }
     maven { url 'https://api.modrinth.com/maven' }
     maven {
         url "https://cursemaven.com"
         content {
             includeGroup "curse.maven"
+        }
+    }
+    maven {
+        url "https://maven.latvian.dev/releases"
+        content {
+            includeGroup "dev.latvian.mods"
+            includeGroup "dev.latvian.apps"
+        }
+    }
+    maven {
+        url "https://jitpack.io"
+        content {
+            includeGroup "com.github.rtyley"
         }
     }
     mavenCentral()
@@ -168,6 +181,10 @@ dependencies {
     compileOnlyApi("maven.modrinth:thirst-was-reclaimed:${project.thirst_relaimed_version}")
     compileOnlyApi("maven.modrinth:create-electro-energetics:${create_electro_energetics_version}")
     compileOnlyApi("maven.modrinth:jei:${jei_version}")
+    compileOnlyApi("maven.modrinth:in-control:${incontrol_version}")
+    compileOnlyApi("maven.modrinth:data-anchor:${data_anchor_version}")
+
+    // compileOnlyApi("maven.modrinth:slice-and-dice:${slice_and_dice_version}")
 
     compileOnlyApi zipTree(configurations.detachedConfiguration(
             dependencies.create("maven.modrinth:better-controls:${project.better_controls_version}")
@@ -190,9 +207,15 @@ dependencies {
     compileOnlyApi("com.simibubi.create:create-${minecraft_version}:${create_version}:slim") { transitive = false }
     compileOnlyApi("net.createmod.ponder:ponder-neoforge:${ponder_version}+mc${minecraft_version}")
     compileOnlyApi("com.tterrag.registrate:Registrate:${project.registrate_version}")
+    compileOnlyApi("dev.engine-room.flywheel:flywheel-neoforge-api-${minecraft_version}:${flywheel_version}")
+    compileOnlyApi("dev.engine-room.flywheel:flywheel-neoforge-${minecraft_version}:${flywheel_version}")
+
+    api("dev.latvian.mods:kubejs-neoforge:$kubejs_version")
+    interfaceInjectionData("dev.latvian.mods:kubejs-neoforge:$kubejs_version")
+    implementation("maven.modrinth:kubejs-create:$kubejs_create_version")
 
     // compileOnlyApi(files("libs/DiagonalBlocks-v21.1.2-1.21.1-NeoForge.jar"))
-    // compileOnlyApi(files("libs/server-translations-api-2.3.1+1.21-pre2.jar"))
+    compileOnlyApi(files("libs/railwaysuntold_additions-neoforge-1.0.1.jar"))
     compileOnlyApi("curse.maven:create-heat-js-1034948:8168833")
     compileOnlyApi("curse.maven:rhino-416294:8218748")
 

@@ -5,6 +5,8 @@ import com.dadoirie.assortedtweaksnfixes.compat.mekanism.DyeDepotCompat;
 import com.dadoirie.assortedtweaksnfixes.compat.yigd.DeathCharmCompat;
 import com.dadoirie.assortedtweaksnfixes.content.FullThirstDrinkBlocker;
 import com.dadoirie.assortedtweaksnfixes.content.HeatThirstHandler;
+import com.dadoirie.assortedtweaksnfixes.content.ATNFCreativeTabs;
+import com.dadoirie.assortedtweaksnfixes.content.hammer.HammerFeature;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
@@ -30,6 +32,12 @@ public class AssortedTweaksNFixes {
 
     public AssortedTweaksNFixes(IEventBus modEventBus) {
         LOGGER.info("AssortedTweaksNFixes loaded on {}", IS_DEDICATED_SERVER ? "dedicated server" : "client");
+
+        ATNFCreativeTabs.register(modEventBus);
+
+        if (ModList.get().isLoaded("create") && !ModList.get().isLoaded("createdieselgenerators")) {
+            HammerFeature.register(modEventBus);
+        }
 
         if (ModList.get().isLoaded("mekanism") && ModList.get().isLoaded("dye_depot")) {
             if (!ModList.get().isLoaded("recipe_modification")) {
