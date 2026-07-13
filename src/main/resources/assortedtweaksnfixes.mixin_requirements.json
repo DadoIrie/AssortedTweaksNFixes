@@ -62,6 +62,54 @@
       }
     }
   },
+  "etched.AbstractSoundInstanceAccessor": {
+    "enabled": true,
+    "etched": {
+      "version": {
+        "min": "5.0.0",
+        "max": ""
+      }
+    },
+    "create": {
+      "version": {
+        "min": "6.0.10",
+        "max": ""
+      }
+    }  
+  },
+  "etched.AsyncInputStreamMixin": {
+    "enabled": true,
+    "etched": {
+      "version": {
+        "min": "5.0.0",
+        "max": ""
+      }
+    }
+  },
+  "etched.Mp3InputStreamMixin": {
+    "enabled": true,
+    "etched": {
+      "version": {
+        "min": "5.0.0",
+        "max": ""
+      }
+    }
+  },
+  "etched.JukeboxBlockEntityTrackerMixin": {
+    "enabled": true,
+    "etched": {
+      "version": {
+        "min": "5.0.0",
+        "max": ""
+      }
+    },
+    "create": {
+      "version": {
+        "min": "6.0.10",
+        "max": ""
+      }
+    }
+  },
   "travelersbackpack.JukeboxWidgetMixin": {
     "enabled": true,
     "travelersbackpack": {
@@ -547,6 +595,21 @@
     "sliceanddice": {
       "version": {
         "min": "4.3.2",
+        "max": ""
+      }
+    }
+  },
+  "lambdynamiclights.LambDynLightsMixin": {
+    "enabled": true,
+    "lambdynlights": {
+      "version": {
+        "min": "4.8.10",
+        "max": ""
+      }
+    },
+    "unlitcampfire": {
+      "version": {
+        "min": "1.21",
         "max": ""
       }
     }

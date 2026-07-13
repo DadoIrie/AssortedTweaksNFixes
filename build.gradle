@@ -26,6 +26,7 @@ repositories {
     maven { url = "https://maven.su5ed.dev/releases" }
     maven { url 'https://maven.fabricmc.net' }
     maven { url 'https://maven.shedaniel.me/' }
+    maven { name = "Gegy"; url = uri("https://maven.gegy.dev") }
     //maven { url 'https://www.jitpack.io' }
     maven { url 'https://api.modrinth.com/maven' }
     maven {
@@ -45,6 +46,7 @@ repositories {
         url "https://jitpack.io"
         content {
             includeGroup "com.github.rtyley"
+            includeGroup "com.github.umjammer"
         }
     }
     mavenCentral()
@@ -144,7 +146,13 @@ configurations {
     }
 }
 
+def mappingsAttribute = Attribute.of("net.minecraft.mappings", String)
+
 dependencies {
+    attributesSchema {
+        attribute(mappingsAttribute)
+    }
+
     compileOnlyApi("maven.modrinth:pops:${project.pop_version}")
     compileOnlyApi("maven.modrinth:blueprint:${project.blueprint_version}")
     compileOnlyApi("maven.modrinth:cloth-config:${project.cloth_config_version}")
@@ -153,6 +161,9 @@ dependencies {
     compileOnlyApi("maven.modrinth:moonlight:${project.moonlight_version}")
     compileOnlyApi("maven.modrinth:condiments:${project.condiments_version}")
     compileOnlyApi("maven.modrinth:etched:${project.etched_version}")
+
+    compileOnlyApi("com.github.umjammer:jlayer:1.0.3")
+
     compileOnlyApi("maven.modrinth:travelersbackpack:${project.travelersbackpack_version}")
     compileOnlyApi("maven.modrinth:accessories:${project.accessories_version}")
     compileOnlyApi("maven.modrinth:owo-lib:${project.owo_version}")
@@ -184,7 +195,14 @@ dependencies {
     compileOnlyApi("maven.modrinth:in-control:${incontrol_version}")
     compileOnlyApi("maven.modrinth:data-anchor:${data_anchor_version}")
 
-    // compileOnlyApi("maven.modrinth:slice-and-dice:${slice_and_dice_version}")
+    compileOnlyApi zipTree(configurations.detachedConfiguration(
+            dependencies.create("maven.modrinth:lambdynamiclights:${lambdynamiclights_version}")
+    ).singleFile).matching { include "META-INF/jars/lambdynamiclights-4.8.10+1.21.1-neoforge.jar" }
+    compileOnlyApi("dev.lambdaurora.lambdynamiclights:lambdynamiclights-api:4.8.10+1.21.1") {
+        attributes {
+            attribute(mappingsAttribute, "mojmap")
+        }
+    }
 
     compileOnlyApi zipTree(configurations.detachedConfiguration(
             dependencies.create("maven.modrinth:better-controls:${project.better_controls_version}")
