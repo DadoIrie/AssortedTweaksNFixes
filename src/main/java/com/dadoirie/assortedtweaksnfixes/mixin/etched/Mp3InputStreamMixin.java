@@ -7,10 +7,7 @@ import javazoom.jl.decoder.Decoder;
 import javazoom.jl.decoder.Header;
 import javazoom.jl.decoder.SampleBuffer;
 import org.slf4j.Logger;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.*;
 
 import javax.sound.sampled.AudioFormat;
 import java.io.IOException;
@@ -24,8 +21,11 @@ public abstract class Mp3InputStreamMixin {
     @Unique
     private static final int MAX_CONSECUTIVE_BAD_FRAMES = 50;
 
+    @Final
     @Shadow private Bitstream stream;
+    @Final
     @Shadow private Decoder decoder;
+    @Final
     @Shadow private ByteBuffer buffer;
     @Shadow private AudioFormat format;
 

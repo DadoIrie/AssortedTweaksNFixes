@@ -20,11 +20,6 @@ public class ContraptionSoundNetworking {
     public static void register(RegisterPayloadHandlersEvent event) {
         PayloadRegistrar registrar = event.registrar("1");
         registrar.playToClient(
-                ClientboundJukeboxPositionPacket.TYPE,
-                ClientboundJukeboxPositionPacket.CODEC,
-                clientHandler(() -> ContraptionSoundClientHandler::handlePosition)
-        );
-        registrar.playToClient(
                 ClientboundJukeboxLandedPacket.TYPE,
                 ClientboundJukeboxLandedPacket.CODEC,
                 clientHandler(() -> ContraptionSoundClientHandler::handleLanded)

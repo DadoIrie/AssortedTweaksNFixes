@@ -27,16 +27,6 @@ public class ContraptionSoundClientHandler {
         Minecraft.getInstance().getSoundManager().stop(sound);
     }
 
-    public static void handlePosition(ClientboundJukeboxPositionPacket packet, IPayloadContext context) {
-        Map<BlockPos, SoundInstance> playingRecords = playingRecords();
-
-        SoundInstance sound = playingRecords.get(packet.originalPos());
-        if (sound == null)
-            return;
-
-        setPosition(sound, packet.pos());
-    }
-
     public static void handleLanded(ClientboundJukeboxLandedPacket packet, IPayloadContext context) {
         Map<BlockPos, SoundInstance> playingRecords = playingRecords();
 
@@ -48,7 +38,15 @@ public class ContraptionSoundClientHandler {
         playingRecords.put(packet.landingPos(), sound);
     }
 
-    private static Map<BlockPos, SoundInstance> playingRecords() {
+    public static void repositionTracked(BlockPos originalPos, Vec3 newPos) {
+        SoundInstance sound = playingRecords().get(originalPos);
+        if (sound == null)
+            return;
+
+        setPosition(sound, newPos);
+    }
+
+    public static Map<BlockPos, SoundInstance> playingRecords() {
         return ((LevelRendererAccessor) Minecraft.getInstance().levelRenderer).getPlayingJukeboxSongs();
     }
 
