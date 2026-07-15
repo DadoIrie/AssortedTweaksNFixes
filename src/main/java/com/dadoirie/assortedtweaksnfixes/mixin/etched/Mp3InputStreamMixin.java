@@ -1,6 +1,6 @@
 package com.dadoirie.assortedtweaksnfixes.mixin.etched;
 
-import com.dadoirie.assortedtweaksnfixes.AssortedTweaksNFixesConstants;
+import com.dadoirie.assortedtweaksnfixes.ATNFConstants;
 import gg.moonflower.etched.api.util.Mp3InputStream;
 import javazoom.jl.decoder.Bitstream;
 import javazoom.jl.decoder.Decoder;
@@ -17,7 +17,7 @@ import java.nio.ByteBuffer;
 public abstract class Mp3InputStreamMixin {
 
     @Unique
-    private static final Logger LOGGER = AssortedTweaksNFixesConstants.getLogger(Mp3InputStreamMixin.class);
+    private static final Logger LOGGER = ATNFConstants.getLogger(Mp3InputStreamMixin.class);
     @Unique
     private static final int MAX_CONSECUTIVE_BAD_FRAMES = 50;
 

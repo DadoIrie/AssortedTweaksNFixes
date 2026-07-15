@@ -1,5 +1,6 @@
 package com.dadoirie.assortedtweaksnfixes.mixin.petrochem.voltedelectrolyzer;
 
+import com.dadoirie.assortedtweaksnfixes.ATNFConstants;
 import com.dadoirie.assortedtweaksnfixes.compat.electroenergetics.ElectrolyzerElectricDevice;
 import com.simibubi.create.content.kinetics.mixer.MechanicalMixerBlockEntity;
 import com.simibubi.create.content.processing.basin.BasinBlockEntity;
@@ -11,7 +12,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -139,7 +139,7 @@ public abstract class ElectrolyzerBlockEntityMixin extends MechanicalMixerBlockE
     private ElectrolyzingRecipe atnf$buildWasteRecipe(ElectrolyzingRecipe source) {
         ElectrolyzingRecipe.Builder<ElectrolyzingRecipe> builder = new ElectrolyzingRecipe.Builder<>(
                 ElectrolyzingRecipe::new,
-                ResourceLocation.fromNamespaceAndPath("assortedtweaksnfixes", "electrolyzer_waste"));
+                ATNFConstants.identifer("electrolyzer_waste"));
 
         for (SizedFluidIngredient fluidIngredient : source.getFluidIngredients())
             builder.require(fluidIngredient);

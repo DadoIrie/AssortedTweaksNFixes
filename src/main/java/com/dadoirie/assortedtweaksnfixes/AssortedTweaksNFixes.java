@@ -1,7 +1,8 @@
 package com.dadoirie.assortedtweaksnfixes;
 
 import com.dadoirie.assortedtweaksnfixes.compat.electroenergetics.ATNFSimulatedDevices;
-import com.dadoirie.assortedtweaksnfixes.compat.etched.JukeboxContraptionCompat;
+import com.dadoirie.assortedtweaksnfixes.compat.etched.EtchedContraptionCompat;
+import com.dadoirie.assortedtweaksnfixes.compat.etched.JukeboxOrphanedSoundFix;
 import com.dadoirie.assortedtweaksnfixes.compat.mekanism.DyeDepotCompat;
 import com.dadoirie.assortedtweaksnfixes.compat.yigd.DeathCharmCompat;
 import com.dadoirie.assortedtweaksnfixes.content.FullThirstDrinkBlocker;
@@ -9,8 +10,10 @@ import com.dadoirie.assortedtweaksnfixes.content.HeatThirstHandler;
 import com.dadoirie.assortedtweaksnfixes.content.ATNFCreativeTabs;
 import com.dadoirie.assortedtweaksnfixes.content.hammer.HammerFeature;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
@@ -26,10 +29,10 @@ import org.slf4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mod(AssortedTweaksNFixesConstants.MOD_ID)
+@Mod(ATNFConstants.MOD_ID)
 public class AssortedTweaksNFixes {
     private static final boolean IS_DEDICATED_SERVER = FMLEnvironment.dist.isDedicatedServer();
-    private static final Logger LOGGER = AssortedTweaksNFixesConstants.getLogger(AssortedTweaksNFixes.class);
+    private static final Logger LOGGER = ATNFConstants.getLogger(AssortedTweaksNFixes.class);
 
     public AssortedTweaksNFixes(IEventBus modEventBus) {
         LOGGER.info("AssortedTweaksNFixes loaded on {}", IS_DEDICATED_SERVER ? "dedicated server" : "client");
@@ -61,8 +64,12 @@ public class AssortedTweaksNFixes {
         if (ModList.get().isLoaded("petrochem") && ModList.get().isLoaded("electroenergetics")) {
             ATNFSimulatedDevices.register(modEventBus);
         }
-        if (ModList.get().isLoaded("create") && ModList.get().isLoaded("etched")) {
-            JukeboxContraptionCompat.register();
+        if (ModList.get().isLoaded("etched")) {
+            NeoForge.EVENT_BUS.addListener(EventPriority.LOW, JukeboxOrphanedSoundFix::onBlockBreak);
+            NeoForge.EVENT_BUS.addListener(EventPriority.LOW, JukeboxOrphanedSoundFix::onRightClickBlock);
+            if (ModList.get().isLoaded("create") && ModList.get().isLoaded("dataanchor")) {
+                EtchedContraptionCompat.register(modEventBus);
+            }
         }
         DeathCharmCompat.init();
     }

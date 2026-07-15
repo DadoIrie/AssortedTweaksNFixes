@@ -1,6 +1,6 @@
 package com.dadoirie.assortedtweaksnfixes.mixin;
 
-import com.dadoirie.assortedtweaksnfixes.AssortedTweaksNFixesConstants;
+import com.dadoirie.assortedtweaksnfixes.ATNFConstants;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -18,7 +18,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class ConditionalMixinPlugin implements IMixinConfigPlugin {
-    private static final Logger LOGGER = AssortedTweaksNFixesConstants.getLogger(ConditionalMixinPlugin.class);
+    private static final Logger LOGGER = ATNFConstants.getLogger(ConditionalMixinPlugin.class);
     
     private static final Map<String, String> COUPLED_CHILDREN = new HashMap<>();
     private static final LinkedHashMap<String, Boolean> MIXIN_CONFIG = new LinkedHashMap<>();
@@ -99,7 +99,7 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
     }
     
     private void loadRequiredMods() {
-        InputStream stream = getClass().getClassLoader().getResourceAsStream(AssortedTweaksNFixesConstants.MOD_ID + ".mixin_requirements.json");
+        InputStream stream = getClass().getClassLoader().getResourceAsStream(ATNFConstants.MOD_ID + ".mixin_requirements.json");
         if (stream == null) return;
         
         JsonObject json = JsonParser.parseReader(new InputStreamReader(stream)).getAsJsonObject();
@@ -129,7 +129,7 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
 
     private void createTomlConfig() throws IOException {
         LinkedHashMap<String, Boolean> mixinEntries = parseMixinJson();
-        Path configPath = Paths.get("config", AssortedTweaksNFixesConstants.MOD_ID + "_mixins.toml");
+        Path configPath = Paths.get("config", ATNFConstants.MOD_ID + "_mixins.toml");
         Files.createDirectories(configPath.getParent());
 
         LinkedHashMap<String, Boolean> existingConfig = new LinkedHashMap<>();
@@ -228,7 +228,7 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
     
     private LinkedHashMap<String, Boolean> parseMixinJson() {
         LinkedHashMap<String, Boolean> mixinNames = new LinkedHashMap<>();
-        InputStream mixinEntries = getClass().getClassLoader().getResourceAsStream(AssortedTweaksNFixesConstants.MOD_ID + ".mixins.json");
+        InputStream mixinEntries = getClass().getClassLoader().getResourceAsStream(ATNFConstants.MOD_ID + ".mixins.json");
         assert mixinEntries != null;
         JsonObject json = JsonParser.parseReader(new InputStreamReader(mixinEntries)).getAsJsonObject();
         

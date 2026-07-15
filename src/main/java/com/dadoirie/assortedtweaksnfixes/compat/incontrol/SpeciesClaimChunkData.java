@@ -1,5 +1,6 @@
 package com.dadoirie.assortedtweaksnfixes.compat.incontrol;
 
+import com.dadoirie.assortedtweaksnfixes.ATNFConstants;
 import dev.corgitaco.dataanchor.data.registry.TrackedDataKey;
 import dev.corgitaco.dataanchor.data.registry.TrackedDataRegistries;
 import dev.corgitaco.dataanchor.data.type.chunk.ServerLevelChunkTrackedData;
@@ -24,7 +25,7 @@ public final class SpeciesClaimChunkData extends ServerLevelChunkTrackedData {
     public static ModConfigSpec.IntValue CHUNK_RESERVATION_VERIFY_TICKS;
 
     public static final TrackedDataKey<SpeciesClaimChunkData> KEY = TrackedDataRegistries.CHUNK.register(
-            ResourceLocation.fromNamespaceAndPath("assortedtweaksnfixes", "species_claim"),
+            ATNFConstants.identifer("species_claim"),
             SpeciesClaimChunkData.class,
             (key, chunk) -> chunk instanceof LevelChunk levelChunk
                     ? new SpeciesClaimChunkData(key, levelChunk)

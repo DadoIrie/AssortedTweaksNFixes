@@ -1,7 +1,7 @@
 package com.dadoirie.assortedtweaksnfixes.mixin.technonw;
 
 import com.dadoirie.assortedtweaksnfixes.AssortedTweaksNFixes;
-import com.dadoirie.assortedtweaksnfixes.AssortedTweaksNFixesConstants;
+import com.dadoirie.assortedtweaksnfixes.ATNFConstants;
 import com.technophobia.technonw.config.CompatConfig;
 import com.technophobia.technonw.payment.BankCardPaymentService;
 import dev.ithundxr.createnumismatics.Numismatics;
@@ -22,7 +22,7 @@ import java.util.UUID;
 
 @Mixin(BankCardPaymentService.class)
 public class BankCardPaymentServiceMixin {
-    private static final Logger LOGGER = AssortedTweaksNFixesConstants.getLogger(AssortedTweaksNFixes.class);
+    private static final Logger LOGGER = ATNFConstants.getLogger(AssortedTweaksNFixes.class);
 
     @Inject(
             method = "findFirstBoundAccount",

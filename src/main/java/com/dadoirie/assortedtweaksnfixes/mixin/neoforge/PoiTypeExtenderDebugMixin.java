@@ -1,7 +1,7 @@
 package com.dadoirie.assortedtweaksnfixes.mixin.neoforge;
 
 import com.dadoirie.assortedtweaksnfixes.AssortedTweaksNFixes;
-import com.dadoirie.assortedtweaksnfixes.AssortedTweaksNFixesConstants;
+import com.dadoirie.assortedtweaksnfixes.ATNFConstants;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class PoiTypeExtenderDebugMixin {
 
     @Unique
-    private static final Logger assortedTweaksNFixes$LOGGER = AssortedTweaksNFixesConstants.getLogger(AssortedTweaksNFixes.class);
+    private static final Logger assortedTweaksNFixes$LOGGER = ATNFConstants.getLogger(AssortedTweaksNFixes.class);
 
     @Unique
     private static final Set<ResourceKey<PoiType>> assortedTweaksNFixes$modifiedTypes = new HashSet<>();

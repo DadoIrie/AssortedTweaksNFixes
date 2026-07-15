@@ -1,6 +1,6 @@
 package com.dadoirie.assortedtweaksnfixes.mixin.etched;
 
-import com.dadoirie.assortedtweaksnfixes.AssortedTweaksNFixesConstants;
+import com.dadoirie.assortedtweaksnfixes.ATNFConstants;
 import gg.moonflower.etched.api.util.AsyncInputStream;
 import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.*;
@@ -15,7 +15,7 @@ import java.util.concurrent.CompletionException;
 public abstract class AsyncInputStreamMixin {
 
     @Unique
-    private static final Logger LOGGER = AssortedTweaksNFixesConstants.getLogger(AsyncInputStreamMixin.class);
+    private static final Logger LOGGER = ATNFConstants.getLogger(AsyncInputStreamMixin.class);
     @Unique
     private static final int MAX_RETRIES = 5;
     @Unique

@@ -1,8 +1,14 @@
+import groovy.json.JsonSlurper
+import org.ajoberstar.grgit.Grgit
+import org.eclipse.jgit.api.errors.TransportException
+import org.eclipse.jgit.api.Git
+
 plugins {
     id 'java-library'
     id 'maven-publish'
     id 'net.neoforged.moddev' version '2.0.141'
     id 'idea'
+    id 'org.ajoberstar.grgit' version '5.3.3'
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -176,7 +182,9 @@ dependencies {
     compileOnlyApi("maven.modrinth:danger-close:${project.danger_close_version}")
     compileOnlyApi("maven.modrinth:prometheus-api:${project.prometheus_api_version}")
     compileOnlyApi("maven.modrinth:held-item-tooltips:${project.held_item_tooltips_version}")
-    compileOnlyApi("maven.modrinth:every-compat:${project.every_compat_version}")
+    compileOnlyApi("maven.modrinth:every-compat:${project.every_compat_woodgood_version}")
+    compileOnlyApi("maven.modrinth:stone-zone:${project.every_compat_stonezone_version}")
+    compileOnlyApi("maven.modrinth:gems-realm:${project.every_compat_gemsrealm_version}")
     compileOnlyApi("maven.modrinth:brick-furnace:${project.brickfurnace_version}")
     compileOnlyApi("maven.modrinth:additional-placements:${project.additional_placements_version}")
     compileOnlyApi("maven.modrinth:controlling:${project.controlling_version}")
@@ -194,6 +202,7 @@ dependencies {
     compileOnlyApi("maven.modrinth:jei:${jei_version}")
     compileOnlyApi("maven.modrinth:in-control:${incontrol_version}")
     compileOnlyApi("maven.modrinth:data-anchor:${data_anchor_version}")
+    compileOnlyApi("maven.modrinth:create-connected:${create_connected_version}")
 
     compileOnlyApi zipTree(configurations.detachedConfiguration(
             dependencies.create("maven.modrinth:lambdynamiclights:${lambdynamiclights_version}")
@@ -208,16 +217,16 @@ dependencies {
             dependencies.create("maven.modrinth:better-controls:${project.better_controls_version}")
     ).singleFile).matching { include "jars/BetterControls-NeoForge.jar" }
 
-    compileOnlyApi zipTree(configurations.detachedConfiguration(
+    compileOnly zipTree(configurations.detachedConfiguration(
             dependencies.create("maven.modrinth:diagonal-walls:${project.diagonal_walls_version}")
     ).singleFile).matching { include "META-INF/jars/diagonalblocks-neoforge-21.1.2.jar" }
 
-    compileOnlyApi zipTree(configurations.detachedConfiguration(
+    compileOnly zipTree(configurations.detachedConfiguration(
             dependencies.create("maven.modrinth:sleep-warp-updated:${project.sleep_warp_updated_version}")
     ).singleFile).matching { include "META-INF/jars/server-translations-api-2.3.1+1.21-pre2.jar" }
 
     compileOnlyApi("curse.maven:kubejs-tweaks-1306367:7516288")
-    compileOnlyApi("curse.maven:variant-vanilla-blocks-866509:5703471")
+    compileOnly("curse.maven:variant-vanilla-blocks-866509:5703471")
     compileOnlyApi("curse.maven:keybinding-hider-1129419:7670685")
     compileOnlyApi("curse.maven:fast-travel-waypoints-1492203:8258335")
 
@@ -233,9 +242,23 @@ dependencies {
     implementation("maven.modrinth:kubejs-create:$kubejs_create_version")
 
     // compileOnlyApi(files("libs/DiagonalBlocks-v21.1.2-1.21.1-NeoForge.jar"))
-    compileOnlyApi(files("libs/railwaysuntold_additions-neoforge-1.0.1.jar"))
+    // compileOnlyApi(files("libs/railwaysuntold_additions-neoforge-1.0.1.jar"))
+    compileOnlyApi("maven.modrinth:railways-additions:${railwaysuntold_additions_version}")
     compileOnlyApi("curse.maven:create-heat-js-1034948:8168833")
     compileOnlyApi("curse.maven:rhino-416294:8218748")
+
+    // Runtime Dependencies
+    runtimeOnly("maven.modrinth:create-alloyed:${create_alloyed_version}")
+    runtimeOnly("maven.modrinth:cobweb:${cobweb_version}")
+    runtimeOnly("maven.modrinth:balm:${balm_version}")
+    runtimeOnly("maven.modrinth:xaeros-world-map:${xaeros_world_map_version}")
+    runtimeOnly("maven.modrinth:xaeros-minimap:${xaeros_minimap_version}")
+    runtimeOnly("curse.maven:xaeros-maps-x-waystones-1340197:8346565")
+    runtimeOnly("maven.modrinth:kotlin-for-forge:${kotlin_for_forge_version}")
+    runtimeOnly("maven.modrinth:yacl:${yacl_version}")
+    runtimeOnly("maven.modrinth:monolib:${monolib_version}")
+    runtimeOnly("maven.modrinth:searchables:${searchables_version}")
+    runtimeOnly("maven.modrinth:lambdynamiclights:${lambdynamiclights_version}")
 
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
@@ -388,3 +411,87 @@ tasks.register('cleanModResources', Delete) {
     description = "Deletes the extracted mod resources folder"
     delete file("libs/resources")
 }
+
+tasks.register('cloneDocRepos') {
+    group = "documentation"
+    description = "Clones any missing repos listed in docs/repos.json (single branch, shallow) into docs/repos"
+
+    def reposJsonFile = file(".claude/docs/repos.json")
+    def reposRootDir = file(".claude/docs/repos")
+
+    doLast {
+        if (!reposJsonFile.exists()) {
+            logger.lifecycle("No repos.json found at ${reposJsonFile}, skipping cloneDocRepos")
+            return
+        }
+
+        Map<String, String> repos = new JsonSlurper().parse(reposJsonFile) as Map<String, String>
+
+        for (Map.Entry<String, String> entry : repos.entrySet()) {
+            String repoPath = entry.key
+            String branch = entry.value
+            String repoName = repoPath.tokenize('/').last()
+            String remoteUrl = "https://github.com/${repoPath}.git".toString()
+
+            def refs
+            try {
+                refs = Git.lsRemoteRepository().setRemote(remoteUrl).callAsMap()
+            } catch (TransportException exception) {
+                throw new GradleException("Repository '${repoPath}' not found or inaccessible", exception)
+            }
+
+            if (!refs.containsKey("refs/heads/${branch}".toString())) {
+                throw new GradleException("Branch '${branch}' not found in repository '${repoPath}'")
+            }
+
+            File targetDir = new File(reposRootDir, repoName)
+
+            if (targetDir.exists()) {
+                logger.lifecycle("${repoName} already present, skipping (${repoPath}@${branch})")
+                continue
+            }
+
+            reposRootDir.mkdirs()
+            logger.lifecycle("Cloning ${repoPath}@${branch} into ${targetDir}")
+
+            //noinspection GroovyAssignabilityCheck,GroovyAccessibility,GrUnresolvedAccess
+            Grgit.clone(
+                    dir: targetDir,
+                    uri: remoteUrl,
+                    branches: ["refs/heads/${branch}".toString()],
+                    refToCheckout: branch.toString(),
+                    depth: 1
+            ).close()
+        }
+    }
+}
+
+tasks.register('cleanDocRepos', Delete) {
+    group = "documentation"
+    description = "Deletes the docs/repos directory to force an update"
+    delete file(".claude/docs/repos")
+}
+
+tasks.register('extractNeoForgeMinecraftSource', Copy) {
+    group = "documentation"
+    description = "Extracts the NeoForge-patched Minecraft sources jar into docs/neoforgedMinecraftSource"
+
+    def sourcesJar = file("build/moddev/artifacts/neoforge-${neo_version}-sources.jar")
+    def outputDir = file(".claude/docs/neoforgedMinecraftSource")
+
+    onlyIf {
+        if (!sourcesJar.exists()) {
+            logger.lifecycle("No sources jar found at ${sourcesJar}, skipping extractNeoForgeMinecraftSource")
+            return false
+        }
+        true
+    }
+
+    doFirst {
+        delete outputDir
+    }
+
+    from zipTree(sourcesJar)
+    into outputDir
+}
+

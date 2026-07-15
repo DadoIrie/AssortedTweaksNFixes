@@ -1,5 +1,6 @@
 package com.dadoirie.assortedtweaksnfixes.content.hammer;
 
+import com.dadoirie.assortedtweaksnfixes.ATNFConstants;
 import com.dadoirie.assortedtweaksnfixes.content.ATNFCreativeTabs;
 import com.simibubi.create.content.equipment.sandPaper.SandPaperItemComponent;
 import com.simibubi.create.content.processing.recipe.StandardProcessingRecipe;
@@ -21,13 +22,12 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 public final class HammerFeature {
 
-    public static final String MOD_ID = "assortedtweaksnfixes";
-    private static final ResourceLocation HAMMERING_ID = ResourceLocation.fromNamespaceAndPath(MOD_ID, "hammering");
+    private static final ResourceLocation HAMMERING_ID = ATNFConstants.identifer("hammering");
 
-    private static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MOD_ID);
-    private static final DeferredRegister.DataComponents DATA_COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, MOD_ID);
-    private static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(BuiltInRegistries.RECIPE_SERIALIZER, MOD_ID);
-    private static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(BuiltInRegistries.RECIPE_TYPE, MOD_ID);
+    private static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(ATNFConstants.MOD_ID);
+    private static final DeferredRegister.DataComponents DATA_COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, ATNFConstants.MOD_ID);
+    private static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(BuiltInRegistries.RECIPE_SERIALIZER, ATNFConstants.MOD_ID);
+    private static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(BuiltInRegistries.RECIPE_TYPE, ATNFConstants.MOD_ID);
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<SandPaperItemComponent>> PROCESSING_ITEM =
             DATA_COMPONENTS.registerComponentType("processing_item",

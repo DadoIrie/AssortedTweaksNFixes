@@ -1,6 +1,6 @@
 package com.dadoirie.assortedtweaksnfixes.client;
 
-import com.dadoirie.assortedtweaksnfixes.AssortedTweaksNFixesConstants;
+import com.dadoirie.assortedtweaksnfixes.ATNFConstants;
 import io.wispforest.accessories.client.gui.AccessoriesExperimentalScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -12,7 +12,7 @@ import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ScreenEvent;
 
-@EventBusSubscriber(modid = AssortedTweaksNFixesConstants.MOD_ID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = ATNFConstants.MOD_ID, value = Dist.CLIENT)
 public class AccessoriesMountHandler {
 
     @SubscribeEvent

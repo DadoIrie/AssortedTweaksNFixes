@@ -1,12 +1,12 @@
 package com.dadoirie.assortedtweaksnfixes.content.hammer.client;
 
+import com.dadoirie.assortedtweaksnfixes.ATNFConstants;
 import com.dadoirie.assortedtweaksnfixes.content.hammer.HammerFeature;
 import com.dadoirie.assortedtweaksnfixes.content.hammer.HammerRecipe;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
@@ -18,8 +18,8 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 public class HammerJEIPlugin implements IModPlugin {
 
-    private static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(HammerFeature.MOD_ID, "jei_plugin");
-    private static final ResourceLocation HAMMERING_ID = ResourceLocation.fromNamespaceAndPath(HammerFeature.MOD_ID, "hammering");
+    private static final ResourceLocation ID = ATNFConstants.identifer("jei_plugin");
+    private static final ResourceLocation HAMMERING_ID = ATNFConstants.identifer("hammering");
 
     private CreateRecipeCategory<HammerRecipe> hammering;
 

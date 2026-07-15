@@ -6,10 +6,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-/**
- * Redirects full_armor.png to modified_full_armor.png for the entity view texture.
- * Coupled with RemoveCosmeticArmorSlotsMixin - disabled when that mixin is disabled.
- */
 @Mixin(Accessories.class)
 public class RemoveCosmeticArmorSlotsTextureMixin {
     

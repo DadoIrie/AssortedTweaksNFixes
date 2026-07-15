@@ -1,7 +1,7 @@
 package com.dadoirie.assortedtweaksnfixes.client;
 
 import com.dadoirie.assortedtweaksnfixes.AssortedTweaksNFixes;
-import com.dadoirie.assortedtweaksnfixes.AssortedTweaksNFixesConstants;
+import com.dadoirie.assortedtweaksnfixes.ATNFConstants;
 import com.dadoirie.assortedtweaksnfixes.mixin.minecraft.gameoptions.KeyMappingAllAccessor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -26,9 +26,9 @@ import java.util.regex.Pattern;
 @OnlyIn(Dist.CLIENT)
 public final class KeybindHandler {
 
-    private static final Logger LOGGER = AssortedTweaksNFixesConstants.getLogger(AssortedTweaksNFixes.class);
+    private static final Logger LOGGER = ATNFConstants.getLogger(AssortedTweaksNFixes.class);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-    private static final String CONFIG_FILE = AssortedTweaksNFixesConstants.MOD_ID + "_keybinds.json";
+    private static final String CONFIG_FILE = ATNFConstants.MOD_ID + "_keybinds.json";
 
     private static final String README_HIDING = "HiddenKeyPatterns: Java regex strings matched against keybind translation keys AND category strings. "
             + "Examples: 'key\\.jei\\..*' hides all JEI bindings by key name, 'jei:.*' hides them by category.";
@@ -157,7 +157,7 @@ public final class KeybindHandler {
 
         if (restoredCount > 0) {
             LOGGER.info("[{}] Restored {} keybind{} from config",
-                    AssortedTweaksNFixesConstants.MOD_ID,
+                    ATNFConstants.MOD_ID,
                     restoredCount,
                     restoredCount == 1 ? "" : "s");
             Minecraft.getInstance().options.save();

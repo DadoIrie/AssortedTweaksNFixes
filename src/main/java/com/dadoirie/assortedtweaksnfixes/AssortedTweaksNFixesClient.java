@@ -10,7 +10,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 
-@Mod(value = AssortedTweaksNFixesConstants.MOD_ID, dist = Dist.CLIENT)
+@Mod(value = ATNFConstants.MOD_ID, dist = Dist.CLIENT)
 public class AssortedTweaksNFixesClient {
     public AssortedTweaksNFixesClient(IEventBus modBus) {
         modBus.addListener(this::onClientSetup);

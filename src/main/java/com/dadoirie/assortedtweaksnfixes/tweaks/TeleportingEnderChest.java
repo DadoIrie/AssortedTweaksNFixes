@@ -1,6 +1,6 @@
 package com.dadoirie.assortedtweaksnfixes.tweaks;
 
-import com.dadoirie.assortedtweaksnfixes.AssortedTweaksNFixesConstants;
+import com.dadoirie.assortedtweaksnfixes.ATNFConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -18,7 +18,7 @@ import net.neoforged.neoforge.event.level.BlockEvent;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-@EventBusSubscriber(modid = AssortedTweaksNFixesConstants.MOD_ID)
+@EventBusSubscriber(modid = ATNFConstants.MOD_ID)
 public class TeleportingEnderChest {
 
     @SubscribeEvent
