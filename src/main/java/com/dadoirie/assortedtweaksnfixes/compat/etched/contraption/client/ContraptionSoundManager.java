@@ -25,7 +25,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
-import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -334,7 +333,7 @@ public class ContraptionSoundManager {
         if (payload.contains("items", Tag.TAG_LIST)) {
             List<TrackData> tracks = new ArrayList<>();
             for (Tag element : payload.getList("items", Tag.TAG_COMPOUND)) {
-                ItemStack stack = ItemStack.parse(registries, (CompoundTag) element).orElse(ItemStack.EMPTY);
+                ItemStack stack = ItemStack.parse(registries, element).orElse(ItemStack.EMPTY);
                 if (PlayableRecord.isPlayableRecord(stack)) {
                     tracks.addAll(PlayableRecord.getTracks(registries, stack));
                 }

@@ -8,6 +8,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.StructureBlockInfo;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import snownee.jade.api.EntityAccessor;
 import snownee.jade.api.IEntityComponentProvider;
 import snownee.jade.api.ITooltip;
@@ -36,6 +38,7 @@ public final class ContraptionCustomNameJadeSupport {
         // ContraptionCustomNameSyncMixin makes sure a named storage block's custom name rides the
         // contraption's own client sync, so it's already present in the client's local structure data by
         // the time this runs - no server round trip needed, same as the radio url tooltip
+        @OnlyIn(Dist.CLIENT)
         @Override
         public void appendTooltip(ITooltip tooltip, EntityAccessor accessor, IPluginConfig config) {
             if (!(accessor.getEntity() instanceof AbstractContraptionEntity contraptionEntity))

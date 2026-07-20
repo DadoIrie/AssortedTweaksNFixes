@@ -30,6 +30,7 @@ public final class EtchedJadeSupport {
 
         private static final ResourceLocation UID = ATNFConstants.identifer("radio_url");
 
+        @OnlyIn(Dist.CLIENT)
         @Override
         public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
             if (!(accessor.getBlockEntity() instanceof RadioBlockEntity radio))

@@ -8,6 +8,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.StructureBlockInfo;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import snownee.jade.api.EntityAccessor;
 import snownee.jade.api.IEntityComponentProvider;
 import snownee.jade.api.ITooltip;
@@ -31,6 +33,7 @@ public final class EtchedContraptionJadeSupport {
         private static final ResourceLocation UID = ATNFConstants.identifer("radio_url_contraption");
         private static final String URL_KEY = "Url";
 
+        @OnlyIn(Dist.CLIENT)
         @Override
         public void appendTooltip(ITooltip tooltip, EntityAccessor accessor, IPluginConfig config) {
             if (!(accessor.getEntity() instanceof AbstractContraptionEntity contraptionEntity))

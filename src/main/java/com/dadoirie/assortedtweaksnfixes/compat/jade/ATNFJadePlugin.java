@@ -4,6 +4,8 @@ import com.dadoirie.assortedtweaksnfixes.compat.jade.create.ContraptionCustomNam
 import com.dadoirie.assortedtweaksnfixes.compat.jade.create.ContraptionHoveredStorageJadeSupport;
 import com.dadoirie.assortedtweaksnfixes.compat.jade.etched.EtchedContraptionJadeSupport;
 import com.dadoirie.assortedtweaksnfixes.compat.jade.etched.EtchedJadeSupport;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.fml.ModList;
 import snownee.jade.api.IWailaClientRegistration;
 import snownee.jade.api.IWailaCommonRegistration;
@@ -21,6 +23,7 @@ public class ATNFJadePlugin implements IWailaPlugin {
         }
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public void registerClient(IWailaClientRegistration registration) {
         if (ModList.get().isLoaded("etched")) {

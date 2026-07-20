@@ -12,7 +12,6 @@ import net.minecraft.client.server.IntegratedServer;
 import net.minecraft.core.BlockPos;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.client.event.ScreenEvent;
-import org.slf4j.Logger;
 
 import java.util.List;
 import java.util.Map;
