@@ -55,17 +55,17 @@ public abstract class ElectrolyzerBlockEntityMixin extends MechanicalMixerBlockE
     }
 
     @Inject(method = "registerCapabilities", at = @At("HEAD"), cancellable = true)
-    private static void atf_removeFeCapability(RegisterCapabilitiesEvent event, CallbackInfo ci) {
+    private static void atnf$removeFeCapability(RegisterCapabilitiesEvent event, CallbackInfo ci) {
         ci.cancel();
     }
 
     @Inject(method = "addToGoggleTooltip", at = @At("HEAD"), cancellable = true)
-    private void atf_removeGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking, CallbackInfoReturnable<Boolean> cir) {
+    private void atnf$removeGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking, CallbackInfoReturnable<Boolean> cir) {
         cir.setReturnValue(false);
     }
 
     @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
-    private void atf_electricTick(CallbackInfo ci) {
+    private void atnf$electricTick(CallbackInfo ci) {
         ci.cancel();
 
         if (level != null && !level.isClientSide) {
@@ -96,7 +96,7 @@ public abstract class ElectrolyzerBlockEntityMixin extends MechanicalMixerBlockE
     }
 
     @Inject(method = "getSpeed", at = @At("HEAD"), cancellable = true)
-    private void atf_electricSpeed(CallbackInfoReturnable<Float> cir) {
+    private void atnf$electricSpeed(CallbackInfoReturnable<Float> cir) {
         if (speed == null || atnf$nodeVoltage < ElectrolyzerElectricDevice.ENERGIZED_MIN_VOLTAGE) {
             cir.setReturnValue(0f);
             return;
@@ -112,7 +112,7 @@ public abstract class ElectrolyzerBlockEntityMixin extends MechanicalMixerBlockE
     @Redirect(method = "applyBasinRecipe",
             at = @At(value = "INVOKE",
                     target = "Lio/github/hadron13/petrochem/blocks/electrolyzer/ElectrolyzingRecipe;apply(Lcom/simibubi/create/content/processing/basin/BasinBlockEntity;Lnet/minecraft/world/item/crafting/Recipe;)Z"))
-    private boolean atf_wasteOnOvervolt(BasinBlockEntity basin, Recipe<?> recipe) {
+    private boolean atnf$wasteOnOvervolt(BasinBlockEntity basin, Recipe<?> recipe) {
         if (recipe instanceof ElectrolyzingRecipe electrolyzing
                 && recipe instanceof ElectrolyzerElectricDevice.Electric electric
                 && atnf$nodeVoltage > ElectrolyzerElectricDevice.maxVoltage(electric.atnf$voltage())) {
@@ -150,13 +150,13 @@ public abstract class ElectrolyzerBlockEntityMixin extends MechanicalMixerBlockE
     }
 
     @Inject(method = "write", at = @At("TAIL"))
-    private void atf_writeVoltage(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket, CallbackInfo ci) {
+    private void atnf$writeVoltage(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket, CallbackInfo ci) {
         compound.putDouble("atnf_voltage", atnf$nodeVoltage);
         compound.putDouble("atnf_required_voltage", atnf$requiredVoltage);
     }
 
     @Inject(method = "read", at = @At("TAIL"))
-    private void atf_readVoltage(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket, CallbackInfo ci) {
+    private void atnf$readVoltage(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket, CallbackInfo ci) {
         atnf$nodeVoltage = compound.getDouble("atnf_voltage");
         atnf$requiredVoltage = compound.getDouble("atnf_required_voltage");
     }

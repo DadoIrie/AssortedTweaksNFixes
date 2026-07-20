@@ -1,15 +1,16 @@
 package com.dadoirie.assortedtweaksnfixes.compat.etched.contraption;
 
+import com.simibubi.create.api.behaviour.movement.MovementBehaviour;
 import com.simibubi.create.content.contraptions.AbstractContraptionEntity;
 import com.simibubi.create.content.contraptions.StructureTransform;
 import dev.corgitaco.dataanchor.network.Packet;
 import dev.corgitaco.dataanchor.network.broadcast.PacketBroadcaster;
-import gg.moonflower.etched.api.record.PlayableRecord;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.JukeboxBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.StructureBlockInfo;
 
 public class ContraptionLandingHandler {
 
@@ -47,11 +48,20 @@ public class ContraptionLandingHandler {
         BlockPos landingPos = blockEntity.getBlockPos();
         BlockPos localPos = transform.unapply(landingPos);
 
-        Packet packet = blockEntity instanceof JukeboxBlockEntity jukebox
-                && PlayableRecord.isPlayableRecord(jukebox.getTheItem())
+        Packet packet = isStillPlayable(blockEntity, level)
                 ? new ContraptionRecordHandoffS2C(contraptionId, localPos, landingPos)
                 : new ContraptionRecordStopS2C(contraptionId, localPos);
 
         PacketBroadcaster.S2C.trackingChunk(packet, level.getChunkAt(landingPos));
+    }
+
+    private static boolean isStillPlayable(BlockEntity blockEntity, ServerLevel level) {
+        BlockState state = blockEntity.getBlockState();
+        if (!(MovementBehaviour.REGISTRY.get(state) instanceof RecordPlayerMovementBehaviour behaviour))
+            return false;
+
+        StructureBlockInfo info = new StructureBlockInfo(blockEntity.getBlockPos(), state,
+                blockEntity.saveWithoutMetadata(level.registryAccess()));
+        return behaviour.writeSyncData(info, level.registryAccess()) != null;
     }
 }

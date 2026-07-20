@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class HeatManagerMixin {
 
     @Inject(method = "registerHeatData", at = @At("TAIL"), remap = false)
-    private void atf_refreshRhinoEnumCaches(HeatData heatData, CallbackInfo ci) {
+    private void atnf_refreshRhinoEnumCaches(HeatData heatData, CallbackInfo ci) {
         RhinoEnumCacheRefresher.refresh(HeatCondition.class, HeatCondition.values());
         RhinoEnumCacheRefresher.refresh(BlazeBurnerBlock.HeatLevel.class, BlazeBurnerBlock.HeatLevel.values());
     }

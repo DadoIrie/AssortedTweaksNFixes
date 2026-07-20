@@ -21,7 +21,7 @@ public abstract class HeatJsRegisterFixMixin {
     public static StreamCodec<ByteBuf, HeatCondition> STREAM_CODEC;
 
     @Inject(method = "<clinit>", at = @At("TAIL"))
-    private static void atf_replaceStreamCodec(CallbackInfo ci) {
+    private static void atnf_replaceStreamCodec(CallbackInfo ci) {
         STREAM_CODEC = StreamCodec.of(
                 (buffer, value) -> VarInt.write(buffer, value.ordinal()),
                 buffer -> HeatCondition.values()[VarInt.read(buffer)]

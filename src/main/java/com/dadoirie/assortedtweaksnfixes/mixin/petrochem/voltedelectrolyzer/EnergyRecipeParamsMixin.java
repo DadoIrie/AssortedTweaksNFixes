@@ -40,7 +40,7 @@ public abstract class EnergyRecipeParamsMixin implements ElectrolyzerElectricDev
     }
 
     @Inject(method = "<clinit>", at = @At("TAIL"))
-    private static void atf_swapCodec(CallbackInfo ci) {
+    private static void atnf$swapCodec(CallbackInfo ci) {
         EnergyRecipeParams.CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 ProcessingRecipeParamsInvoker.atnf$baseCodec(EnergyRecipeParams::new).forGetter(Function.identity()),
                 Codec.DOUBLE.fieldOf("kilowatts").forGetter(p -> ((ElectrolyzerElectricDevice.Electric) p).atnf$kilowatts()),
@@ -52,13 +52,13 @@ public abstract class EnergyRecipeParamsMixin implements ElectrolyzerElectricDev
     }
 
     @Inject(method = "encode", at = @At("TAIL"))
-    private void atf_encodeElectric(RegistryFriendlyByteBuf buffer, CallbackInfo ci) {
+    private void atnf$encodeElectric(RegistryFriendlyByteBuf buffer, CallbackInfo ci) {
         ByteBufCodecs.DOUBLE.encode(buffer, atnf$kilowatts);
         ByteBufCodecs.DOUBLE.encode(buffer, atnf$voltage);
     }
 
     @Inject(method = "decode", at = @At("TAIL"))
-    private void atf_decodeElectric(RegistryFriendlyByteBuf buffer, CallbackInfo ci) {
+    private void atnf$decodeElectric(RegistryFriendlyByteBuf buffer, CallbackInfo ci) {
         atnf$kilowatts = ByteBufCodecs.DOUBLE.decode(buffer);
         atnf$voltage = ByteBufCodecs.DOUBLE.decode(buffer);
     }

@@ -24,8 +24,9 @@ run
 runs
 run-data
 
-repo
+# repo
 /src/generated/
 /logs/
 /.claude/docs/repos/
 /.claude/docs/neoforgedMinecraftSource/
+/.claude/docs/temp/

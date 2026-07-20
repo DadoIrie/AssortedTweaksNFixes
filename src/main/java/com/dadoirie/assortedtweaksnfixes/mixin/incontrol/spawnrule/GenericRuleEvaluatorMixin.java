@@ -33,7 +33,7 @@ public abstract class GenericRuleEvaluatorMixin {
     private List<BiFunction<Object, IEventQuery<Object>, Boolean>> checks;
 
     @Inject(method = "addChecks", at = @At("TAIL"))
-    private void atf_consumeInhabitedThreshold(AttributeMap map, CallbackInfo callback) {
+    private void atnf$consumeInhabitedThreshold(AttributeMap map, CallbackInfo callback) {
         map.consume(InControlRuleKeys.INHABITED_THRESHOLD, this::atnf$addInhabitedThresholdCheck);
     }
 

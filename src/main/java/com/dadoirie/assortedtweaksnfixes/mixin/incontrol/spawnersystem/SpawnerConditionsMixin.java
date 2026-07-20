@@ -16,7 +16,7 @@ public abstract class SpawnerConditionsMixin implements SpeciesClaimChunkData.Co
     private boolean atnf$chunkReservation;
 
     @Inject(method = "parse", at = @At("HEAD"))
-    private static void atf_extractChunkReservation(JsonObject object, SpawnerConditions.Builder builder, CallbackInfo callback) {
+    private static void atnf$extractChunkReservation(JsonObject object, SpawnerConditions.Builder builder, CallbackInfo callback) {
         if (object.has("chunkreservation")) {
             boolean value = object.getAsJsonPrimitive("chunkreservation").getAsBoolean();
             object.remove("chunkreservation");
@@ -25,7 +25,7 @@ public abstract class SpawnerConditionsMixin implements SpeciesClaimChunkData.Co
     }
 
     @Inject(method = "<init>", at = @At("RETURN"))
-    private void atf_copyChunkReservation(SpawnerConditions.Builder builder, CallbackInfo callback) {
+    private void atnf$copyChunkReservation(SpawnerConditions.Builder builder, CallbackInfo callback) {
         this.atnf$chunkReservation = ((SpeciesClaimChunkData.BuilderFlag) builder).atnf$getChunkReservation();
     }
 

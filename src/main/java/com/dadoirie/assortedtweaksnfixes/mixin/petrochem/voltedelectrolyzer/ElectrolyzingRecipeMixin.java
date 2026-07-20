@@ -35,7 +35,7 @@ public abstract class ElectrolyzingRecipeMixin implements ElectrolyzerElectricDe
     }
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void atf_copyElectric(EnergyRecipeParams params, CallbackInfo ci) {
+    private void atnf$copyElectric(EnergyRecipeParams params, CallbackInfo ci) {
         atnf$setElectric(((ElectrolyzerElectricDevice.Electric) params).atnf$kilowatts(),
                 ((ElectrolyzerElectricDevice.Electric) params).atnf$voltage());
     }

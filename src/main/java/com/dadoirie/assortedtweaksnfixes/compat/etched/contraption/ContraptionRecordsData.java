@@ -26,6 +26,9 @@ import java.util.List;
 // (walk into range, rejoin, assembly) and re-broadcast on interaction - never stored, never persisted
 public final class ContraptionRecordsData extends SyncedEntityTrackedData {
 
+    public record Entry(BlockPos localPos, BlockPos originalPos, CompoundTag payload) {
+    }
+
     public static final TrackedDataKey<ContraptionRecordsData> KEY = TrackedDataRegistries.ENTITY.register(
             ATNFConstants.identifer("contraption_records"),
             ContraptionRecordsData.class,
@@ -77,10 +80,10 @@ public final class ContraptionRecordsData extends SyncedEntityTrackedData {
         if (!this.entity.level().isClientSide())
             return;
 
-        List<ContraptionSoundManager.RecordEntry> entries = new ArrayList<>();
+        List<Entry> entries = new ArrayList<>();
         for (Tag element : tag.getList("entries", Tag.TAG_COMPOUND)) {
             CompoundTag payload = (CompoundTag) element;
-            entries.add(new ContraptionSoundManager.RecordEntry(
+            entries.add(new Entry(
                     BlockPos.of(payload.getLong("pos")),
                     BlockPos.of(payload.getLong("original")),
                     payload));

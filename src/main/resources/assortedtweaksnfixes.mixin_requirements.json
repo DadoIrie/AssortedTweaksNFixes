@@ -62,6 +62,51 @@
       }
     }
   },
+  "etched.AbstractOnlineSoundInstanceMixin": {
+    "enabled": true,
+    "etched": {
+      "version": {
+        "min": "5.0.0",
+        "max": ""
+      }
+    }
+  },
+  "etched.SoundTrackerMixin": {
+    "enabled": true,
+    "etched": {
+      "version": {
+        "min": "5.0.0",
+        "max": ""
+      }
+    }
+  },
+  "etched.AlbumJukeboxBlockMixin": {
+    "enabled": true,
+    "etched": {
+      "version": {
+        "min": "5.0.0",
+        "max": ""
+      }
+    }
+  },
+  "etched.RadioBlockMixin": {
+    "enabled": true,
+    "etched": {
+      "version": {
+        "min": "5.0.0",
+        "max": ""
+      }
+    }
+  },
+  "etched.RadioBlockEntityMixin": {
+    "enabled": true,
+    "etched": {
+      "version": {
+        "min": "5.0.0",
+        "max": ""
+      }
+    }
+  },
   "etched.AbstractSoundInstanceAccessor": {
     "enabled": true,
     "etched": {
@@ -78,15 +123,6 @@
     }  
   },
   "etched.AsyncInputStreamMixin": {
-    "enabled": true,
-    "etched": {
-      "version": {
-        "min": "5.0.0",
-        "max": ""
-      }
-    }
-  },
-  "etched.Mp3InputStreamMixin": {
     "enabled": true,
     "etched": {
       "version": {
@@ -468,7 +504,7 @@
     "enabled": true,
     "petrochem": {
       "version": {
-        "min": "1.2.1",
+        "min": "1.3.0",
         "max": ""
       }
     },
@@ -483,7 +519,7 @@
     "enabled": true,
     "petrochem": {
       "version": {
-        "min": "1.2.1",
+        "min": "1.3.0",
         "max": ""
       }
     },
@@ -498,7 +534,7 @@
     "enabled": true,
     "petrochem": {
       "version": {
-        "min": "1.2.1",
+        "min": "1.3.0",
         "max": ""
       }
     },
@@ -513,7 +549,7 @@
     "enabled": true,
     "petrochem": {
       "version": {
-        "min": "1.2.1",
+        "min": "1.3.0",
         "max": ""
       }
     },
@@ -534,7 +570,7 @@
     "enabled": true,
     "petrochem": {
       "version": {
-        "min": "1.2.1",
+        "min": "1.3.0",
         "max": ""
       }
     },
@@ -584,6 +620,15 @@
       }
     }
   },
+  "create.ContraptionCustomNameSyncMixin": {
+    "enabled": true,
+    "create": {
+      "version": {
+        "min": "6.0.10",
+        "max": ""
+      }
+    }
+  },
   "create.HeatJsRegisterFixMixin": {
     "enabled": true,
     "create": {
@@ -616,6 +661,21 @@
     "unlitcampfire": {
       "version": {
         "min": "1.21",
+        "max": ""
+      }
+    }
+  },
+  "cablefacades.CoveredVisualizerMixin": {
+    "enabled": true,
+    "cable_facades": {
+      "version": {
+        "min": "2.1.3",
+        "max": ""
+      }
+    },
+    "create": {
+      "version": {
+        "min": "6.0.10",
         "max": ""
       }
     }

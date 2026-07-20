@@ -35,7 +35,7 @@ public abstract class SpawnerSystemMixin {
                     target = "Lmcjty/incontrol/spawner/SpawnerSystem;getRandomPosition(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/EntityType;Lmcjty/incontrol/spawner/SpawnerConditions;Lnet/minecraft/core/BlockPos;I)Lnet/minecraft/core/BlockPos;"
             )
     )
-    private static BlockPos atf_gateReservedChunk(Level world, EntityType<?> mob, SpawnerConditions conditions,
+    private static BlockPos atnf$gateReservedChunk(Level world, EntityType<?> mob, SpawnerConditions conditions,
                                                   BlockPos groupCenterPos, int groupDistance, Operation<BlockPos> original) {
         atnf$reservationActive = ((SpeciesClaimChunkData.ConditionsFlag) conditions).atnf$chunkReservation();
         BlockPos pos = original.call(world, mob, conditions, groupCenterPos, groupDistance);
@@ -70,7 +70,7 @@ public abstract class SpawnerSystemMixin {
                     target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntityWithPassengers(Lnet/minecraft/world/entity/Entity;)V"
             )
     )
-    private static void atf_claimChunkOnSpawn(ServerLevel world, Entity entity, Operation<Void> original) {
+    private static void atnf$claimChunkOnSpawn(ServerLevel world, Entity entity, Operation<Void> original) {
         original.call(world, entity);
         if (atnf$reservationActive) {
             BlockPos pos = entity.blockPosition();

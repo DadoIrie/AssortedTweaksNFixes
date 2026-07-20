@@ -18,7 +18,7 @@ public abstract class ConfigMixin {
                     target = "Lnet/neoforged/neoforge/common/ModConfigSpec$Builder;pop()Lnet/neoforged/neoforge/common/ModConfigSpec$Builder;"
             )
     )
-    private static ModConfigSpec.Builder atf_appendReservationSettings(ModConfigSpec.Builder builder, Operation<ModConfigSpec.Builder> original) {
+    private static ModConfigSpec.Builder atnf$appendReservationSettings(ModConfigSpec.Builder builder, Operation<ModConfigSpec.Builder> original) {
         SpeciesClaimChunkData.CHUNK_RESERVATION_VERIFY_TICKS = builder
                 .comment("How many ticks a chunk species reservation stays trusted before the claiming species is re-verified on contested spawn attempts. Use 0 to re-verify on every contested attempt.")
                 .defineInRange("chunkReservationVerifyTicks", 600, 0, 72000);

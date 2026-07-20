@@ -203,6 +203,9 @@ dependencies {
     compileOnlyApi("maven.modrinth:in-control:${incontrol_version}")
     compileOnlyApi("maven.modrinth:data-anchor:${data_anchor_version}")
     compileOnlyApi("maven.modrinth:create-connected:${create_connected_version}")
+    compileOnlyApi("maven.modrinth:cable-facades:${cable_facades_version}")
+    compileOnlyApi("maven.modrinth:jade:${project.jade_version}")
+    compileOnlyApi("maven.modrinth:jade-addons-forge:${project.jade_addons_forge_version}")
 
     compileOnlyApi zipTree(configurations.detachedConfiguration(
             dependencies.create("maven.modrinth:lambdynamiclights:${lambdynamiclights_version}")
@@ -230,14 +233,14 @@ dependencies {
     compileOnlyApi("curse.maven:keybinding-hider-1129419:7670685")
     compileOnlyApi("curse.maven:fast-travel-waypoints-1492203:8258335")
 
-    compileOnlyApi("curse.maven:create-petrochem-1494004:8326681")
+    compileOnlyApi("curse.maven:create-petrochem-1494004:8440723")
     compileOnlyApi("com.simibubi.create:create-${minecraft_version}:${create_version}:slim") { transitive = false }
     compileOnlyApi("net.createmod.ponder:ponder-neoforge:${ponder_version}+mc${minecraft_version}")
     compileOnlyApi("com.tterrag.registrate:Registrate:${project.registrate_version}")
     compileOnlyApi("dev.engine-room.flywheel:flywheel-neoforge-api-${minecraft_version}:${flywheel_version}")
     compileOnlyApi("dev.engine-room.flywheel:flywheel-neoforge-${minecraft_version}:${flywheel_version}")
 
-    api("dev.latvian.mods:kubejs-neoforge:$kubejs_version")
+    compileOnlyApi("dev.latvian.mods:kubejs-neoforge:$kubejs_version")
     interfaceInjectionData("dev.latvian.mods:kubejs-neoforge:$kubejs_version")
     implementation("maven.modrinth:kubejs-create:$kubejs_create_version")
 

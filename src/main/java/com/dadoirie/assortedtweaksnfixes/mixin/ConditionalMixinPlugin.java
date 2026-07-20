@@ -30,6 +30,9 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
     // mixinPath -> enabled (from JSON)
     private static final Map<String, Boolean> MIXIN_ENABLED = new HashMap<>();
 
+    // mixinPath of every mixin that actually passed all gates in shouldApplyMixin (final, post-config, post-version-check decision)
+    private static final Set<String> APPLIED_MIXINS = new HashSet<>();
+
     private record VersionConstraint(String min, String max) {
             private VersionConstraint(String min, String max) {
                 this.min = min.isEmpty() ? null : min;
@@ -348,6 +351,7 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
             }
 
             LOGGER.info("applying coupled child {} of parent {}", childClassName, parentMixin);
+            APPLIED_MIXINS.add(mixinPath);
             return true;
         }
 
@@ -416,6 +420,7 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
             versionInfo.append(modId).append("@").append(getModVersion(modId));
         }
         LOGGER.info("applying {} [{}]", mixinPath, versionInfo);
+        APPLIED_MIXINS.add(mixinPath);
         return true;
     }
 
@@ -439,5 +444,10 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
     public static boolean isMixinEnabled(String mixinPath) {
         Boolean enabled = MIXIN_ENABLED.get(mixinPath);
         return enabled != null && enabled;
+    }
+
+    // whether this mixin actually passed every gate in shouldApplyMixin (JSON enabled, mod/mixin TOML config, mod presence & version range)
+    public static boolean isApplied(String mixinPath) {
+        return APPLIED_MIXINS.contains(mixinPath);
     }
 }

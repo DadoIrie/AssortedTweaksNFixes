@@ -16,7 +16,7 @@ public abstract class KubeJSPetrochemPluginMixin {
     @Redirect(method = "registerRecipeSchemas",
             at = @At(value = "INVOKE",
                     target = "Ldev/latvian/mods/kubejs/recipe/schema/RecipeSchemaRegistry;register(Lnet/minecraft/resources/ResourceLocation;Ldev/latvian/mods/kubejs/recipe/schema/RecipeSchema;)V"))
-    private void atf_swapElectrolyzingSchema(RecipeSchemaRegistry registry, ResourceLocation id, RecipeSchema schema) {
+    private void atnf$swapElectrolyzingSchema(RecipeSchemaRegistry registry, ResourceLocation id, RecipeSchema schema) {
         if (id.equals(PetrochemRecipeTypes.ELECTROLYZING.id)) {
             registry.register(id, ATNFElectrolyzingKubeSchema.ELECTROLYZING_ELECTRIC_SCHEMA);
             return;

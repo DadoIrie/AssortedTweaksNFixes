@@ -28,15 +28,18 @@ public abstract class SmallEngineBlockEntityMixin {
     public float load;
 
     @Shadow
+    public float speed_modulator;
+
+    @Shadow
     public abstract float getGeneratedSpeed();
 
     @Inject(method = "getConsumption", at = @At("HEAD"), cancellable = true)
-    private void atf_scaleConsumptionByRpm(CallbackInfoReturnable<Float> cir) {
+    private void atnf$scaleConsumptionByRpm(CallbackInfoReturnable<Float> cir) {
         if (currentFuel == null) {
             cir.setReturnValue(0f);
             return;
         }
-        float rpm = Mth.abs((float) targetSpeed.getValue());
+        float rpm = Mth.abs((float) targetSpeed.getValue() * speed_modulator);
         float rpmMultiplier = Math.max(1f, rpm / 3.9f);
         cir.setReturnValue(currentFuel.getConsumptionRate() * Math.max(load, 0.3f) * rpmMultiplier);
     }

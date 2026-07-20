@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BlockItem.class)
 public abstract class ReversePlacementMixin {
     @Inject(method = "getPlacementState", at = @At("RETURN"), cancellable = true)
-    private void atfnf_reversePlacementOnVerticalFace(BlockPlaceContext context, CallbackInfoReturnable<BlockState> cir) {
+    private void atnf_reversePlacementOnVerticalFace(BlockPlaceContext context, CallbackInfoReturnable<BlockState> cir) {
         BlockState state = cir.getReturnValue();
         if (state == null) {
             return;

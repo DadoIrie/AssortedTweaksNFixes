@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ElectrolyzingCategoryMixin {
 
     @ModifyVariable(method = "draw", at = @At("STORE"), name = "powerString")
-    private String atf_showElectricRequirement(String powerString, ElectrolyzingRecipe recipe, IRecipeSlotsView iRecipeSlotsView,
+    private String atnf$showElectricRequirement(String powerString, ElectrolyzingRecipe recipe, IRecipeSlotsView iRecipeSlotsView,
                                                GuiGraphics graphics, double mouseX, double mouseY) {
         ElectrolyzerElectricDevice.Electric electric = (ElectrolyzerElectricDevice.Electric) recipe;
         double kw = electric.atnf$kilowatts();
@@ -27,7 +27,7 @@ public abstract class ElectrolyzingCategoryMixin {
     }
 
     @Inject(method = "draw", at = @At("TAIL"))
-    private void atf_showVoltageRange(ElectrolyzingRecipe recipe, IRecipeSlotsView iRecipeSlotsView,
+    private void atnf$showVoltageRange(ElectrolyzingRecipe recipe, IRecipeSlotsView iRecipeSlotsView,
                                       GuiGraphics graphics, double mouseX, double mouseY, CallbackInfo ci) {
         ElectrolyzerElectricDevice.Electric electric = (ElectrolyzerElectricDevice.Electric) recipe;
         double rated = electric.atnf$voltage();

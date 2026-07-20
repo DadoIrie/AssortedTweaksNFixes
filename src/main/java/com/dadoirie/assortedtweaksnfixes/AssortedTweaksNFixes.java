@@ -3,6 +3,7 @@ package com.dadoirie.assortedtweaksnfixes;
 import com.dadoirie.assortedtweaksnfixes.compat.electroenergetics.ATNFSimulatedDevices;
 import com.dadoirie.assortedtweaksnfixes.compat.etched.EtchedContraptionCompat;
 import com.dadoirie.assortedtweaksnfixes.compat.etched.JukeboxOrphanedSoundFix;
+import com.dadoirie.assortedtweaksnfixes.compat.etched.RadioUrlPreservationFix;
 import com.dadoirie.assortedtweaksnfixes.compat.mekanism.DyeDepotCompat;
 import com.dadoirie.assortedtweaksnfixes.compat.yigd.DeathCharmCompat;
 import com.dadoirie.assortedtweaksnfixes.content.FullThirstDrinkBlocker;
@@ -10,7 +11,6 @@ import com.dadoirie.assortedtweaksnfixes.content.HeatThirstHandler;
 import com.dadoirie.assortedtweaksnfixes.content.ATNFCreativeTabs;
 import com.dadoirie.assortedtweaksnfixes.content.hammer.HammerFeature;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.neoforged.bus.api.EventPriority;
@@ -67,6 +67,7 @@ public class AssortedTweaksNFixes {
         if (ModList.get().isLoaded("etched")) {
             NeoForge.EVENT_BUS.addListener(EventPriority.LOW, JukeboxOrphanedSoundFix::onBlockBreak);
             NeoForge.EVENT_BUS.addListener(EventPriority.LOW, JukeboxOrphanedSoundFix::onRightClickBlock);
+            NeoForge.EVENT_BUS.addListener(RadioUrlPreservationFix::onBlockDrops);
             if (ModList.get().isLoaded("create") && ModList.get().isLoaded("dataanchor")) {
                 EtchedContraptionCompat.register(modEventBus);
             }

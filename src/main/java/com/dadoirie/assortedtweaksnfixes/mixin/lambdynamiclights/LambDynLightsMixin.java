@@ -20,7 +20,7 @@ public abstract class LambDynLightsMixin {
                     target = "Ldev/lambdaurora/lambdynlights/resource/item/ItemLightSources;getLuminance(Lnet/minecraft/world/item/ItemStack;Z)I"
             )
     )
-    private static int atf_suppressHeldUnlitCampfireLight(ItemLightSources itemLightSources, ItemStack stack, boolean submergedInWater) {
+    private static int atnf$suppressHeldUnlitCampfireLight(ItemLightSources itemLightSources, ItemStack stack, boolean submergedInWater) {
         if (ModList.get().isLoaded("unlitcampfire") && atnf$isCampfire(stack)) {
             return 0;
         }

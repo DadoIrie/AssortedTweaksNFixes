@@ -34,7 +34,7 @@ public abstract class MediumEngineBlockEntityMixin {
     public float load;
 
     @Inject(method = "getConsumption", at = @At("HEAD"), cancellable = true)
-    private void atf_scaleConsumptionByRpm(CallbackInfoReturnable<Float> cir) {
+    private void atnf$scaleConsumptionByRpm(CallbackInfoReturnable<Float> cir) {
         if (currentFuel == null) {
             cir.setReturnValue(0f);
             return;

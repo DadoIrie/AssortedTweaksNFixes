@@ -19,7 +19,7 @@ public abstract class SpawnRuleMixin {
     private static GenericAttributeMapFactory FACTORY;
 
     @Inject(method = "<clinit>", at = @At("TAIL"))
-    private static void atf_registerInhabitedThresholdKey(CallbackInfo callback) {
+    private static void atnf$registerInhabitedThresholdKey(CallbackInfo callback) {
         FACTORY.attribute(Attribute.create(InControlRuleKeys.INHABITED_THRESHOLD));
     }
 }
