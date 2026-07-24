@@ -2,6 +2,8 @@ package com.dadoirie.assortedtweaksnfixes.data;
 
 import com.dadoirie.assortedtweaksnfixes.data.compats.condiments.CrateAssetsDataProvider;
 import com.dadoirie.assortedtweaksnfixes.data.compats.condiments.CrateTextureProvider;
+import com.dadoirie.assortedtweaksnfixes.data.compats.curios.CreateCuriosDataGenerator;
+import com.dadoirie.assortedtweaksnfixes.data.compats.curios.CreateJetpackCuriosDataGenerator;
 import com.dadoirie.assortedtweaksnfixes.data.compats.mekanism_compat.DyeDepotPigmentPainting;
 import com.dadoirie.assortedtweaksnfixes.data.compats.mekanism_compat.DyeDepotPigmentExtraction;
 import com.dadoirie.assortedtweaksnfixes.data.compats.mekanism_compat.PigmentMixer;
@@ -72,6 +74,11 @@ public class ModDataGenerators {
         HammerAssetsGenerator.run();
         HammerDataGenerator.run();
         addHammerOverlayEntry();
+
+        CreateCuriosDataGenerator.run();
+        addCreateBacktankCuriosOverlayEntry();
+        CreateJetpackCuriosDataGenerator.run();
+        addCreateJetpackCuriosOverlayEntry();
 
         savePackMcmeta();
 
@@ -224,6 +231,70 @@ public class ModDataGenerators {
 
         entry.add("neoforge:conditions", conditions);
         entry.addProperty("directory", "overlay_hammer");
+
+        JsonArray formats = new JsonArray();
+        formats.add(0);
+        formats.add(2147483647);
+        entry.add("formats", formats);
+
+        entries.add(entry);
+    }
+
+    private static void addCreateBacktankCuriosOverlayEntry() {
+        JsonObject overlays = currentPackMcmeta.getAsJsonObject("overlays");
+        JsonArray entries = overlays.getAsJsonArray("entries");
+
+        JsonObject entry = new JsonObject();
+        JsonArray conditions = new JsonArray();
+
+        JsonObject createLoaded = new JsonObject();
+        createLoaded.addProperty("type", "neoforge:mod_loaded");
+        createLoaded.addProperty("modid", "create");
+        conditions.add(createLoaded);
+
+        JsonObject curiosLoaded = new JsonObject();
+        curiosLoaded.addProperty("type", "neoforge:mod_loaded");
+        curiosLoaded.addProperty("modid", "curios");
+        conditions.add(curiosLoaded);
+
+        JsonObject notJetpack = new JsonObject();
+        notJetpack.addProperty("type", "neoforge:not");
+        JsonObject jetpackLoaded = new JsonObject();
+        jetpackLoaded.addProperty("type", "neoforge:mod_loaded");
+        jetpackLoaded.addProperty("modid", "create_jetpack");
+        notJetpack.add("value", jetpackLoaded);
+        conditions.add(notJetpack);
+
+        entry.add("neoforge:conditions", conditions);
+        entry.addProperty("directory", "overlay_create");
+
+        JsonArray formats = new JsonArray();
+        formats.add(0);
+        formats.add(2147483647);
+        entry.add("formats", formats);
+
+        entries.add(entry);
+    }
+
+    private static void addCreateJetpackCuriosOverlayEntry() {
+        JsonObject overlays = currentPackMcmeta.getAsJsonObject("overlays");
+        JsonArray entries = overlays.getAsJsonArray("entries");
+
+        JsonObject entry = new JsonObject();
+        JsonArray conditions = new JsonArray();
+
+        JsonObject jetpackLoaded = new JsonObject();
+        jetpackLoaded.addProperty("type", "neoforge:mod_loaded");
+        jetpackLoaded.addProperty("modid", "create_jetpack");
+        conditions.add(jetpackLoaded);
+
+        JsonObject curiosLoaded = new JsonObject();
+        curiosLoaded.addProperty("type", "neoforge:mod_loaded");
+        curiosLoaded.addProperty("modid", "curios");
+        conditions.add(curiosLoaded);
+
+        entry.add("neoforge:conditions", conditions);
+        entry.addProperty("directory", "overlay_create_jetpacks");
 
         JsonArray formats = new JsonArray();
         formats.add(0);

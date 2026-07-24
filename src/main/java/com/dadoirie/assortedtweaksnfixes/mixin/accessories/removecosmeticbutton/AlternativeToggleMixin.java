@@ -15,11 +15,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
 @Mixin(AbstractContainerScreen.class)
-public class ShiftRightClickToggleMixin {
+public class AlternativeToggleMixin {
 
     @Inject(method = "mouseClicked", at = @At("HEAD"), cancellable = true)
     private void assortedtweaksnfixes$onMouseClicked(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
-        if (!Screen.hasShiftDown()) {
+        if (!Screen.hasAltDown()) {
             return;
         }
         
@@ -66,7 +66,7 @@ public class ShiftRightClickToggleMixin {
     
     @Inject(method = "renderTooltip", at = @At("HEAD"), cancellable = true)
     private void assortedtweaksnfixes$onRenderTooltip(CallbackInfo ci) {
-        if (!Screen.hasShiftDown()) {
+        if (!Screen.hasAltDown()) {
             return;
         }
         

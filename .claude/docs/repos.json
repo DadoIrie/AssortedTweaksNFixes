@@ -26,5 +26,7 @@
   "Snownee/JadeAddons": "1.21-neoforge",
   "xanthian/VariantVanillaBlocks": "1.21",
   "CoolerProYT/FletchingRecipe": "1.21.1-neoforge",
-  "Porters-of-Railways/Railway-1.21.1": "1.21/dev"
+  "Porters-of-Railways/Railway-1.21.1": "1.21/dev",
+  "PssbleTrngle/CreateJetpack": "main/neoforge/1.21.x",
+  "PssbleTrngle/FlightLib": "main/1.21.x"
 }

@@ -2,6 +2,7 @@ package com.dadoirie.assortedtweaksnfixes;
 
 import com.dadoirie.assortedtweaksnfixes.client.Freecam;
 import com.dadoirie.assortedtweaksnfixes.client.KeybindHandler;
+import com.dadoirie.assortedtweaksnfixes.compat.curios.CuriosCompat;
 import com.dadoirie.assortedtweaksnfixes.compat.etched.client.RadioStreamResyncHandler;
 import com.dadoirie.assortedtweaksnfixes.compat.etched.radio.client.RadioTooltipHandler;
 import com.dadoirie.assortedtweaksnfixes.compat.etched.radio.client.RadioScreen;
@@ -32,6 +33,10 @@ public class AssortedTweaksNFixesClient {
             if (ConditionalMixinPlugin.isApplied("etched.ExtendedRadioBlockEntityMixin")) {
                 RadioScreen.register(modBus);
             }
+        }
+
+        if (ModList.get().isLoaded("curios") && (ModList.get().isLoaded("create") || ModList.get().isLoaded("create_jetpack"))) {
+            CuriosCompat.register(modBus);
         }
     }
     private void onClientSetup(FMLClientSetupEvent event) {

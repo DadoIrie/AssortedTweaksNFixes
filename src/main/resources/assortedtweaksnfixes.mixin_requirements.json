@@ -697,5 +697,35 @@
         "max": ""
       }
     }
+  },
+  "create.DivingHelmetItemMixin": {
+    "enabled": true,
+    "create": {
+      "version": {
+        "min": "6.0.10",
+        "max": ""
+      }
+    },
+    "curios": {
+      "version": {
+        "min": "9.5.1",
+        "max": ""
+      }
+    }
+  },
+  "create.DivingBootsItemMixin": {
+    "enabled": true,
+    "create": {
+      "version": {
+        "min": "6.0.10",
+        "max": ""
+      }
+    },
+    "curios": {
+      "version": {
+        "min": "9.5.1",
+        "max": ""
+      }
+    }
   }
 }
