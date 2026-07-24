@@ -1,5 +1,6 @@
 package com.dadoirie.assortedtweaksnfixes.compat.etched.contraption;
 
+import com.dadoirie.assortedtweaksnfixes.compat.create.contraption.ATNFInteractionBehaviour;
 import com.simibubi.create.content.contraptions.AbstractContraptionEntity;
 import gg.moonflower.etched.api.record.PlayableRecord;
 import net.minecraft.core.BlockPos;
@@ -11,7 +12,7 @@ import net.minecraft.world.level.block.JukeboxBlock;
 import net.minecraft.world.level.block.entity.JukeboxBlockEntity;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.StructureBlockInfo;
 
-public class JukeboxInteractionBehaviour extends RecordPlayerInteractionBehaviour {
+public class JukeboxInteractionBehaviour extends ATNFInteractionBehaviour {
 
     @Override
     public boolean handlePlayerInteraction(Player player, InteractionHand activeHand, BlockPos localPos,

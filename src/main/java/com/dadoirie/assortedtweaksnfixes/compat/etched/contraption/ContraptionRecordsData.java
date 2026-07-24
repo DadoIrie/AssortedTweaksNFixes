@@ -58,7 +58,7 @@ public final class ContraptionRecordsData extends SyncedEntityTrackedData {
                     BlockPos localPos = actor.left.pos();
                     StructureBlockInfo info = contraption.getBlocks().get(localPos);
                     if (info == null
-                            || !(MovementBehaviour.REGISTRY.get(info.state()) instanceof RecordPlayerMovementBehaviour behaviour))
+                            || !(MovementBehaviour.REGISTRY.get(info.state()) instanceof EtchedMovementBehaviour behaviour))
                         continue;
 
                     CompoundTag payload = behaviour.writeSyncData(info, this.entity.registryAccess());

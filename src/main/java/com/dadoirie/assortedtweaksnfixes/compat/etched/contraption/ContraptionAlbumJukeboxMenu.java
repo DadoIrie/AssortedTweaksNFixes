@@ -1,5 +1,6 @@
 package com.dadoirie.assortedtweaksnfixes.compat.etched.contraption;
 
+import com.dadoirie.assortedtweaksnfixes.compat.create.contraption.ATNFInteractionBehaviour;
 import com.simibubi.create.content.contraptions.AbstractContraptionEntity;
 import gg.moonflower.etched.common.block.AlbumJukeboxBlock;
 import gg.moonflower.etched.common.blockentity.AlbumJukeboxBlockEntity;
@@ -37,7 +38,7 @@ public class ContraptionAlbumJukeboxMenu extends AlbumJukeboxMenu {
     public static ContraptionAlbumJukeboxMenu create(int id, Inventory inventory,
                                                      AbstractContraptionEntity contraptionEntity, BlockPos localPos) {
         AtomicReference<BlockState> state = new AtomicReference<>();
-        AlbumJukeboxBlockEntity blockEntity = RecordPlayerInteractionBehaviour.createBlockEntity(
+        AlbumJukeboxBlockEntity blockEntity = ATNFInteractionBehaviour.createBlockEntity(
                 contraptionEntity, localPos, AlbumJukeboxBlockEntity::new, state);
         if (blockEntity == null)
             return null;
@@ -69,7 +70,7 @@ public class ContraptionAlbumJukeboxMenu extends AlbumJukeboxMenu {
         if (player.level().isClientSide() || !this.contraptionEntity.isAlive())
             return;
 
-        RecordPlayerInteractionBehaviour.writeBack(this.contraptionEntity, this.localPos, this.state.get(), this.blockEntity);
+        ATNFInteractionBehaviour.writeBack(this.contraptionEntity, this.localPos, this.state.get(), this.blockEntity);
         ContraptionRecordsData.sync(this.contraptionEntity);
     }
 }

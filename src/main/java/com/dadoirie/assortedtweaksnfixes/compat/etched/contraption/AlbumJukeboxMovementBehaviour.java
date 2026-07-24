@@ -9,11 +9,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.StructureBlockInfo;
 import org.jetbrains.annotations.Nullable;
 
-public class AlbumJukeboxMovementBehaviour extends RecordPlayerMovementBehaviour {
+public class AlbumJukeboxMovementBehaviour extends EtchedMovementBehaviour {
 
     @Override
     @Nullable
-    protected CompoundTag writeSyncData(StructureBlockInfo info, HolderLookup.Provider registries) {
+    public CompoundTag writeSyncData(StructureBlockInfo info, HolderLookup.Provider registries) {
         BlockState state = info.state();
         if (state.hasProperty(AlbumJukeboxBlock.POWERED) && state.getValue(AlbumJukeboxBlock.POWERED))
             return null;

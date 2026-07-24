@@ -1,6 +1,6 @@
 package com.dadoirie.assortedtweaksnfixes.compat.jade.etched;
 
-import com.dadoirie.assortedtweaksnfixes.ATNFConstants;
+import com.dadoirie.assortedtweaksnfixes.compat.etched.RadioNameAccess;
 import gg.moonflower.etched.common.block.RadioBlock;
 import gg.moonflower.etched.common.blockentity.RadioBlockEntity;
 import net.minecraft.ChatFormatting;
@@ -14,8 +14,6 @@ import snownee.jade.api.ITooltip;
 import snownee.jade.api.IWailaClientRegistration;
 import snownee.jade.api.config.IPluginConfig;
 
-// only ever referenced from ATNFJadePlugin behind an "etched" isLoaded check, so RadioBlock/RadioBlockEntity
-// are never classloaded unless etched is actually present
 public final class EtchedJadeSupport {
 
     private EtchedJadeSupport() {
@@ -28,7 +26,7 @@ public final class EtchedJadeSupport {
     private enum RadioUrlProvider implements IBlockComponentProvider {
         INSTANCE;
 
-        private static final ResourceLocation UID = ATNFConstants.identifer("radio_url");
+        private static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath("etched", "atnf_radio_url");
 
         @OnlyIn(Dist.CLIENT)
         @Override
@@ -36,9 +34,23 @@ public final class EtchedJadeSupport {
             if (!(accessor.getBlockEntity() instanceof RadioBlockEntity radio))
                 return;
 
-            String url = radio.getUrl();
-            if (url != null && !url.isEmpty()) {
-                tooltip.add(Component.literal(url).withStyle(ChatFormatting.GRAY));
+            String displayValue = null;
+            if (radio instanceof RadioNameAccess nameAccess) {
+                String name = nameAccess.atnf$getName();
+                if (name != null && !name.isEmpty()) {
+                    displayValue = name;
+                }
+            }
+
+            if (displayValue == null) {
+                String url = radio.getUrl();
+                if (url != null && !url.isEmpty()) {
+                    displayValue = url;
+                }
+            }
+
+            if (displayValue != null) {
+                tooltip.add(Component.literal(displayValue).withStyle(ChatFormatting.DARK_GREEN));
             }
         }
 

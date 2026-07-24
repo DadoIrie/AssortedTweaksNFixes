@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -77,7 +78,13 @@ public class ModDataGenerators {
         System.out.println("Data generation complete!");
     }
 
-    private static void generateOverlayPackMcmeta() {
+    private static void generateOverlayPackMcmeta() throws IOException {
+        Path existing = Path.of("src/main/resources/pack.mcmeta.json");
+        if (Files.exists(existing)) {
+            currentPackMcmeta = JsonParser.parseString(Files.readString(existing)).getAsJsonObject();
+            return;
+        }
+
         JsonObject pack = new JsonObject();
         pack.addProperty("description", "Compatibility resources");
         pack.addProperty("pack_format", 34);

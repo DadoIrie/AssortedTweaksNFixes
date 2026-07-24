@@ -107,6 +107,15 @@
       }
     }
   },
+  "etched.ExtendedRadioBlockEntityMixin": {
+    "enabled": true,
+    "etched": {
+      "version": {
+        "min": "5.0.0",
+        "max": ""
+      }
+    }
+  },
   "etched.AbstractSoundInstanceAccessor": {
     "enabled": true,
     "etched": {
@@ -148,6 +157,15 @@
     "dataanchor": {
       "version": {
         "min": "2.0.0",
+        "max": ""
+      }
+    }
+  },
+  "railways.CRInteractionBehavioursMixin": {
+    "enabled": true,
+    "railways": {
+      "version": {
+        "min": "0.3.0",
         "max": ""
       }
     }

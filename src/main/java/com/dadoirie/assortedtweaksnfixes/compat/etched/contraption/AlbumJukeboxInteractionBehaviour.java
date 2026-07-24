@@ -1,5 +1,6 @@
 package com.dadoirie.assortedtweaksnfixes.compat.etched.contraption;
 
+import com.dadoirie.assortedtweaksnfixes.compat.create.contraption.ATNFInteractionBehaviour;
 import com.simibubi.create.content.contraptions.AbstractContraptionEntity;
 import gg.moonflower.etched.common.block.AlbumJukeboxBlock;
 import gg.moonflower.etched.core.Etched;
@@ -10,7 +11,7 @@ import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.StructureBlockInfo;
 
-public class AlbumJukeboxInteractionBehaviour extends RecordPlayerInteractionBehaviour {
+public class AlbumJukeboxInteractionBehaviour extends ATNFInteractionBehaviour {
 
     private static final Component CONTAINER_TITLE = Component.translatable("container." + Etched.MOD_ID + ".album_jukebox");
 

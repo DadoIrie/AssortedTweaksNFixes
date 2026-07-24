@@ -3,8 +3,10 @@ package com.dadoirie.assortedtweaksnfixes;
 import com.dadoirie.assortedtweaksnfixes.client.Freecam;
 import com.dadoirie.assortedtweaksnfixes.client.KeybindHandler;
 import com.dadoirie.assortedtweaksnfixes.compat.etched.client.RadioStreamResyncHandler;
-import com.dadoirie.assortedtweaksnfixes.compat.etched.client.RadioTooltipHandler;
+import com.dadoirie.assortedtweaksnfixes.compat.etched.radio.client.RadioTooltipHandler;
+import com.dadoirie.assortedtweaksnfixes.compat.etched.radio.client.RadioScreen;
 import com.dadoirie.assortedtweaksnfixes.content.hammer.client.HammerClientSetup;
+import com.dadoirie.assortedtweaksnfixes.mixin.ConditionalMixinPlugin;
 import net.neoforged.fml.ModList;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -27,6 +29,9 @@ public class AssortedTweaksNFixesClient {
         if (ModList.get().isLoaded("etched")) {
             NeoForge.EVENT_BUS.addListener(RadioStreamResyncHandler::onScreenClosing);
             NeoForge.EVENT_BUS.addListener(RadioTooltipHandler::onItemTooltip);
+            if (ConditionalMixinPlugin.isApplied("etched.ExtendedRadioBlockEntityMixin")) {
+                RadioScreen.register(modBus);
+            }
         }
     }
     private void onClientSetup(FMLClientSetupEvent event) {

@@ -1,49 +1,98 @@
 package com.dadoirie.assortedtweaksnfixes.compat.jade.create;
 
-import com.dadoirie.assortedtweaksnfixes.ATNFConstants;
 import com.dadoirie.assortedtweaksnfixes.compat.jade.ContraptionBlockRaycast;
-import com.simibubi.create.api.contraption.storage.item.MountedItemStorage;
 import com.simibubi.create.content.contraptions.AbstractContraptionEntity;
-import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.HitResult;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 import snownee.jade.api.Accessor;
+import snownee.jade.api.EntityAccessor;
 import snownee.jade.api.IWailaClientRegistration;
 import snownee.jade.api.IWailaCommonRegistration;
 import snownee.jade.api.TooltipPosition;
+import snownee.jade.api.callback.JadeRayTraceCallback;
 import snownee.jade.api.config.IWailaConfig;
 import snownee.jade.api.view.ClientViewGroup;
+import snownee.jade.api.view.FluidView;
 import snownee.jade.api.view.IClientExtensionProvider;
 import snownee.jade.api.view.IServerExtensionProvider;
 import snownee.jade.api.view.ItemView;
 import snownee.jade.api.view.ItemViewUtils;
 import snownee.jade.api.view.ViewGroup;
+import snownee.jade.impl.ObjectDataCenter;
+import snownee.jade.util.JadeForgeUtils;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-// Jade Addons' own ContraptionItemStorageProvider always shows the merged contents of every item storage on
-// the contraption at once, with no way to narrow that down. This registers a sibling provider for the same
-// slot (same target class, higher priority) that, while not crouching, narrows the display down to only the
-// storage actually under the crosshair; crouching (Jade's "show details" key) still shows everything, exactly
-// like today. Returning null here falls through to Jade Addons' own provider unchanged, so this never touches
-// Create or other Create addons - it only ever competes for which data Jade's existing item storage tooltip
-// line renders.
 public final class ContraptionHoveredStorageJadeSupport {
 
-    private static final ResourceLocation UID = ATNFConstants.identifer("contraption_hovered_storage");
+    private static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath("create", "atnf_contraption_hovered_storage");
+    private static final ResourceLocation FLUID_UID = ResourceLocation.fromNamespaceAndPath("create", "atnf_contraption_hovered_fluid_storage");
+    private static final ResourceLocation CROUCH_REVERT = ResourceLocation.fromNamespaceAndPath("create", "atnf_contraption_hovered_storage.crouch_revert");
 
     private ContraptionHoveredStorageJadeSupport() {
     }
 
     public static void register(IWailaCommonRegistration registration) {
         registration.registerItemStorage(HoveredStorageProvider.INSTANCE, AbstractContraptionEntity.class);
+        registration.registerFluidStorage(HoveredFluidProvider.INSTANCE, AbstractContraptionEntity.class);
     }
 
     public static void registerClient(IWailaClientRegistration registration) {
         registration.addConfig(UID, true);
+        registration.addConfig(CROUCH_REVERT, false);
         registration.registerItemStorageClient(HoveredStorageProvider.INSTANCE);
+        registration.registerFluidStorageClient(HoveredFluidProvider.INSTANCE);
+        registration.addRayTraceCallback(new ShowDetailsWatcher());
+    }
+
+    private static boolean yieldsToCombined(Accessor<?> accessor) {
+        if (!IWailaConfig.get().getPlugin().get(UID))
+            return true;
+        return accessor.showDetails() == IWailaConfig.get().getPlugin().get(CROUCH_REVERT);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @Nullable
+    private static String hoveredGroupId(Accessor<?> accessor) {
+        if (!(accessor instanceof EntityAccessor entityAccessor)
+                || !(entityAccessor.getEntity() instanceof AbstractContraptionEntity contraptionEntity))
+            return null;
+
+        return ContraptionBlockRaycast.findTargetedBlock(entityAccessor, contraptionEntity)
+                .map(info -> String.valueOf(info.pos().asLong()))
+                .orElse(null);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    private static final class ShowDetailsWatcher implements JadeRayTraceCallback {
+
+        private int lastContraptionId = -1;
+        private boolean lastShowDetails;
+
+        @Nullable
+        @Override
+        public Accessor<?> onRayTrace(HitResult hitResult, @Nullable Accessor<?> accessor, @Nullable Accessor<?> originalAccessor) {
+            if (!(accessor instanceof EntityAccessor entityAccessor)
+                    || !(entityAccessor.getEntity() instanceof AbstractContraptionEntity contraptionEntity)
+                    || !IWailaConfig.get().getPlugin().get(UID)) {
+                lastContraptionId = -1;
+                return accessor;
+            }
+
+            boolean showDetails = accessor.showDetails();
+            if (lastContraptionId == contraptionEntity.getId() && lastShowDetails != showDetails) {
+                ObjectDataCenter.requestServerData();
+            }
+            lastContraptionId = contraptionEntity.getId();
+            lastShowDetails = showDetails;
+            return accessor;
+        }
     }
 
     private enum HoveredStorageProvider implements IServerExtensionProvider<ItemStack>, IClientExtensionProvider<ItemStack, ItemView> {
@@ -52,31 +101,32 @@ public final class ContraptionHoveredStorageJadeSupport {
         @Nullable
         @Override
         public List<ViewGroup<ItemStack>> getGroups(Accessor<?> accessor) {
-            if (accessor.showDetails() || !IWailaConfig.get().getPlugin().get(UID))
+            if (yieldsToCombined(accessor))
                 return null;
 
             if (!(accessor.getTarget() instanceof AbstractContraptionEntity contraptionEntity))
                 return null;
 
-            Optional<BlockPos> hovered = ContraptionBlockRaycast.findTargetedBlockPos(accessor.getPlayer(), contraptionEntity);
-            if (hovered.isEmpty())
-                return List.of();
-
-            MountedItemStorage storage = contraptionEntity.getContraption().getStorage().getAllItemStorages().get(hovered.get());
-            if (storage == null)
-                return List.of();
-
-            List<ViewGroup<ItemStack>> groups = ItemViewUtils.groupOf(storage, accessor, acc -> storage);
-            return groups != null ? groups : List.of();
+            List<ViewGroup<ItemStack>> result = new ArrayList<>();
+            contraptionEntity.getContraption().getStorage().getAllItemStorages().forEach((pos, storage) -> {
+                List<ViewGroup<ItemStack>> groups = ItemViewUtils.groupOf(storage, accessor, acc -> storage);
+                if (groups == null)
+                    return;
+                for (ViewGroup<ItemStack> group : groups) {
+                    group.id = String.valueOf(pos.asLong());
+                    result.add(group);
+                }
+            });
+            return result;
         }
 
-        // the server-computed ViewGroup<ItemStack> data only reaches the client's tooltip renderer if a client
-        // extension provider is registered under the same UID (see ContraptionItemStorageProvider, which
-        // registers this exact same pairing) - without this, the client silently has nothing to map the
-        // server's response to and renders no items at all
         @Override
         public List<ClientViewGroup<ItemView>> getClientGroups(Accessor<?> accessor, List<ViewGroup<ItemStack>> groups) {
-            return ClientViewGroup.map(groups, ItemView::new, null);
+            String hovered = hoveredGroupId(accessor);
+            if (hovered == null)
+                return List.of();
+
+            return ClientViewGroup.map(groups.stream().filter(group -> hovered.equals(group.id)).toList(), ItemView::new, null);
         }
 
         @Override
@@ -86,8 +136,48 @@ public final class ContraptionHoveredStorageJadeSupport {
 
         @Override
         public int getDefaultPriority() {
-            // must sort before Jade Addons' own ContraptionItemStorageProvider (default TooltipPosition.BODY)
-            // so a non-null result here wins the "first provider to return data" race
+            return TooltipPosition.HEAD;
+        }
+    }
+
+    private enum HoveredFluidProvider implements IServerExtensionProvider<CompoundTag>, IClientExtensionProvider<CompoundTag, FluidView> {
+        INSTANCE;
+
+        @Nullable
+        @Override
+        public List<ViewGroup<CompoundTag>> getGroups(Accessor<?> accessor) {
+            if (yieldsToCombined(accessor))
+                return null;
+
+            if (!(accessor.getTarget() instanceof AbstractContraptionEntity contraptionEntity))
+                return null;
+
+            List<ViewGroup<CompoundTag>> result = new ArrayList<>();
+            contraptionEntity.getContraption().getStorage().getFluids().storages.forEach((pos, storage) -> {
+                for (ViewGroup<CompoundTag> group : JadeForgeUtils.fromFluidHandler(storage)) {
+                    group.id = String.valueOf(pos.asLong());
+                    result.add(group);
+                }
+            });
+            return result;
+        }
+
+        @Override
+        public List<ClientViewGroup<FluidView>> getClientGroups(Accessor<?> accessor, List<ViewGroup<CompoundTag>> groups) {
+            String hovered = hoveredGroupId(accessor);
+            if (hovered == null)
+                return List.of();
+
+            return ClientViewGroup.map(groups.stream().filter(group -> hovered.equals(group.id)).toList(), FluidView::readDefault, null);
+        }
+
+        @Override
+        public ResourceLocation getUid() {
+            return FLUID_UID;
+        }
+
+        @Override
+        public int getDefaultPriority() {
             return TooltipPosition.HEAD;
         }
     }

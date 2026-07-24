@@ -1,6 +1,5 @@
 package com.dadoirie.assortedtweaksnfixes.compat.jade.create;
 
-import com.dadoirie.assortedtweaksnfixes.ATNFConstants;
 import com.dadoirie.assortedtweaksnfixes.compat.jade.ContraptionBlockRaycast;
 import com.simibubi.create.content.contraptions.AbstractContraptionEntity;
 import net.minecraft.nbt.Tag;
@@ -19,7 +18,6 @@ import snownee.jade.api.TooltipPosition;
 import snownee.jade.api.config.IPluginConfig;
 import snownee.jade.api.theme.IThemeHelper;
 
-// generic Create contraption support, unrelated to any specific block-adding mod
 public final class ContraptionCustomNameJadeSupport {
 
     private ContraptionCustomNameJadeSupport() {
@@ -32,12 +30,9 @@ public final class ContraptionCustomNameJadeSupport {
     private enum CustomNameProvider implements IEntityComponentProvider {
         INSTANCE;
 
-        private static final ResourceLocation UID = ATNFConstants.identifer("contraption_custom_name");
+        private static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath("create", "atnf_contraption_custom_name");
         private static final String CUSTOM_NAME_KEY = "CustomName";
 
-        // ContraptionCustomNameSyncMixin makes sure a named storage block's custom name rides the
-        // contraption's own client sync, so it's already present in the client's local structure data by
-        // the time this runs - no server round trip needed, same as the radio url tooltip
         @OnlyIn(Dist.CLIENT)
         @Override
         public void appendTooltip(ITooltip tooltip, EntityAccessor accessor, IPluginConfig config) {
@@ -64,9 +59,6 @@ public final class ContraptionCustomNameJadeSupport {
 
         @Override
         public int getDefaultPriority() {
-            // Jade Addons' own ContraptionExactBlockProvider also replaces the title at TooltipPosition.HEAD
-            // (with the generic block name, since its synthetic BlockAccessor has no block entity to read a
-            // custom name from) - run one step after it so our replacement is the one that actually sticks
             return TooltipPosition.HEAD + 1;
         }
     }

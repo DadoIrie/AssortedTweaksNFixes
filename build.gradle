@@ -206,6 +206,8 @@ dependencies {
     compileOnlyApi("maven.modrinth:cable-facades:${cable_facades_version}")
     compileOnlyApi("maven.modrinth:jade:${project.jade_version}")
     compileOnlyApi("maven.modrinth:jade-addons-forge:${project.jade_addons_forge_version}")
+    compileOnlyApi("maven.modrinth:fletching-recipe:${project.fletching_recipe_version}")
+    compileOnlyApi("maven.modrinth:create-steam-n-rails-1.21.1:${project.railways_version}")
 
     compileOnlyApi zipTree(configurations.detachedConfiguration(
             dependencies.create("maven.modrinth:lambdynamiclights:${lambdynamiclights_version}")
@@ -346,10 +348,11 @@ tasks.register('runDataGen', JavaExec) {
     workingDir = project.projectDir
 }
 
-//add this
-tasks.named("processResources") {
+
+tasks.named("processResources", ProcessResources) {
     delete "src/generated/resources"
     dependsOn "runDataGen"
+    exclude "pack.mcmeta.json"
 }
 
 tasks.named('jar', Jar) {

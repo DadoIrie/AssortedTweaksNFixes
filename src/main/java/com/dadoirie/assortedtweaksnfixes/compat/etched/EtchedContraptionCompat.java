@@ -1,6 +1,7 @@
 package com.dadoirie.assortedtweaksnfixes.compat.etched;
 
 import com.dadoirie.assortedtweaksnfixes.ATNFConstants;
+import com.dadoirie.assortedtweaksnfixes.compat.create.contraption.ContraptionBlockNbtS2C;
 import com.dadoirie.assortedtweaksnfixes.compat.etched.contraption.AlbumJukeboxInteractionBehaviour;
 import com.dadoirie.assortedtweaksnfixes.compat.etched.contraption.AlbumJukeboxMovementBehaviour;
 import com.dadoirie.assortedtweaksnfixes.compat.etched.contraption.ContraptionLandingHandler;
@@ -67,6 +68,11 @@ public class EtchedContraptionCompat {
                 ContraptionRecordStopS2C.TYPE,
                 ContraptionRecordStopS2C.STREAM_CODEC,
                 ContraptionRecordStopS2C::handle));
+        NETWORK.registerPacketHandler(new Packet.Handler<>(
+                ContraptionBlockNbtS2C.class,
+                ContraptionBlockNbtS2C.TYPE,
+                ContraptionBlockNbtS2C.STREAM_CODEC,
+                ContraptionBlockNbtS2C::handle));
     }
 
     private static void registerClientListeners() {

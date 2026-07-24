@@ -1,10 +1,14 @@
-package com.dadoirie.assortedtweaksnfixes.compat.etched.contraption;
+package com.dadoirie.assortedtweaksnfixes.compat.create.contraption;
 
 import com.simibubi.create.api.behaviour.interaction.MovingInteractionBehaviour;
 import com.simibubi.create.content.contraptions.AbstractContraptionEntity;
+import dev.corgitaco.dataanchor.network.broadcast.PacketBroadcaster;
 import net.createmod.catnip.levelWrappers.WrappedLevel;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.StructureBlockInfo;
@@ -15,9 +19,22 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
-public abstract class RecordPlayerInteractionBehaviour extends MovingInteractionBehaviour {
+public abstract class ATNFInteractionBehaviour extends MovingInteractionBehaviour {
 
-    static <T extends BlockEntity> void withBlockEntity(AbstractContraptionEntity contraptionEntity, BlockPos localPos,
+    public static boolean stillValid(AbstractContraptionEntity contraptionEntity, BlockPos localPos,
+                                     Class<? extends Block> blockClass, Player player) {
+        if (!contraptionEntity.isAlive())
+            return false;
+
+        StructureBlockInfo info = contraptionEntity.getContraption().getBlocks().get(localPos);
+        if (info == null || !blockClass.isInstance(info.state().getBlock()))
+            return false;
+
+        Vec3 position = contraptionEntity.toGlobalVector(Vec3.atCenterOf(localPos), 1);
+        return player.distanceToSqr(position) <= 64.0;
+    }
+
+    public static <T extends BlockEntity> void withBlockEntity(AbstractContraptionEntity contraptionEntity, BlockPos localPos,
                                                         BiFunction<BlockPos, BlockState, T> factory, Consumer<T> action) {
         AtomicReference<BlockState> state = new AtomicReference<>();
         T blockEntity = createBlockEntity(contraptionEntity, localPos, factory, state);
@@ -29,8 +46,8 @@ public abstract class RecordPlayerInteractionBehaviour extends MovingInteraction
     }
 
     @Nullable
-    static <T extends BlockEntity> T createBlockEntity(AbstractContraptionEntity contraptionEntity, BlockPos localPos,
-                                                       BiFunction<BlockPos, BlockState, T> factory, AtomicReference<BlockState> state) {
+    public static <T extends BlockEntity> T createBlockEntity(AbstractContraptionEntity contraptionEntity, BlockPos localPos,
+                                                              BiFunction<BlockPos, BlockState, T> factory, AtomicReference<BlockState> state) {
         StructureBlockInfo info = contraptionEntity.getContraption().getBlocks().get(localPos);
         if (info == null || info.nbt() == null)
             return null;
@@ -63,8 +80,11 @@ public abstract class RecordPlayerInteractionBehaviour extends MovingInteraction
         return blockEntity;
     }
 
-    static void writeBack(AbstractContraptionEntity contraptionEntity, BlockPos localPos, BlockState state, BlockEntity blockEntity) {
-        contraptionEntity.setBlock(localPos,
-                new StructureBlockInfo(localPos, state, blockEntity.saveWithoutMetadata(contraptionEntity.level().registryAccess())));
+    public static void writeBack(AbstractContraptionEntity contraptionEntity, BlockPos localPos, BlockState state, BlockEntity blockEntity) {
+        CompoundTag nbt = blockEntity.saveWithoutMetadata(contraptionEntity.level().registryAccess());
+        contraptionEntity.setBlock(localPos, new StructureBlockInfo(localPos, state, nbt));
+        if (!contraptionEntity.level().isClientSide()) {
+            PacketBroadcaster.S2C.trackingEntity(new ContraptionBlockNbtS2C(contraptionEntity.getId(), localPos, nbt), contraptionEntity);
+        }
     }
 }

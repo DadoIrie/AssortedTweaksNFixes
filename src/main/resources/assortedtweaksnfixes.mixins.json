@@ -68,8 +68,10 @@
     "deathcharm.RestoreInventoryEventsMixin",
     "diagonalblocks.DiagonalBlockHandlerMixin",
     "etched.AlbumJukeboxBlockMixin",
+    "etched.ExtendedRadioBlockEntityMixin",
     "etched.RadioBlockEntityMixin",
     "etched.RadioBlockMixin",
+    "etched.extendedradioblockentity.ExtendedRadioBlockMixin",
     "fasttravelwaypoints.WaystoneMapTpModMixin",
     "incontrol.SpawnerSystemMixin",
     "incontrol.SpawnRuleMixin",
@@ -96,6 +98,7 @@
     "petrochem.voltedelectrolyzer.KubeJSPetrochemPluginMixin",
     "petrochem.voltedelectrolyzer.ProcessingRecipeParamsInvoker",
     "prettybeaches.FloodingManagerMixin",
+    "railways.CRInteractionBehavioursMixin",
     "railwaysuntold_additions.SafetyZoneServerEventsMixin",
     "variantvanillablocks.ModPOITypesMixin"
   ],

@@ -23,5 +23,8 @@
   "TeamMidnightDust/MidnightLib": "multiversion",
   "kube-mods/kubejs": "2101",
   "Snownee/Jade": "1.21-neoforge",
-  "Snownee/JadeAddons": "1.21-neoforge"
+  "Snownee/JadeAddons": "1.21-neoforge",
+  "xanthian/VariantVanillaBlocks": "1.21",
+  "CoolerProYT/FletchingRecipe": "1.21.1-neoforge",
+  "Porters-of-Railways/Railway-1.21.1": "1.21/dev"
 }

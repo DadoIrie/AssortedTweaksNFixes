@@ -1,10 +1,14 @@
 package com.dadoirie.assortedtweaksnfixes;
 
+import com.dadoirie.assortedtweaksnfixes.compat.create.MenuBlockContraptionCompat;
 import com.dadoirie.assortedtweaksnfixes.compat.electroenergetics.ATNFSimulatedDevices;
 import com.dadoirie.assortedtweaksnfixes.compat.etched.EtchedContraptionCompat;
 import com.dadoirie.assortedtweaksnfixes.compat.etched.JukeboxOrphanedSoundFix;
 import com.dadoirie.assortedtweaksnfixes.compat.etched.RadioUrlPreservationFix;
+import com.dadoirie.assortedtweaksnfixes.compat.etched.radio.RadioMenu;
+import com.dadoirie.assortedtweaksnfixes.compat.etched.radio.SetRadioMenuDataPacket;
 import com.dadoirie.assortedtweaksnfixes.compat.mekanism.DyeDepotCompat;
+import com.dadoirie.assortedtweaksnfixes.mixin.ConditionalMixinPlugin;
 import com.dadoirie.assortedtweaksnfixes.compat.yigd.DeathCharmCompat;
 import com.dadoirie.assortedtweaksnfixes.content.FullThirstDrinkBlocker;
 import com.dadoirie.assortedtweaksnfixes.content.HeatThirstHandler;
@@ -39,8 +43,11 @@ public class AssortedTweaksNFixes {
 
         ATNFCreativeTabs.register(modEventBus);
 
-        if (ModList.get().isLoaded("create") && !ModList.get().isLoaded("createdieselgenerators")) {
-            HammerFeature.register(modEventBus);
+        if (ModList.get().isLoaded("create")) {
+            MenuBlockContraptionCompat.register(modEventBus);
+            if (!ModList.get().isLoaded("createdieselgenerators")) {
+                HammerFeature.register(modEventBus);
+            }
         }
 
         if (ModList.get().isLoaded("mekanism") && ModList.get().isLoaded("dye_depot")) {
@@ -70,6 +77,10 @@ public class AssortedTweaksNFixes {
             NeoForge.EVENT_BUS.addListener(RadioUrlPreservationFix::onBlockDrops);
             if (ModList.get().isLoaded("create") && ModList.get().isLoaded("dataanchor")) {
                 EtchedContraptionCompat.register(modEventBus);
+            }
+            if (ConditionalMixinPlugin.isApplied("etched.ExtendedRadioBlockEntityMixin")) {
+                RadioMenu.register(modEventBus);
+                SetRadioMenuDataPacket.register(modEventBus);
             }
         }
         DeathCharmCompat.init();

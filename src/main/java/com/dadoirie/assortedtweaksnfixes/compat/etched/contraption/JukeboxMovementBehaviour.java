@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.entity.JukeboxBlockEntity;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.StructureBlockInfo;
 import org.jetbrains.annotations.Nullable;
 
-public class JukeboxMovementBehaviour extends RecordPlayerMovementBehaviour {
+public class JukeboxMovementBehaviour extends EtchedMovementBehaviour {
 
     public static ItemStack readRecord(CompoundTag blockEntityNbt, HolderLookup.Provider registries) {
         if (blockEntityNbt == null || !blockEntityNbt.contains(JukeboxBlockEntity.SONG_ITEM_TAG_ID, Tag.TAG_COMPOUND))
@@ -20,7 +20,7 @@ public class JukeboxMovementBehaviour extends RecordPlayerMovementBehaviour {
 
     @Override
     @Nullable
-    protected CompoundTag writeSyncData(StructureBlockInfo info, HolderLookup.Provider registries) {
+    public CompoundTag writeSyncData(StructureBlockInfo info, HolderLookup.Provider registries) {
         if (!PlayableRecord.isPlayableRecord(readRecord(info.nbt(), registries)))
             return null;
 

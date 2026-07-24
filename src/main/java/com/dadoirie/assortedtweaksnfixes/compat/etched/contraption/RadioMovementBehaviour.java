@@ -8,11 +8,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.StructureBlockInfo;
 import org.jetbrains.annotations.Nullable;
 
-public class RadioMovementBehaviour extends RecordPlayerMovementBehaviour {
+public class RadioMovementBehaviour extends EtchedMovementBehaviour {
 
     @Override
     @Nullable
-    protected CompoundTag writeSyncData(StructureBlockInfo info, HolderLookup.Provider registries) {
+    public CompoundTag writeSyncData(StructureBlockInfo info, HolderLookup.Provider registries) {
         BlockState state = info.state();
         if (state.hasProperty(RadioBlock.POWERED) && state.getValue(RadioBlock.POWERED))
             return null;

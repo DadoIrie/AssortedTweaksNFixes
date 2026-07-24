@@ -57,7 +57,7 @@ public class ContraptionLandingHandler {
 
     private static boolean isStillPlayable(BlockEntity blockEntity, ServerLevel level) {
         BlockState state = blockEntity.getBlockState();
-        if (!(MovementBehaviour.REGISTRY.get(state) instanceof RecordPlayerMovementBehaviour behaviour))
+        if (!(MovementBehaviour.REGISTRY.get(state) instanceof EtchedMovementBehaviour behaviour))
             return false;
 
         StructureBlockInfo info = new StructureBlockInfo(blockEntity.getBlockPos(), state,

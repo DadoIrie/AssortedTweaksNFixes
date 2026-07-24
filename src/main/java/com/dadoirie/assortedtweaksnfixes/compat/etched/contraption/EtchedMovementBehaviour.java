@@ -7,7 +7,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.StructureBlockInfo;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class RecordPlayerMovementBehaviour implements MovementBehaviour {
+public abstract class EtchedMovementBehaviour implements MovementBehaviour {
 
     @Override
     public void stopMoving(MovementContext context) {

@@ -1,4 +1,4 @@
-package com.dadoirie.assortedtweaksnfixes.compat.etched.client;
+package com.dadoirie.assortedtweaksnfixes.compat.etched.radio.client;
 
 import gg.moonflower.etched.common.block.RadioBlock;
 import net.minecraft.ChatFormatting;
@@ -20,12 +20,24 @@ public class RadioTooltipHandler {
 
         CustomData data = stack.getOrDefault(DataComponents.BLOCK_ENTITY_DATA, CustomData.EMPTY);
         CompoundTag tag = data.copyTag();
-        if (!tag.contains("Url", Tag.TAG_STRING))
-            return;
 
-        String url = tag.getString("Url");
-        if (!url.isEmpty()) {
-            event.getToolTip().add(Component.literal(url).withStyle(ChatFormatting.GREEN));
+        String displayValue = null;
+        if (tag.contains("Name", Tag.TAG_STRING)) {
+            String name = tag.getString("Name");
+            if (!name.isEmpty()) {
+                displayValue = name;
+            }
+        }
+
+        if (displayValue == null && tag.contains("Url", Tag.TAG_STRING)) {
+            String url = tag.getString("Url");
+            if (!url.isEmpty()) {
+                displayValue = url;
+            }
+        }
+
+        if (displayValue != null) {
+            event.getToolTip().add(Component.literal(displayValue).withStyle(ChatFormatting.DARK_GREEN));
         }
     }
 }
