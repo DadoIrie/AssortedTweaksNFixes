@@ -727,5 +727,20 @@
         "max": ""
       }
     }
+  },
+  "petrolparkstempfix.ModIdHelperCompatMixin": {
+    "enabled": true,
+    "petrolpark": {
+      "version": {
+        "min": "1.4.36",
+        "max": "1.4.99"
+      }
+    },
+    "jei": {
+      "version": {
+        "min": "19.39.0",
+        "max": ""
+      }
+    }
   }
 }

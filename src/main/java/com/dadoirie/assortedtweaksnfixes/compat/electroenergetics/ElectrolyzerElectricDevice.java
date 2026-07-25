@@ -23,8 +23,8 @@ public class ElectrolyzerElectricDevice extends SimpleElectricalDevice {
         void atnf$setNodeVoltage(double voltage);
     }
 
-    public static final double RUN_MIN_FACTOR = 0.9;
-    public static final double WASTE_FACTOR = 1.1;
+    public static final double RUN_MIN_FACTOR = 0.95;
+    public static final double WASTE_FACTOR = 1.05;
     public static final double ENERGIZED_MIN_VOLTAGE = 1.0;
 
     private static final double MIN_MARGIN_VOLTS = 20.0;

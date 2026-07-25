@@ -55,6 +55,13 @@ repositories {
             includeGroup "com.github.umjammer"
         }
     }
+    maven {
+        name = 'Bawnorton'
+        url = uri('https://maven.bawnorton.com/releases')
+        content {
+            includeGroup 'com.github.bawnorton.mixinsquared'
+        }
+    }
     mavenCentral()
 }
 
@@ -252,6 +259,20 @@ dependencies {
     compileOnlyApi("maven.modrinth:railways-additions:${railwaysuntold_additions_version}")
     compileOnlyApi("curse.maven:create-heat-js-1034948:8168833")
     compileOnlyApi("curse.maven:rhino-416294:8218748")
+
+    compileOnlyApi("maven.modrinth:petrolpark:${project.petrolparks_library_version}")
+    compileOnly(annotationProcessor(
+            "com.github.bawnorton.mixinsquared:mixinsquared-common:${mixinsquared_version}"
+    ))
+
+    jarJar(implementation(
+            'com.github.bawnorton.mixinsquared:mixinsquared-neoforge'
+    )) {
+        version {
+            strictly "[${mixinsquared_version}]"
+            prefer mixinsquared_version
+        }
+    }
 
     // Runtime Dependencies
     runtimeOnly("maven.modrinth:create-alloyed:${create_alloyed_version}")

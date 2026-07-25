@@ -99,6 +99,8 @@
     "petrochem.voltedelectrolyzer.EnergyRecipeParamsMixin",
     "petrochem.voltedelectrolyzer.KubeJSPetrochemPluginMixin",
     "petrochem.voltedelectrolyzer.ProcessingRecipeParamsInvoker",
+    "petrolparkstempfix.ModIdHelperCompatMixin",
+    "petrolparkstempfix.modidhelpercompat.RecipeCategoryTabCompatMixin",
     "prettybeaches.FloodingManagerMixin",
     "railways.CRInteractionBehavioursMixin",
     "railwaysuntold_additions.SafetyZoneServerEventsMixin",
